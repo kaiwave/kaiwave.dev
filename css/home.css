@@ -1,0 +1,262 @@
+/* ============================================================
+   home.css — styles specific to index.html
+   ============================================================ */
+
+/* ── HERO ─────────────────────────────────────────────────── */
+.hero {
+  padding: var(--space-24) 0 var(--space-16);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Radial glow behind hero — TWEAK: change color or remove */
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -200px;
+  right: -100px;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(90,125,94,0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-12);
+  align-items: center;
+}
+
+/* ── Hero text ── */
+.hero-eyebrow {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+  margin-bottom: var(--space-2);
+  max-width: none;
+}
+
+.hero-name {
+  font-size: clamp(2rem, 5vw, var(--text-4xl));
+  color: var(--text-primary);
+  margin-bottom: var(--space-6);
+  line-height: 1;
+}
+
+/* Blinking cursor after name */
+.cursor-name {
+  color: var(--accent-green);
+  animation: blink 1.1s step-end infinite;
+}
+@keyframes blink { 50% { opacity: 0; } }
+
+.hero-desc {
+  font-size: var(--text-base);
+  max-width: 46ch;
+  margin-bottom: var(--space-6);
+  color: var(--text-secondary);
+}
+
+.highlight {
+  color: var(--accent-cyan);
+  /* TWEAK: you can make this a different accent color */
+}
+
+.hero-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-bottom: var(--space-8);
+}
+
+.hero-ctas {
+  display: flex;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+
+/* ── Hero terminal ── */
+.hero-terminal {
+  max-width: 480px;
+  box-shadow: 0 8px 32px rgba(122,92,58,0.1), 0 2px 8px rgba(122,92,58,0.07);
+}
+
+.terminal-pre {
+  white-space: pre;
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  line-height: 1.8;
+  min-height: 12em; /* Prevents layout shift during typing animation */
+  overflow-x: auto;
+}
+
+/* Typing cursor */
+.cursor {
+  color: var(--accent-green);
+  animation: blink 0.8s step-end infinite;
+}
+
+/* ── Scroll hint ── */
+.scroll-hint {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: var(--space-16);
+  opacity: 0.3;
+}
+
+.scroll-line {
+  display: block;
+  width: 1px;
+  height: 40px;
+  background: var(--text-secondary);
+  animation: scrollPulse 2s ease-in-out infinite;
+}
+
+.scroll-text {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+  writing-mode: horizontal-tb;
+}
+
+@keyframes scrollPulse {
+  0%, 100% { opacity: 0.3; transform: scaleY(0.7) translateY(-4px); }
+  50%       { opacity: 1;   transform: scaleY(1)   translateY(4px); }
+}
+
+/* ── PROJECTS GRID ───────────────────────────────────────── */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--space-6);
+  margin-bottom: var(--space-8);
+}
+
+.project-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.project-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.project-icon { font-size: 1.5rem; }
+
+.project-links {
+  display: flex;
+  gap: var(--space-3);
+}
+
+.icon-link {
+  color: var(--text-muted);
+  transition: color 0.15s;
+  display: flex;
+  align-items: center;
+}
+.icon-link:hover { color: var(--accent-green); text-decoration: none; }
+
+.project-title {
+  font-size: var(--text-base);
+  font-weight: 600;
+  margin-top: var(--space-1);
+}
+
+.project-desc {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  flex: 1;
+  max-width: none;
+  margin-bottom: 0;
+}
+
+.project-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.project-more {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--accent-green);
+  margin-top: var(--space-2);
+  transition: gap 0.15s;
+}
+
+.section-footer {
+  text-align: center;
+  margin-top: var(--space-8);
+}
+
+/* ── STACK GRID ──────────────────────────────────────────── */
+.stack-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: var(--space-8);
+}
+
+.stack-group-title {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--accent-green);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-4);
+}
+
+.stack-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.stack-list li {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.stack-icon { font-size: 0.9rem; width: 1.2em; text-align: center; }
+
+/* ── FADE-IN ANIMATION ───────────────────────────────────── */
+/* Elements with .fade-in start invisible and fade in on scroll */
+/* TWEAK: change translateY to change slide direction/distance */
+.fade-in {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.5s var(--ease), transform 0.5s var(--ease);
+}
+.fade-in.visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* ── RESPONSIVE ──────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .hero-grid {
+    grid-template-columns: 1fr;
+  }
+  .hero-terminal {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-ctas { flex-direction: column; }
+  .stack-grid { grid-template-columns: 1fr 1fr; }
+}

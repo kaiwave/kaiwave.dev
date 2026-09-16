@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projects — Your Name</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/projects.css">
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <span class="nav-logo">your_name</span>
+    <button class="nav-toggle" aria-label="Menu">[≡]</button>
+    <ul class="nav-links">
+      <li><a href="../index.html">home</a></li>
+      <li><a href="research.html">research</a></li>
+      <li><a href="projects.html">projects</a></li>
+      <li><a href="notebooks.html">notebooks</a></li>
+      <li><a href="about.html">about</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main>
+  <div class="container">
+
+    <header class="page-header fade-in">
+      <span class="section-label">// projects</span>
+      <h1>Projects</h1>
+      <p>
+        Code I've built, experiments I've run, and things I've broken productively.
+        Mostly physics + math with a side of software craft.
+      </p>
+    </header>
+
+    <!-- Filter buttons — JS handles showing/hiding cards -->
+    <!-- TWEAK: add/remove filter categories to match your tags -->
+    <div class="filter-bar fade-in" role="group" aria-label="Filter projects">
+      <button class="filter-btn active" data-filter="all">all</button>
+      <button class="filter-btn" data-filter="python">python</button>
+      <button class="filter-btn" data-filter="cpp">c++</button>
+      <button class="filter-btn" data-filter="jupyter">jupyter</button>
+      <button class="filter-btn" data-filter="ml">ml</button>
+    </div>
+
+    <!-- Projects list -->
+    <!-- TWEAK: duplicate .project-row for each project.
+         data-tags must match filter button data-filter values. -->
+    <div class="projects-list" id="projects-list">
+
+      <article class="project-row fade-in" data-tags="python jupyter">
+        <div class="project-row-left">
+          <span class="project-row-icon">⚛️</span>
+        </div>
+        <div class="project-row-body">
+          <div class="project-row-top">
+            <h3>Quantum Harmonic Oscillator</h3>
+            <div class="project-row-links">
+              <a href="#" class="row-link" aria-label="GitHub">
+                <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12"/></svg>
+                GitHub
+              </a>
+              <a href="#" class="row-link">Notebook →</a>
+            </div>
+          </div>
+          <p>
+            Split-operator FFT method for the time-dependent Schrödinger equation.
+            Visualises wavepacket tunnelling through potential barriers in real time.
+          </p>
+          <div class="project-row-tags">
+            <span class="tag tag-cyan">Python</span>
+            <span class="tag tag-green">NumPy</span>
+            <span class="tag tag-orange">Jupyter</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="project-row fade-in" data-tags="python jupyter ml">
+        <div class="project-row-left">
+          <span class="project-row-icon">🧠</span>
+        </div>
+        <div class="project-row-body">
+          <div class="project-row-top">
+            <h3>Neural ODE for Dynamical Systems</h3>
+            <div class="project-row-links">
+              <a href="#" class="row-link" aria-label="GitHub">
+                <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12"/></svg>
+                GitHub
+              </a>
+            </div>
+          </div>
+          <p>
+            Learns the vector field of a chaotic system (Lorenz attractor) from trajectory data.
+            Uses torchdiffeq's adjoint method for memory-efficient backprop through ODE solvers.
+          </p>
+          <div class="project-row-tags">
+            <span class="tag tag-cyan">Python</span>
+            <span class="tag tag-violet">PyTorch</span>
+            <span class="tag tag-green">torchdiffeq</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="project-row fade-in" data-tags="python jupyter">
+        <div class="project-row-left">
+          <span class="project-row-icon">📊</span>
+        </div>
+        <div class="project-row-body">
+          <div class="project-row-top">
+            <h3>Ising Model Monte Carlo</h3>
+            <div class="project-row-links">
+              <a href="#" class="row-link" aria-label="GitHub">
+                <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12"/></svg>
+                GitHub
+              </a>
+              <a href="notebooks.html" class="row-link">Notebook →</a>
+            </div>
+          </div>
+          <p>
+            Phase transitions in the 2D Ising model. Extracts critical exponents via finite-size scaling.
+            Includes a Numba-accelerated hot-loop bringing runtime from ~40s → ~0.8s.
+          </p>
+          <div class="project-row-tags">
+            <span class="tag tag-cyan">Python</span>
+            <span class="tag tag-violet">Numba</span>
+            <span class="tag tag-green">Matplotlib</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="project-row fade-in" data-tags="cpp">
+        <div class="project-row-left">
+          <span class="project-row-icon">🌊</span>
+        </div>
+        <div class="project-row-body">
+          <div class="project-row-top">
+            <h3>2D Wave Equation Solver (C++)</h3>
+            <div class="project-row-links">
+              <a href="#" class="row-link" aria-label="GitHub">
+                <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12"/></svg>
+                GitHub
+              </a>
+            </div>
+          </div>
+          <p>
+            Finite-difference FDTD solver with Mur absorbing boundaries.
+            Outputs HDF5 snapshots, visualised in Python. Benchmarked against Wolfram exact solutions.
+          </p>
+          <div class="project-row-tags">
+            <span class="tag tag-orange">C++</span>
+            <span class="tag tag-cyan">Python</span>
+            <span class="tag tag-green">HDF5</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="project-row fade-in" data-tags="python ml">
+        <div class="project-row-left">
+          <span class="project-row-icon">🔬</span>
+        </div>
+        <div class="project-row-body">
+          <div class="project-row-top">
+            <h3>Physics-Informed Neural Networks</h3>
+            <div class="project-row-links">
+              <a href="#" class="row-link" aria-label="GitHub">
+                <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12"/></svg>
+                GitHub
+              </a>
+            </div>
+          </div>
+          <p>
+            PINN solving the 1D heat equation with sparse boundary conditions. Loss function encodes
+            the PDE residual directly. Compared to ground-truth FDM on several test cases.
+          </p>
+          <div class="project-row-tags">
+            <span class="tag tag-cyan">Python</span>
+            <span class="tag tag-violet">JAX</span>
+            <span class="tag tag-green">Optax</span>
+          </div>
+        </div>
+      </article>
+
+    </div><!-- /projects-list -->
+
+  </div>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-left">
+      <span>© 2025 your_name</span><br>
+      <span>built with curiosity + vim + too much coffee</span>
+    </div>
+    <ul class="footer-links">
+      <li><a href="#">GitHub</a></li>
+      <li><a href="#">LinkedIn</a></li>
+      <li><a href="#">Email</a></li>
+    </ul>
+  </div>
+</footer>
+
+<script src="../js/main.js"></script>
+<script src="../js/projects.js"></script>
+</body>
+</html>
