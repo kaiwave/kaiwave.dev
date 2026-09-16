@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+
+<!-- ======================================================
+
+    thank u claude xx
+
+    on that note, the french translation component and some of the writeups have been so tedious...
+
+  ====================================================== -->
+  
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>malakai h · portfolio</title>
+  <meta name="description" content="mathematical physics @ unimelb. i build models, break equations, and bomb exams." />
+  <link rel="stylesheet" href="css/style.css" />
+  <!-- Favicon — swap the emoji if you like -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔬</text></svg>" />
+</head>
+<body>
+
+  
+
+  <!-- ======================================================
+       NAV
+       - Edit the logo text and links below
+       - The active link is auto-highlighted by main.js
+  ====================================================== -->
+  <header class="nav">
+    <div class="container nav__inner">
+      <!-- ↓ Your initials / short name -->
+      <a href="index.html" class="nav__logo">kaiwave.dev<span></span></a>
+
+      <nav class="nav__links">
+        <a href="index.html" data-i18n="home">home</a>
+        <a href="pages/projects.html" data-i18n="projects">projects</a>
+        <a href="pages/notes.html" data-i18n="notes">notes</a>
+        <a href="pages/about.html" data-i18n="about">about</a>
+        <a href="pages/contact.html" data-i18n="contact">contact</a>
+      </nav>
+      <button class="language-toggle" id="language-toggle" type="button" aria-label="Change language">
+        <span data-language-label="en">EN</span><span aria-hidden="true">/</span><span data-language-label="fr">FR</span>
+      </button>
+
+      <button class="nav__toggle" id="nav-toggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ======================================================
+       HERO
+  ====================================================== -->
+  <main>
+    <section class="hero container">
+      <div class="hero__text">
+        <!-- ↓ Edit the eyebrow, name, and description -->
+        <p class="hero__eyebrow" data-i18n="heroeyebrow">// physics · math · models (pls enable js)</p>
+        <h1 class="hero__name">
+          <span data-i18n="heroGreeting">hi, i'm</span><br><em>malakai</em> harianto.
+        </h1>
+        <p class="hero__desc" data-i18n="herodesc">
+          Mathematical Physics undergraduate at the University of Melbourne. I build models, and love everything mathematical physics and scientific computing. 
+        </p>
+        <div class="hero__actions">
+          <a href="pages/projects.html" class="btn btn--primary" data-i18n="seework">See my work</a>
+          <a href="pages/about.html"    class="btn btn--ghost" data-i18n="surmoi">About me</a>
+          <!-- ↓ Optional: link to your CV PDF -->
+          <!-- <a href="assets/cv.pdf" class="btn btn--soft" target="_blank">CV ↗</a> -->
+        </div>
+      </div>
+
+      <!-- Animated particle canvas — driven by main.js -->
+      <div class="hero__graphic">
+        <div class="hero__orb"></div>
+        <div class="hero__canvas">
+          <canvas id="hero-canvas" width="340" height="340"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================
+         STATS ROW
+         ↓ Change the numbers / labels to match your work
+    ==================================================== -->
+    <section class="container reveal">
+      <div class="stats-row">
+        <div class="stat">
+          <div class="stat__number">1</div>
+          <div class="stat__label" data-i18n="researchrep">research report</div>
+        </div>
+        <div class="stat">
+          <div class="stat__number">3</div>
+          <div class="stat__label" data-i18n="ongoingrep">ongoing projects</div>
+        </div>
+        <div class="stat">
+          <div class="stat__number">∞</div>
+          <div class="stat__label" data-i18n="magicjoke">magics consumed</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================
+         FEATURED PROJECT
+         ↓ Swap in your coolest project
+    ==================================================== -->
+    <section class="section container reveal">
+      <div class="section-header">
+        <h2 class="section-header__title" data-i18n="featuredProject">featured project</h2>
+        <p class="section-header__sub" data-i18n="featuredProjectSub">the thing i'm most excited about right now.</p>
+      </div>
+
+      <div class="featured-project">
+        <div>
+          <!-- ↓ Edit to match your project -->
+          <p class="featured-project__badge" data-i18n="featuredEyebrow">// ipynb · projective geometry</p>
+          <h3 class="featured-project__title"><span data-i18n="featuredTitleLine1">Projective Analysis</span><br><span data-i18n="featuredTitleLine2">Goaltender Optimisation</span></h3>
+          <p class="featured-project__desc" data-i18n="featuredDescription">
+            An analysis of ice hockey goaltender positioning, by modelling and optimising tradeoffs with crease aggression. Written in a Jupyter notebook with matplotlib plot rendering.
+          </p>
+          <div style="display:flex; gap:0.5rem; flex-wrap:wrap; margin-bottom:1.5rem;">
+            <span class="tag tag--sage">python</span>
+            <span class="tag tag--lavender">numpy</span>
+            <span class="tag tag--brown">matplotlib</span>
+            <span class="tag tag--moss">quarto</span>
+          </div>
+          <div style="display:flex; gap:0.75rem;">
+            <a href="#" class="btn btn--disabled" data-i18n="featuredInProgress" aria-disabled="true" tabindex="-1">In progress</a>
+            <a href="https://github.com/kaiwave/goaltender-optimisation-jnb" class="btn btn--ghost">GitHub</a>
+          </div>
+        </div>
+
+        <!-- ↓ Code preview — paste a snippet from your actual code! -->
+        <div class="code-preview">
+          <span class="cm"># Monte Carlo static depth solver</span>
+          <span class="kw">def</span> <span class="fn">obj</span>(d_g):
+              <span class="kw">return</span> np.<span class="fn">mean</span>([
+                  <span class="fn">exposed_area_eff</span>(x_p, y_p, d_g, theta_set)[<span class="num">0</span>]
+                  <span class="kw">for</span> x_p, y_p <span class="kw">in</span> samples
+              ])
+
+          <span class="cm"># 1D bounded optimization over crease depth</span>
+          res = <span class="fn">minimize_scalar</span>(obj, bounds=(<span class="num">0.0</span>, R_CREASE), method=<span class="str">'bounded'</span>)
+          d_g_star = <span class="fn">float</span>(res.x)
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================
+         RECENT NOTES PREVIEW
+    ==================================================== -->
+    <section class="section container reveal">
+      <div class="section-header">
+        <h2 class="section-header__title" data-i18n="recentNotes">recent posts</h2>
+        <p class="section-header__sub" data-i18n="recentNotesSub">thoughts and write-ups i've been working on.</p>
+      </div>
+
+      <div class="notes-list">
+        <!-- ↓ Duplicate these rows to add more notes -->
+
+        <a href="pages/notes.html" class="note-row" data-search="scary driving fog trust delegation">
+          <div>
+            <div class="note-row__title">Trusting those who steer the wheel</div>
+            <div class="note-row__tags">
+              <span class="tag tag--lavender">teamwork</span>
+              <span class="tag tag--sage">linkedin</span>
+            </div>
+          </div>
+          <div class="note-row__date">2026-08-11</div>
+        </a>
+
+        <a href="pages/notes.html" class="note-row" data-search="cooking french baking cookies oven flour">
+          <div>
+            <div class="note-row__title">The importance of coordination in team projects</div>
+            <div class="note-row__tags">
+              <span class="tag tag--brown">baking</span>
+              <span class="tag tag--sage">linkedin</span>
+            </div>
+          </div>
+          <div class="note-row__date">2026-05-14</div>
+        </a>
+
+        <a href="pages/notes.html" class="note-row" data-search="optiver tradeathon quant maths genius networking">
+          <div>
+            <div class="note-row__title"><span class="badge-crown">★ Featured</span> How I won the Optiver Tradeathon</div>
+            <div class="note-row__tags">
+              <span class="tag tag--lavender">trading</span>
+              <span class="tag tag--brown">quant</span>
+              <span class="tag tag--sage">linkedin</span>
+            </div>
+          </div>
+          <div class="note-row__date">2026-03-11</div>
+        </a>
+
+      <div style="margin-top:1.5rem;">
+        <a href="pages/notes.html" class="btn btn--ghost" data-i18n="allNotes">All notes →</a>
+      </div>
+    </section>
+  </main>
+
+  <!-- ======================================================
+       FOOTER
+       ↓ Edit year and name
+  ====================================================== -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <span>© 2026 malakai h</span>
+      <span data-i18n="builtWith">built with html + css + love</span>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

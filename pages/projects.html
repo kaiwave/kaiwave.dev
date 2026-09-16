@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>malakai h · portfolio</title>
+  <meta name="description" content="mathematical physics @ unimelb. i build models, break equations, and bomb exams." />
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔬</text></svg>" />
+</head>
+<body>
+
+  <header class="nav">
+    <div class="container nav__inner">
+      <a href="../index.html" class="nav__logo">kaiwave.dev<span></span></a>
+      <nav class="nav__links">
+        <a href="../index.html" data-i18n="home">home</a>
+        <a href="projects.html" data-i18n="projects">projects</a>
+        <a href="notes.html" data-i18n="notes">notes</a>
+        <a href="about.html" data-i18n="about">about</a>
+        <a href="contact.html" data-i18n="contact">contact</a>
+      </nav>
+      <button class="language-toggle" id="language-toggle" type="button" aria-label="Change language">
+        <span data-language-label="en">EN</span><span aria-hidden="true">/</span><span data-language-label="fr">FR</span>
+      </button>
+      <button class="nav__toggle" id="nav-toggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- Page header -->
+    <div class="page-header">
+      <p class="page-header__tag" data-i18n="projectsTag">// what i've been building</p>
+      <h1 class="page-header__title" data-i18n="projects">projects</h1>
+      <p class="page-header__sub" data-i18n="projectSub">
+        Research, simulations, models, data explorations, and tools I've published or am working on.
+        Most live on GitHub or my cloud.
+      </p>
+    </div>
+
+    <!-- ====================================================
+         FILTER BAR
+         ↓ Add/remove filter buttons to match your actual tags.
+           Each button's data-filter must match a tag used in
+           data-tags on the project cards below.
+    ==================================================== -->
+    <div class="filter-bar">
+      <button class="filter-btn active" data-filter="all" data-i18n="all">all</button>
+      <button class="filter-btn" data-filter="python">python</button>
+      <button class="filter-btn" data-filter="visualisation">visualisation</button>
+      <button class="filter-btn" data-filter="rust">rust</button>
+      <button class="filter-btn" data-filter="sport">sport</button>
+      <button class="filter-btn" data-filter="quantum">quantum</button>
+      <button class="filter-btn" data-filter="environment">environment</button>
+    </div>
+
+    <!-- ====================================================
+         PROJECT CARDS
+    ==================================================== -->
+
+    <div class="projects-grid">
+
+      <!-- Project 1 -->
+      <div class="card project-card reveal" data-tags="python,visualisation,sport">
+        <p class="project-card__label" data-i18n="projLab5">05 · geometry</p>
+        <h2 class="project-card__title" data-i18n="projTitle5">Projective Analysis Goaltender Optimisation</h2>
+        <p class="project-card__desc" data-i18n="projDesc5">
+         An analysis of ice hockey goaltender positioning, by modelling and optimising 
+         tradeoffs with crease aggression. Written in a Jupyter notebook with matplotlib plot rendering.
+        </p>
+        <div class="project-card__tags">
+          <span class="tag tag--sage">python</span>
+          <span class="tag tag--lavender">numpy</span>
+          <span class="tag tag--brown">matplotlib</span>
+          <span class="tag tag--moss">hockey</span>
+        </div>
+        <div class="project-card__links">
+          <a href="#" class="btn btn--disabled" data-i18n="featuredInProgress" aria-disabled="true" tabindex="-1">In progress</a>
+          <a href="https://github.com/kaiwave/goaltender-optimisation-jnb" class="btn btn--ghost">GitHub</a>
+        </div>
+      </div>
+
+      <!-- Project 2 -->
+      <div class="card project-card reveal" data-tags="environment">
+        <p class="project-card__label" data-i18n="projLab4">04 · psychology</p>
+        <h2 class="project-card__title" data-i18n="projTitle4">The TP Scent and Sociability</h2>
+        <p class="project-card__desc" data-i18n="projDesc4">
+          Exploring the relationship between extroversion and subjective attitudes towards the distinctive scent
+          of a communal place. Employed some best practice methods of environmental field research.
+        </p>
+        <div class="project-card__tags">
+          <span class="tag tag--sage">psychology</span>
+          <span class="tag tag--lavender">extroversion</span>
+          <span class="tag tag--brown">environmental science</span>
+        </div>
+        <div class="project-card__links">
+          <a href="https://kaiwave.allez.la/index.php/s/SRN8P9wpR4oqaZn" data-i18n="report" class="btn btn--primary">Report ↗</a>
+        </div>
+      </div>
+
+      <!-- Project 3 -->
+      <div class="card project-card reveal" data-tags="python,sport">
+        <p class="project-card__label" data-i18n="projLab3">03 · logistics</p>
+        <h2 class="project-card__title" data-i18n="projTitle3">MCG Railway Egress Modelling</h2>
+        <p class="project-card__desc" data-i18n="projDesc3">
+          Modelled railway egress dynamics from the MCG following major AFL game events for my main project
+          in Modelling the Real World (EVSC20007), developing understanding of dynamic models. Private until end of sem.
+        </p>
+        <div class="project-card__tags">
+          <span class="tag tag--sage">python</span>
+          <span class="tag tag--lavender">numpy</span>
+          <span class="tag tag--moss">afl</span>
+          <span class="tag tag--brown">logistics</span>
+        </div>
+        <div class="project-card__links">
+          <a href="#" class="btn btn--disabled" data-i18n="featuredInProgress" aria-disabled="true" tabindex="-1">In progress</a>
+          <a href="https://github.com/kaiwave/mcg-railway-egress-jnb" class="btn btn--ghost">GitHub</a>
+        </div>
+      </div>
+
+      <!-- Project 5 -->
+      <div class="card project-card reveal" data-tags="environment,rust">
+        <p class="project-card__label" data-i18n="projLab2">02 · climate model</p>
+        <h2 class="project-card__title" data-i18n="projTitle2">Daisy world Rust implementation</h2>
+        <p class="project-card__desc" data-i18n="projDesc2">
+          A rudimentary implementation of Lovelock and Watson's daisy world model. Tweakable
+          parameters to explore the interplay with albedo, surface temperature, and life on the planet.
+        </p>
+        <div class="project-card__tags">
+          <span class="tag tag--sage">rust</span>
+          <span class="tag tag--lavender">plotter</span>
+          <span class="tag tag--moss">climate science</span>
+        </div>
+        <div class="project-card__links">
+          <a href="https://github.com/kaiwave/daisy-world-rs" class="btn btn--ghost">GitHub</a>
+        </div>
+      </div>
+
+      <!-- Project 6 -->
+      <div class="card project-card reveal" data-tags="rust,quantum">
+        <p class="project-card__label" data-i18n="projLab1">01 · quantum</p>
+        <h2 class="project-card__title" data-i18n="projTitle1">Small and Speedy Qubit Simulator</h2>
+        <p class="project-card__desc" data-i18n="projDesc1">
+          Simple quantum simulator backend to learn he mathematics and gain an intuition
+          for working with quantum computing algorithms.
+        </p>
+        <div class="project-card__tags">
+          <span class="tag tag--sage">rust</span>
+          <span class="tag tag--brown">quantum computing</span>
+          <span class="tag tag--moss">simulation</span>
+        </div>
+        <div class="project-card__links">
+          <a href="#" class="btn btn--disabled" data-i18n="featuredInProgress" aria-disabled="true" tabindex="-1">In progress</a>
+          <a href="https://github.com/kaiwave/small-qubit-simulator-rs" class="btn btn--ghost">GitHub</a>
+        </div>
+      </div>
+
+<!-- 
+
+      <div class="card project-card reveal" data-tags="ml,python">
+        <p class="project-card__label">0x · name</p>
+        <h2 class="project-card__title">Title of thing</h2>
+        <p class="project-card__desc">
+          Description of thing
+        </p>
+        <div class="project-card__tags">
+          <span class="tag tag--sage">tag 1</span>
+          <span class="tag tag--lavender">tag 2</span>
+          <span class="tag tag--moss">tag 3</span>
+          <span class="tag tag--brown">tag 4</span>
+        </div>
+        <div class="project-card__links">
+          <a href="#" class="btn btn--primary">Notebook ↗</a>
+          <a href="#" class="btn btn--ghost">GitHub</a>
+        </div>
+      </div>
+
+ Add more projects by copying the block above -->
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <span>© 2026 malakai h</span>
+      <span data-i18n="builtWith">built with html + css + love</span>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>

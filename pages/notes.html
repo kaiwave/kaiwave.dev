@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>malakai h · portfolio</title>
+  <meta name="description" content="mathematical physics @ unimelb. i build models, break equations, and bomb exams." />
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔬</text></svg>" />
+  <style>
+    /* ── Notes-page-specific styles ─────────────────── */
+    /* Move these to style.css if you find yourself
+       reusing them on other pages.                       */
+
+    /* Year divider */
+    .year-group { margin-bottom: var(--space-12); }
+    .year-label {
+      font-size: var(--text-xs);
+      font-family: var(--font-mono);
+      color: var(--ink-faint);
+      margin-bottom: var(--space-4);
+      padding-bottom: var(--space-2);
+      border-bottom: 1px solid var(--ink-faint);
+    }
+
+    /* Search box */
+    .notes-search {
+      width: 100%;
+      max-width: 420px;
+      padding: var(--space-3) var(--space-4);
+      background: var(--cream-mid);
+      border: 1.5px solid var(--ink-faint);
+      border-radius: var(--radius-sm);
+      font-size: var(--text-base);
+      font-family: var(--font-sans);
+      color: var(--ink);
+      margin-bottom: var(--space-8);
+      transition: border-color var(--duration) var(--ease);
+    }
+    .notes-search:focus {
+      outline: none;
+      border-color: var(--sage);
+    }
+    .notes-search::placeholder { color: var(--ink-faint); }
+  </style>
+</head>
+<body>
+
+  <header class="nav">
+    <div class="container nav__inner">
+      <a href="../index.html" class="nav__logo">kaiwave.dev<span></span></a>
+      <nav class="nav__links">
+        <a href="../index.html" data-i18n="home">home</a>
+        <a href="projects.html" data-i18n="projects">projects</a>
+        <a href="notes.html" data-i18n="notes">notes</a>
+        <a href="about.html" data-i18n="about">about</a>
+        <a href="contact.html" data-i18n="contact">contact</a>
+      </nav>
+      <button class="language-toggle" id="language-toggle" type="button" aria-label="Change language">
+        <span data-language-label="en">EN</span><span aria-hidden="true">/</span><span data-language-label="fr">FR</span>
+      </button>
+      <button class="nav__toggle" id="nav-toggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="page-header">
+      <p class="page-header__tag" data-i18n="notesTag">// linkedin write-ups</p>
+      <h1 class="page-header__title" data-i18n="notes">posts</h1>
+      <p class="page-header__sub" data-i18n="notesdesc">
+        Some write-ups, thoughts, and lessons that I’ve learned throughout my life. Inspired constantly by the world and people around me. 
+      </p>
+    </div>
+
+    <!-- Live search (JS below) -->
+    <input
+      type="search"
+      class="notes-search"
+      id="notes-search"
+      placeholder="search notes…"
+      data-i18n-placeholder="searchNotes"
+      aria-label="Search notes"
+    />
+
+    <!-- ====================================================
+         NOTES LIST
+         ↓ To add a note:
+           1. Copy a .note-row <a> block
+           2. Set href to your note's page/URL
+           3. Update title, tags, date
+           4. Add data-search keywords to help the search
+              filter (optional but nice)
+    ==================================================== -->
+
+    <!-- 2026 -->
+    <div class="year-group">
+      <div class="year-label">2026</div>
+      <div class="notes-list" id="notes-list">
+
+        <a href="https://www.linkedin.com/posts/hmalakai_golf-fog-highbeam-activity-7492880055115804673-JUsY" class="note-row" data-search="scary driving fog trust delegation">
+          <div>
+            <div class="note-row__title">Trusting those who steer the wheel</div>
+            <div class="note-row__tags">
+              <span class="tag tag--lavender">teamwork</span>
+              <span class="tag tag--sage">linkedin</span>
+            </div>
+          </div>
+          <div class="note-row__date">2026-08-11</div>
+        </a>
+
+        <a href="https://www.linkedin.com/posts/hmalakai_cookie-activity-7460665856126103552-iJ1-" class="note-row" data-search="cooking french baking cookies oven flour">
+          <div>
+            <div class="note-row__title">The importance of coordination in team projects</div>
+            <div class="note-row__tags">
+              <span class="tag tag--brown">baking</span>
+              <span class="tag tag--sage">linkedin</span>
+            </div>
+          </div>
+          <div class="note-row__date">2026-05-14</div>
+        </a>
+
+        <a href="https://www.linkedin.com/posts/hmalakai_job-activity-7437423991075688448-KGP9" class="note-row" data-search="optiver tradeathon quant maths genius networking">
+          <div>
+            <div class="note-row__title"><span class="badge-crown">★ Featured</span> How I won the Optiver Tradeathon</div>
+            <div class="note-row__tags">
+              <span class="tag tag--lavender">trading</span>
+              <span class="tag tag--brown">quant</span>
+              <span class="tag tag--sage">linkedin</span>
+            </div>
+          </div>
+          <div class="note-row__date">2026-03-11</div>
+        </a>
+
+        <a href="https://www.linkedin.com/posts/hmalakai_launceston-unicorn-activity-7428753283902517248-JaQ2" class="note-row" data-search="kangaroo albino niche tasmania ballsack">
+          <div>
+            <div class="note-row__title">Standing out in a crowd and the importance of visibility</div>
+            <div class="note-row__tags">
+              <span class="tag tag--brown">networking</span>
+              <span class="tag tag--sage">linkedin</span>
+            </div>
+          </div>
+          <div class="note-row__date">2024-08-05</div>
+        </a>
+
+      <!-- 2025 -->
+
+      <div class="year-group">
+      <div class="year-label">2025</div>
+      <div class="notes-list" id="notes-list">
+
+        <a href="https://www.linkedin.com/posts/hmalakai_keiko-jamie-job-activity-7395740690183442432-42Lb" class="note-row" data-search="keiko dog walk perseverance sniff walk">
+          <div>
+            <div class="note-row__title">The importance of mindset when adapting to your challenges</div>
+            <div class="note-row__tags">
+              <span class="tag tag--lavender">mentality</span>
+              <span class="tag tag--sage">linkedin</span>
+            </div>
+          </div>
+          <div class="note-row__date">2025-11-16</div>
+        </a>
+
+        <a href="https://www.linkedin.com/posts/hmalakai_leadership-gohabsgo-activity-7360274969638957056-F9xJ" class="note-row" data-search="marty stlouis ice hockey small risky">
+          <div>
+            <div class="note-row__title">Choosing which voices to listen to</div>
+            <div class="note-row__tags">
+              <span class="tag tag--lavender">mentality</span>
+              <span class="tag tag--sage">linkedin</span>
+            </div>
+          </div>
+          <div class="note-row__date">2025-08-10</div>
+        </a>
+        
+        <a href="https://www.linkedin.com/posts/hmalakai_leadership-inspiration-stkilda-activity-7340892530630082560-fZH5" class="note-row" data-search="stafford lee humor authenticity saints warrior">
+          <div>
+            <div class="note-row__title">One of my biggest inspirations is a Saints fan</div>
+            <div class="note-row__tags">
+              <span class="tag tag--moss">inspirations</span>
+              <span class="tag tag--sage">linkedin</span>
+            </div>
+          </div>
+          <div class="note-row__date">2025-06-18</div>
+        </a>
+        
+        <a href="https://www.linkedin.com/posts/hmalakai_iem-leadership-highperformance-activity-7322831705403273217-LGcK" class="note-row" data-search="apex vitality cs2 comeback goat">
+          <div>
+            <div class="note-row__title">How Team Vitality won the IEM Grand Finals</div>
+            <div class="note-row__tags">
+              <span class="tag tag--brown">leadership</span>
+              <span class="tag tag--sage">linkedin</span>
+            </div>
+          </div>
+          <div class="note-row__date">2025-04-29</div>
+        </a>
+
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <span>© 2026 malakai h</span>
+      <span data-i18n="builtWith">built with html + css + love</span>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+  <script>
+    /* ── Notes live search ───────────────────────────────
+       Filters .note-row elements as you type.
+       Searches title text + data-search attribute.
+    ───────────────────────────────────────────────────── */
+    const searchInput = document.getElementById('notes-search');
+    const noteRows    = document.querySelectorAll('.note-row');
+
+    searchInput.addEventListener('input', () => {
+      const q = searchInput.value.toLowerCase().trim();
+      noteRows.forEach(row => {
+        const text = (row.querySelector('.note-row__title').textContent +
+                      (row.dataset.search || '')).toLowerCase();
+        row.style.display = (!q || text.includes(q)) ? '' : 'none';
+      });
+    });
+  </script>
+</body>
+</html>
