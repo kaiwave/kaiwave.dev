@@ -61,7 +61,7 @@ const translations = {
     featuredTitleLine2: 'Goaltender Optimisation',
     featuredDescription: 'An analysis of ice hockey goaltender positioning; modelling and optimising tradeoffs with crease aggression. Written in a Jupyter notebook with matplotlib rendering.',
 
-    aboutintro2: 'Right now I’m working on using projective geometry and stochastic methods to model goaltender positioning optimisations in ice hockey based on common shot positions. On that note, I enjoy playing hockey, playing bass, the occasional league of legends, and convincingmyself that I’m better than everyone for drinking oat magics. ',
+    aboutintro2: 'Right now I’m working on using projective geometry and stochastic methods to model goaltender positioning optimisations in ice hockey based on common shot positions. On that note, I enjoy playing hockey, playing bass, the occasional league of legends, and convincing myself that I’m better than everyone for drinking oat magics. ',
 
     // project cards
     projLab1: "01 · quantum",
