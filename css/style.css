@@ -495,6 +495,18 @@ ul, ol { list-style: none; }
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   gap: var(--space-6);
+  align-items: start;
+}
+
+.project-card {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 180ms ease, transform 180ms ease;
+}
+
+.project-card.is-hidden {
+  opacity: 0;
+  transform: translateY(-6px);
 }
 
 .project-card__label {
