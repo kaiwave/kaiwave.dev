@@ -336,26 +336,65 @@ const filterBtns = document.querySelectorAll('.filter-btn');
 const projectCards = document.querySelectorAll('.project-card');
 
 if (filterBtns.length && projectCards.length) {
+  const fadeDuration = 160;
+  const liftOffset = -8;
+
+  const setCardState = (card, visible) => {
+    card.style.opacity = visible ? '1' : '0';
+    card.style.visibility = 'visible';
+    card.style.pointerEvents = visible ? '' : 'none';
+    card.style.display = visible ? 'block' : 'none';
+    card.style.transform = 'translateY(0)';
+    card.style.transitionDelay = '0ms';
+    card.setAttribute('aria-hidden', String(!visible));
+  };
+
   filterBtns.forEach(btn => {
     btn.addEventListener('click', () => {
       const filter = btn.dataset.filter;
 
-      // Update active state
       filterBtns.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
 
-      // Show/hide cards
       projectCards.forEach(card => {
-        const tags = (card.dataset.tags || '').split(',');
-        const show = filter === 'all' || tags.includes(filter);
-        card.style.opacity   = show ? '1' : '0';
-        card.style.transform = show ? '' : 'scale(0.95)';
-        card.style.pointerEvents = show ? '' : 'none';
-        // Use display + transition trick for layout
-        card.style.transition = 'opacity 0.2s ease, transform 0.2s ease';
+        card.style.opacity = '0';
+        card.style.transform = `translateY(${liftOffset}px)`;
+        card.style.visibility = 'visible';
+        card.style.pointerEvents = 'none';
+        card.style.transitionDelay = '0ms';
       });
+
+      window.setTimeout(() => {
+        const visibleCards = [];
+
+        projectCards.forEach(card => {
+          const tags = (card.dataset.tags || '')
+            .split(',')
+            .map(tag => tag.trim().toLowerCase());
+          const show = filter === 'all' || tags.includes(filter);
+          card.style.display = show ? 'block' : 'none';
+          card.style.opacity = '0';
+          card.style.transform = `translateY(${liftOffset}px)`;
+          card.style.pointerEvents = show ? '' : 'none';
+
+          if (show) visibleCards.push(card);
+        });
+
+        requestAnimationFrame(() => {
+          visibleCards.forEach((card, index) => {
+            card.style.transitionDelay = `${index * 50}ms`;
+            card.style.visibility = 'visible';
+            card.style.opacity = '1';
+            card.style.transform = 'translateY(0)';
+            card.style.pointerEvents = 'auto';
+            card.setAttribute('aria-hidden', 'false');
+          });
+        });
+      }, fadeDuration);
     });
   });
+
+  projectCards.forEach(card => setCardState(card, true));
 }
 
 /* ── Hero canvas (animated scatter plot) ─────────────────── */

@@ -1,5 +1,7 @@
 # portfolio
 
+[kaiwave.dev](https://kaiwave.dev)
+
 Personal portfolio site, English/French bilingual. Built with plain HTML, CSS, and vanilla JS. Claude carried. Thanks goat. 
 
 ## pages
