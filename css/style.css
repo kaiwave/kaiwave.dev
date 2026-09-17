@@ -196,7 +196,7 @@ ul, ol { list-style: none; }
 .nav__logo {
   font-size: var(--text-lg);
   font-weight: 600;
-  color: var(--sage);
+  color: var(--ink);
   letter-spacing: -0.02em;
 }
 
