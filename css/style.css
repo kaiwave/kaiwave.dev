@@ -192,7 +192,7 @@ ul, ol { list-style: none; }
   height: 60px;
 }
 
-/* Wordmark / logo — edit in HTML */
+/* Wordmark */
 .nav__logo {
   font-size: var(--text-lg);
   font-weight: 600;
