@@ -56,7 +56,7 @@ d_g_star = <span class="fn">float</span>(res.x)`,
     },
     tags: ['python', 'website', 'sport', 'data'],
     links: [
-      { kind: 'primary', href: 'https://boardsteals.kaiwave.dev', label: { en: 'Visit site ↗', fr: 'Visiter le site ↗' }, target: null },
+      { kind: 'disabled', href: '#', label: { en: 'In progress', fr: 'En cours' }, target: null },
       { kind: 'ghost', href: 'https://github.com/kaiwave/boardsteals-nfl', label: 'GitHub', target: '_blank' }
     ],
 
