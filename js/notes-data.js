@@ -14,7 +14,7 @@ window.noteData = [
     date: '2026-05-14',
     href: 'https://www.linkedin.com/posts/hmalakai_cookie-activity-7460665856126103552-iJ1-',
     tags: ['baking', 'linkedin'],
-    search: 'cooking french baking cookies oven flour',
+    search: 'cooking french baking cookies oven',
     featured: false
   },
   {
