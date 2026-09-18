@@ -42,15 +42,26 @@ d_g_star = <span class="fn">float</span>(res.x)`,
       en: 'Boardsteals: NFL fantasy sleeper picks',
       fr: 'Boardsteals: Choix de fantasy NFL sous-estimés'
     },
+    headline: {
+      en: ['Boardsteals', 'NFL fantasy sleeper picks'],
+      fr: ['Boardsteals', 'Choix de fantasy NFL sous-estimés']
+    },
+    eyebrow: {
+      en: '// py · json · data analysis',
+      fr: '// py · json · analyse des données'
+    },
     description: {
       en: 'NFL fantasy sleeper picks, based on underlying hidden data. Finding players with the biggest disparity between where they are and where they should be, and presenting it in a clean website. ',
       fr: 'Sélection de joueurs sous-estimés pour le fantasy football NFL, basée sur des données cachées. Identification des joueurs présentant le plus grand écart entre leur niveau actuel et leur potentiel, et présentation sur un site web clair et intuitif.'
     },
     tags: ['python', 'website', 'sport', 'data'],
     links: [
-      { kind: 'disabled', href: 'https://boardsteals.kaiwave.dev', label: { en: 'In progress', fr: 'En cours' }, target: null },
+      { kind: 'primary', href: 'https://boardsteals.kaiwave.dev', label: { en: 'Visit site ↗', fr: 'Visiter le site ↗' }, target: null },
       { kind: 'ghost', href: 'https://github.com/kaiwave/boardsteals-nfl', label: 'GitHub', target: '_blank' }
-    ]
+    ],
+
+    codeSnippet: `<span class="cm"># Z-score mapped to 0-100 breakout scale</span> df = df[df[<span class="str">'expected_ppr'</span>] &gt;= <span class="num">6.0</span>] disp = df[<span class="str">'disparity'</span>] <span class="cm"># Normalise z </span> z = (disp - disp.<span class="fn">mean</span>()) / disp.<span class="fn">std</span>() df[<span class="str">'rating'</span>] = np.<span class="fn">clip</span>(<span class="num">55</span> + z * <span class="num">15</span>, <span class="num">0</span>, <span class="num">100</span>).<span class="fn">round</span>(<span class="num">1</span>)`,
+    badgeText: 'featured'
   },
   {
     id: 'mcg-egress-modelling',
