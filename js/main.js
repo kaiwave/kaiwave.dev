@@ -83,6 +83,9 @@ const translations = {
     projLab5: "05 · geometry",
     projTitle5: "Projective Analysis Goaltender Optimisation",
     projDesc5: "An analysis of ice hockey goaltender positioning, by modelling and optimising tradeoffs with crease aggression. Written in a Jupyter notebook with matplotlib plot rendering.",
+
+    showAllProjects: 'Show all',
+    showLessProjects: 'Show less',
   },
   
   fr: {
@@ -151,12 +154,209 @@ const translations = {
     projLab5: "05 · géométrie",
     projTitle5: "Analyse projective Optimisation du gardien",
     projDesc5: "Analyse du positionnement des gardiens; modélisation et optimisation des compromis liés à l’agressivité dans la zone. Documentation rédigée dans un notebook Jupyter avec rendu Matplotlib.",
-  
+
+    showAllProjects: 'Afficher tout',
+    showLessProjects: 'Afficher moins',
   }
 };
 
+const siteState = {
+  currentLanguage: localStorage.getItem('site-language') || 'en',
+  projectsExpanded: false,
+  activeProjectFilter: 'all',
+};
+
+function getLocalizedValue(value, language) {
+  if (typeof value === 'string') return value;
+  if (value && typeof value === 'object') {
+    return value[language] || value.en || Object.values(value)[0] || '';
+  }
+  return '';
+}
+
+function renderFeaturedProject() {
+  const root = document.getElementById('featured-project-root');
+  if (!root || !window.projectData?.length) return;
+
+  const featuredProject = window.projectData.find(project => project.featured) || window.projectData[0];
+  if (!featuredProject) return;
+
+  const language = siteState.currentLanguage;
+  const headlineEntries = featuredProject.headline && typeof featuredProject.headline === 'object'
+    ? featuredProject.headline[language] || featuredProject.headline.en || []
+    : Array.isArray(featuredProject.headline)
+      ? featuredProject.headline
+      : [getLocalizedValue(featuredProject.title, language)];
+
+  const titleLines = Array.isArray(headlineEntries) && headlineEntries.length
+    ? headlineEntries.map(line => getLocalizedValue(line, language))
+    : [getLocalizedValue(featuredProject.title, language)];
+
+  const tagMarkup = (featuredProject.tags || []).map(tag => {
+    const palette = ['tag--sage', 'tag--lavender', 'tag--brown', 'tag--moss'];
+    const paletteIndex = Math.abs(tag.split('').reduce((sum, char) => sum + char.charCodeAt(0), 0)) % palette.length;
+    return `<span class="tag ${palette[paletteIndex]}">${tag}</span>`;
+  }).join('');
+
+  const linkMarkup = (featuredProject.links || []).map(link => {
+    const href = link.href || '#';
+    const label = getLocalizedValue(link.label, language);
+    const isDisabled = link.kind === 'disabled';
+    const classes = isDisabled ? 'btn btn--disabled' : `btn btn--${link.kind || 'ghost'}`;
+    const attrs = link.target ? ` target="${link.target}" rel="noopener noreferrer"` : '';
+    const disabledAttrs = isDisabled ? ' aria-disabled="true" tabindex="-1"' : '';
+    return `<a href="${href}" class="${classes}"${attrs}${disabledAttrs}>${label}</a>`;
+  }).join('');
+
+  const codeMarkup = featuredProject.codeSnippet
+    ? `<div class="code-preview">${featuredProject.codeSnippet}</div>`
+    : '';
+
+  root.innerHTML = `
+    <div class="featured-project">
+      <div>
+        <p class="featured-project__badge">${getLocalizedValue(featuredProject.eyebrow, language)}</p>
+        <h3 class="featured-project__title">${titleLines.map((line, index) => index === titleLines.length - 1 ? `<span>${line}</span>` : `<span>${line}</span><br>`).join('')}</h3>
+        <p class="featured-project__desc">${getLocalizedValue(featuredProject.description, language)}</p>
+        <div style="display:flex; gap:0.5rem; flex-wrap:wrap; margin-bottom:1.5rem;">${tagMarkup}</div>
+        <div style="display:flex; gap:0.75rem; flex-wrap:wrap;">${linkMarkup}</div>
+      </div>
+      ${codeMarkup}
+    </div>
+  `;
+}
+
+function getFilteredProjects(filterName = 'all') {
+  const activeFilter = (filterName || 'all').toLowerCase();
+
+  return [...(window.projectData || [])].filter(project => {
+    if (activeFilter === 'all') return true;
+    const tags = (project.tags || []).map(tag => tag.trim().toLowerCase());
+    return tags.includes(activeFilter);
+  }).sort((first, second) => {
+    if (first.featured !== second.featured) return Number(second.featured) - Number(first.featured);
+    return 0;
+  });
+}
+
+function getNoteTagMarkup(tags = []) {
+  const palette = ['tag--lavender', 'tag--sage', 'tag--brown', 'tag--moss'];
+  return (tags || []).map((tag, index) => {
+    const paletteIndex = Math.abs(tag.split('').reduce((sum, char) => sum + char.charCodeAt(0), 0)) % palette.length;
+    return `<span class="tag ${palette[(index + paletteIndex) % palette.length]}">${tag}</span>`;
+  }).join('');
+}
+
+function renderNotesList() {
+  const notesList = document.getElementById('notes-list');
+  if (!notesList || !window.noteData?.length) return;
+
+  const notes = [...window.noteData].sort((a, b) => new Date(b.date) - new Date(a.date));
+  notesList.innerHTML = notes.map(note => {
+    const title = note.featured ? `<span class="badge-crown">★ Featured</span> ${note.title}` : note.title;
+    const tagMarkup = getNoteTagMarkup(note.tags || []);
+    return `
+      <a href="${note.href}" class="note-row" data-search="${note.search || ''}" data-note-id="${note.id}">
+        <div>
+          <div class="note-row__title">${title}</div>
+          <div class="note-row__tags">${tagMarkup}</div>
+        </div>
+        <div class="note-row__date">${note.date}</div>
+      </a>
+    `;
+  }).join('');
+
+  const searchInput = document.getElementById('notes-search');
+  if (searchInput) {
+    const filterRows = () => {
+      const q = searchInput.value.toLowerCase().trim();
+      notesList.querySelectorAll('.note-row').forEach(row => {
+        const text = (row.querySelector('.note-row__title').textContent + (row.dataset.search || '')).toLowerCase();
+        row.style.display = (!q || text.includes(q)) ? '' : 'none';
+      });
+    };
+    searchInput.oninput = filterRows;
+    filterRows();
+  }
+}
+
+function renderHomepageNotes() {
+  const root = document.getElementById('home-notes-root');
+  if (!root || !window.noteData?.length) return;
+
+  const notes = [...window.noteData]
+    .sort((a, b) => new Date(b.date) - new Date(a.date))
+    .slice(0, 3);
+
+  root.innerHTML = notes.map(note => {
+    const title = note.featured ? `<span class="badge-crown">★ Featured</span> ${note.title}` : note.title;
+    const tagMarkup = getNoteTagMarkup(note.tags || []);
+    return `
+      <a href="${note.href}" class="note-row" data-search="${note.search || ''}">
+        <div>
+          <div class="note-row__title">${title}</div>
+          <div class="note-row__tags">${tagMarkup}</div>
+        </div>
+        <div class="note-row__date">${note.date}</div>
+      </a>
+    `;
+  }).join('');
+}
+
+function renderProjectGrid() {
+  const grid = document.getElementById('projects-grid');
+  if (!grid || !window.projectData?.length) return;
+
+  const language = siteState.currentLanguage;
+  const filteredProjects = getFilteredProjects(siteState.activeProjectFilter);
+
+  const cardsMarkup = filteredProjects.map((project, index) => {
+    const title = getLocalizedValue(project.title, language);
+    const description = getLocalizedValue(project.description, language);
+    const tags = (project.tags || []).map(tag => `<span class="tag tag--sage">${tag}</span>`).join('');
+    const isFeatured = Boolean(project.featured);
+    const isCollapsed = index >= 6 && !siteState.projectsExpanded;
+    const cardTitle = isFeatured
+      ? `<span class="badge-crown">★ Featured</span> ${title}`
+      : title;
+
+    const linksMarkup = (project.links || []).map(link => {
+      const href = link.href || '#';
+      const label = getLocalizedValue(link.label, language);
+      const isDisabled = link.kind === 'disabled';
+      const classes = isDisabled ? 'btn btn--disabled' : `btn btn--${link.kind || 'ghost'}`;
+      const attrs = link.target ? ` target="${link.target}" rel="noopener noreferrer"` : '';
+      const disabledAttrs = isDisabled ? ' aria-disabled="true" tabindex="-1"' : '';
+      return `<a href="${href}" class="${classes}"${attrs}${disabledAttrs}>${label}</a>`;
+    }).join('');
+
+    return `
+      <div class="card project-card reveal ${isCollapsed ? 'project-card--hidden' : ''}" data-tags="${(project.tags || []).join(',')}" data-featured="${isFeatured}" data-collapsed="${String(isCollapsed)}">
+        <h2 class="project-card__title">${cardTitle}</h2>
+        <p class="project-card__desc">${description}</p>
+        <div class="project-card__tags">${tags}</div>
+        <div class="project-card__links">${linksMarkup}</div>
+      </div>
+    `;
+  }).join('');
+
+  grid.innerHTML = cardsMarkup;
+
+  const showAllToggle = document.getElementById('toggle-projects-view');
+  if (showAllToggle) {
+    const hiddenCount = filteredProjects.length > 6 ? filteredProjects.length - 6 : 0;
+    showAllToggle.hidden = hiddenCount === 0;
+    showAllToggle.textContent = siteState.projectsExpanded
+      ? translations[language].showLessProjects
+      : translations[language].showAllProjects;
+  }
+
+  initializeProjectFiltering();
+}
+
 function applyLanguage(language) {
   const selectedLanguage = translations[language] ? language : 'en';
+  siteState.currentLanguage = selectedLanguage;
   document.documentElement.lang = selectedLanguage;
   document.querySelectorAll('[data-i18n]').forEach(element => {
     const translation = translations[selectedLanguage][element.dataset.i18n];
@@ -170,6 +370,8 @@ function applyLanguage(language) {
     label.classList.toggle('active', label.dataset.languageLabel === selectedLanguage);
   });
   localStorage.setItem('site-language', selectedLanguage);
+  renderFeaturedProject();
+  renderProjectGrid();
 }
 
 const languageToggle = document.getElementById('language-toggle');
@@ -180,6 +382,11 @@ if (languageToggle) {
   });
   applyLanguage(localStorage.getItem('site-language') || 'en');
 }
+
+renderFeaturedProject();
+renderProjectGrid();
+renderHomepageNotes();
+renderNotesList();
 
 /* ── Site-wide particle field ────────────────────────────── */
 // Reuses the hero's constellation motif as a quiet background on every page.
@@ -332,10 +539,12 @@ document.head.appendChild(revealStyle);
 // Used on projects.html.
 // Each project card should have data-tags="python,ml" etc.
 // Each filter button should have data-filter="python" etc.
-const filterBtns = document.querySelectorAll('.filter-btn');
-const projectCards = document.querySelectorAll('.project-card');
+function initializeProjectFiltering() {
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const projectCards = document.querySelectorAll('.project-card');
 
-if (filterBtns.length && projectCards.length) {
+  if (!filterBtns.length || !projectCards.length) return;
+
   const fadeDuration = 160;
   const liftOffset = -8;
 
@@ -350,51 +559,39 @@ if (filterBtns.length && projectCards.length) {
   };
 
   filterBtns.forEach(btn => {
+    if (btn.dataset.bound === 'true') return;
+    btn.dataset.bound = 'true';
+
     btn.addEventListener('click', () => {
-      const filter = btn.dataset.filter;
+      const filter = btn.dataset.filter || 'all';
+      siteState.activeProjectFilter = filter;
+      siteState.projectsExpanded = false;
 
       filterBtns.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
 
-      projectCards.forEach(card => {
-        card.style.opacity = '0';
-        card.style.transform = `translateY(${liftOffset}px)`;
-        card.style.visibility = 'visible';
-        card.style.pointerEvents = 'none';
-        card.style.transitionDelay = '0ms';
-      });
-
-      window.setTimeout(() => {
-        const visibleCards = [];
-
-        projectCards.forEach(card => {
-          const tags = (card.dataset.tags || '')
-            .split(',')
-            .map(tag => tag.trim().toLowerCase());
-          const show = filter === 'all' || tags.includes(filter);
-          card.style.display = show ? 'block' : 'none';
-          card.style.opacity = '0';
-          card.style.transform = `translateY(${liftOffset}px)`;
-          card.style.pointerEvents = show ? '' : 'none';
-
-          if (show) visibleCards.push(card);
-        });
-
-        requestAnimationFrame(() => {
-          visibleCards.forEach((card, index) => {
-            card.style.transitionDelay = `${index * 50}ms`;
-            card.style.visibility = 'visible';
-            card.style.opacity = '1';
-            card.style.transform = 'translateY(0)';
-            card.style.pointerEvents = 'auto';
-            card.setAttribute('aria-hidden', 'false');
-          });
-        });
-      }, fadeDuration);
+      renderProjectGrid();
     });
   });
 
-  projectCards.forEach(card => setCardState(card, true));
+  projectCards.forEach(card => setCardState(card, card.dataset.collapsed !== 'true' || siteState.projectsExpanded));
+}
+
+const projectsToggle = document.getElementById('toggle-projects-view');
+if (projectsToggle) {
+  projectsToggle.addEventListener('click', () => {
+    const activeFilter = siteState.activeProjectFilter || 'all';
+    const matchingProjects = window.projectData?.filter(project => {
+      if (activeFilter === 'all') return true;
+      const tags = (project.tags || []).map(tag => tag.trim().toLowerCase());
+      return tags.includes(activeFilter.toLowerCase());
+    }) || [];
+
+    if (matchingProjects.length > 6) {
+      siteState.projectsExpanded = !siteState.projectsExpanded;
+      renderProjectGrid();
+    }
+  });
 }
 
 /* ── Hero canvas (animated scatter plot) ─────────────────── */

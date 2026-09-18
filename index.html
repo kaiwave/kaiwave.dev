@@ -111,40 +111,7 @@
         <p class="section-header__sub" data-i18n="featuredProjectSub">the thing i'm most excited about right now.</p>
       </div>
 
-      <div class="featured-project">
-        <div>
-          <!-- ↓ Edit to match your project -->
-          <p class="featured-project__badge" data-i18n="featuredEyebrow">// ipynb · projective geometry</p>
-          <h3 class="featured-project__title"><span data-i18n="featuredTitleLine1">Projective Analysis</span><br><span data-i18n="featuredTitleLine2">Goaltender Optimisation</span></h3>
-          <p class="featured-project__desc" data-i18n="featuredDescription">
-            An analysis of ice hockey goaltender positioning, by modelling and optimising tradeoffs with crease aggression. Written in a Jupyter notebook with matplotlib plot rendering.
-          </p>
-          <div style="display:flex; gap:0.5rem; flex-wrap:wrap; margin-bottom:1.5rem;">
-            <span class="tag tag--sage">python</span>
-            <span class="tag tag--lavender">numpy</span>
-            <span class="tag tag--brown">matplotlib</span>
-            <span class="tag tag--moss">quarto</span>
-          </div>
-          <div style="display:flex; gap:0.75rem;">
-            <a href="#" class="btn btn--disabled" data-i18n="featuredInProgress" aria-disabled="true" tabindex="-1">In progress</a>
-            <a href="https://github.com/kaiwave/goaltender-optimisation-jnb" class="btn btn--ghost">GitHub</a>
-          </div>
-        </div>
-
-        <!-- ↓ Code preview — paste a snippet from your actual code! -->
-        <div class="code-preview">
-          <span class="cm"># Monte Carlo static depth solver</span>
-          <span class="kw">def</span> <span class="fn">obj</span>(d_g):
-              <span class="kw">return</span> np.<span class="fn">mean</span>([
-                  <span class="fn">exposed_area_eff</span>(x_p, y_p, d_g, theta_set)[<span class="num">0</span>]
-                  <span class="kw">for</span> x_p, y_p <span class="kw">in</span> samples
-              ])
-
-          <span class="cm"># 1D bounded optimization over crease depth</span>
-          res = <span class="fn">minimize_scalar</span>(obj, bounds=(<span class="num">0.0</span>, R_CREASE), method=<span class="str">'bounded'</span>)
-          d_g_star = <span class="fn">float</span>(res.x)
-        </div>
-      </div>
+      <div id="featured-project-root"></div>
     </section>
 
     <!-- ====================================================
@@ -156,42 +123,7 @@
         <p class="section-header__sub" data-i18n="recentNotesSub">thoughts and write-ups i've been working on.</p>
       </div>
 
-      <div class="notes-list">
-        <!-- ↓ Duplicate these rows to add more notes -->
-
-        <a href="notes" class="note-row" data-search="scary driving fog trust delegation">
-          <div>
-            <div class="note-row__title">Trusting those who steer the wheel</div>
-            <div class="note-row__tags">
-              <span class="tag tag--lavender">teamwork</span>
-              <span class="tag tag--sage">linkedin</span>
-            </div>
-          </div>
-          <div class="note-row__date">2026-08-11</div>
-        </a>
-
-        <a href="notes" class="note-row" data-search="cooking french baking cookies oven flour">
-          <div>
-            <div class="note-row__title">The importance of coordination in team projects</div>
-            <div class="note-row__tags">
-              <span class="tag tag--brown">baking</span>
-              <span class="tag tag--sage">linkedin</span>
-            </div>
-          </div>
-          <div class="note-row__date">2026-05-14</div>
-        </a>
-
-        <a href="notes" class="note-row" data-search="optiver tradeathon quant maths genius networking">
-          <div>
-            <div class="note-row__title"><span class="badge-crown">★ Featured</span> How I won the Optiver Tradeathon</div>
-            <div class="note-row__tags">
-              <span class="tag tag--lavender">trading</span>
-              <span class="tag tag--brown">quant</span>
-              <span class="tag tag--sage">linkedin</span>
-            </div>
-          </div>
-          <div class="note-row__date">2026-03-11</div>
-        </a>
+      <div class="notes-list" id="home-notes-root"></div>
 
       <div style="margin-top:1.5rem;">
         <a href="notes" class="btn btn--ghost" data-i18n="allNotes">All notes →</a>
@@ -210,6 +142,8 @@
     </div>
   </footer>
 
+  <script src="js/projects-data.js"></script>
+  <script src="js/notes-data.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>

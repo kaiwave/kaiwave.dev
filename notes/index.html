@@ -74,7 +74,6 @@
       </p>
     </div>
 
-    <!-- Live search (JS below) -->
     <input
       type="search"
       class="notes-search"
@@ -84,120 +83,7 @@
       aria-label="Search notes"
     />
 
-    <!-- ====================================================
-         NOTES LIST
-         ↓ To add a note:
-           1. Copy a .note-row <a> block
-           2. Set href to your note's page/URL
-           3. Update title, tags, date
-           4. Add data-search keywords to help the search
-              filter (optional but nice)
-    ==================================================== -->
-
-    <!-- 2026 -->
-    <div class="year-group">
-      <div class="year-label">2026</div>
-      <div class="notes-list" id="notes-list">
-
-        <a href="https://www.linkedin.com/posts/hmalakai_golf-fog-highbeam-activity-7492880055115804673-JUsY" class="note-row" data-search="scary driving fog trust delegation">
-          <div>
-            <div class="note-row__title">Trusting those who steer the wheel</div>
-            <div class="note-row__tags">
-              <span class="tag tag--lavender">teamwork</span>
-              <span class="tag tag--sage">linkedin</span>
-            </div>
-          </div>
-          <div class="note-row__date">2026-08-11</div>
-        </a>
-
-        <a href="https://www.linkedin.com/posts/hmalakai_cookie-activity-7460665856126103552-iJ1-" class="note-row" data-search="cooking french baking cookies oven flour">
-          <div>
-            <div class="note-row__title">The importance of coordination in team projects</div>
-            <div class="note-row__tags">
-              <span class="tag tag--brown">baking</span>
-              <span class="tag tag--sage">linkedin</span>
-            </div>
-          </div>
-          <div class="note-row__date">2026-05-14</div>
-        </a>
-
-        <a href="https://www.linkedin.com/posts/hmalakai_job-activity-7437423991075688448-KGP9" class="note-row" data-search="optiver tradeathon quant maths genius networking">
-          <div>
-            <div class="note-row__title"><span class="badge-crown">★ Featured</span> How I won the Optiver Tradeathon</div>
-            <div class="note-row__tags">
-              <span class="tag tag--lavender">trading</span>
-              <span class="tag tag--brown">quant</span>
-              <span class="tag tag--sage">linkedin</span>
-            </div>
-          </div>
-          <div class="note-row__date">2026-03-11</div>
-        </a>
-
-        <a href="https://www.linkedin.com/posts/hmalakai_launceston-unicorn-activity-7428753283902517248-JaQ2" class="note-row" data-search="kangaroo albino niche tasmania ballsack">
-          <div>
-            <div class="note-row__title">Standing out in a crowd and the importance of visibility</div>
-            <div class="note-row__tags">
-              <span class="tag tag--brown">networking</span>
-              <span class="tag tag--sage">linkedin</span>
-            </div>
-          </div>
-          <div class="note-row__date">2024-08-05</div>
-        </a>
-
-      </div>
-      </div>
-      <!-- 2025 -->
-
-      <div class="year-group">
-      <div class="year-label">2025</div>
-      <div class="notes-list" id="notes-list">
-
-        <a href="https://www.linkedin.com/posts/hmalakai_keiko-jamie-job-activity-7395740690183442432-42Lb" class="note-row" data-search="keiko dog walk perseverance sniff walk">
-          <div>
-            <div class="note-row__title">The importance of mindset when adapting to your challenges</div>
-            <div class="note-row__tags">
-              <span class="tag tag--lavender">mentality</span>
-              <span class="tag tag--sage">linkedin</span>
-            </div>
-          </div>
-          <div class="note-row__date">2025-11-16</div>
-        </a>
-
-        <a href="https://www.linkedin.com/posts/hmalakai_leadership-gohabsgo-activity-7360274969638957056-F9xJ" class="note-row" data-search="marty stlouis ice hockey small risky">
-          <div>
-            <div class="note-row__title">Choosing which voices to listen to</div>
-            <div class="note-row__tags">
-              <span class="tag tag--lavender">mentality</span>
-              <span class="tag tag--sage">linkedin</span>
-            </div>
-          </div>
-          <div class="note-row__date">2025-08-10</div>
-        </a>
-        
-        <a href="https://www.linkedin.com/posts/hmalakai_leadership-inspiration-stkilda-activity-7340892530630082560-fZH5" class="note-row" data-search="stafford lee humor authenticity saints warrior">
-          <div>
-            <div class="note-row__title">One of my biggest inspirations is a Saints fan</div>
-            <div class="note-row__tags">
-              <span class="tag tag--moss">inspirations</span>
-              <span class="tag tag--sage">linkedin</span>
-            </div>
-          </div>
-          <div class="note-row__date">2025-06-18</div>
-        </a>
-        
-        <a href="https://www.linkedin.com/posts/hmalakai_iem-leadership-highperformance-activity-7322831705403273217-LGcK" class="note-row" data-search="apex vitality cs2 comeback goat">
-          <div>
-            <div class="note-row__title">How Team Vitality won the IEM Grand Finals</div>
-            <div class="note-row__tags">
-              <span class="tag tag--brown">leadership</span>
-              <span class="tag tag--sage">linkedin</span>
-            </div>
-          </div>
-          <div class="note-row__date">2025-04-29</div>
-        </a>
-
-      </div>
-    </div>
+    <div class="notes-list" id="notes-list"></div>
 
   </main>
 
@@ -208,23 +94,7 @@
     </div>
   </footer>
 
+  <script src="../js/notes-data.js"></script>
   <script src="../js/main.js"></script>
-  <script>
-    /* ── Notes live search ───────────────────────────────
-       Filters .note-row elements as you type.
-       Searches title text + data-search attribute.
-    ───────────────────────────────────────────────────── */
-    const searchInput = document.getElementById('notes-search');
-    const noteRows    = document.querySelectorAll('.note-row');
-
-    searchInput.addEventListener('input', () => {
-      const q = searchInput.value.toLowerCase().trim();
-      noteRows.forEach(row => {
-        const text = (row.querySelector('.note-row__title').textContent +
-                      (row.dataset.search || '')).toLowerCase();
-        row.style.display = (!q || text.includes(q)) ? '' : 'none';
-      });
-    });
-  </script>
 </body>
 </html>
