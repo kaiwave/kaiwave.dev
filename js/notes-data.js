@@ -29,7 +29,7 @@ window.noteData = [
   {
     id: 'standing-out-crowd',
     title: 'Standing out in a crowd and the importance of visibility',
-    date: '2024-08-05',
+    date: '2026-08-05',
     href: 'https://www.linkedin.com/posts/hmalakai_launceston-unicorn-activity-7428753283902517248-JaQ2',
     tags: ['networking', 'linkedin'],
     search: 'kangaroo albino niche tasmania ballsack',

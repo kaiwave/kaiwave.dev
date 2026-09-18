@@ -247,32 +247,61 @@ function getNoteTagMarkup(tags = []) {
   }).join('');
 }
 
+function renderNoteCard(note) {
+  const title = note.featured ? `<span class="badge-crown">★ Featured</span> ${note.title}` : note.title;
+  const tagMarkup = getNoteTagMarkup(note.tags || []);
+  return `
+    <a href="${note.href}" class="note-row" data-search="${note.search || ''}" data-note-id="${note.id}">
+      <div>
+        <div class="note-row__title">${title}</div>
+        <div class="note-row__tags">${tagMarkup}</div>
+      </div>
+      <div class="note-row__date">${note.date}</div>
+    </a>
+  `;
+}
+
+function groupNotesByYear(notes) {
+  return Object.entries(
+    notes.reduce((groups, note) => {
+      const year = new Date(note.date).getFullYear();
+      if (!groups[year]) groups[year] = [];
+      groups[year].push(note);
+      return groups;
+    }, {})
+  ).sort((a, b) => Number(b[0]) - Number(a[0]));
+}
+
 function renderNotesList() {
   const notesList = document.getElementById('notes-list');
   if (!notesList || !window.noteData?.length) return;
 
   const notes = [...window.noteData].sort((a, b) => new Date(b.date) - new Date(a.date));
-  notesList.innerHTML = notes.map(note => {
-    const title = note.featured ? `<span class="badge-crown">★ Featured</span> ${note.title}` : note.title;
-    const tagMarkup = getNoteTagMarkup(note.tags || []);
-    return `
-      <a href="${note.href}" class="note-row" data-search="${note.search || ''}" data-note-id="${note.id}">
-        <div>
-          <div class="note-row__title">${title}</div>
-          <div class="note-row__tags">${tagMarkup}</div>
-        </div>
-        <div class="note-row__date">${note.date}</div>
-      </a>
-    `;
-  }).join('');
+  const groupedNotes = groupNotesByYear(notes);
+
+  notesList.innerHTML = groupedNotes.map(([year, notesInYear]) => `
+    <div class="year-group">
+      <div class="year-label">${year}</div>
+      ${notesInYear.map(renderNoteCard).join('')}
+    </div>
+  `).join('');
 
   const searchInput = document.getElementById('notes-search');
   if (searchInput) {
     const filterRows = () => {
       const q = searchInput.value.toLowerCase().trim();
-      notesList.querySelectorAll('.note-row').forEach(row => {
-        const text = (row.querySelector('.note-row__title').textContent + (row.dataset.search || '')).toLowerCase();
-        row.style.display = (!q || text.includes(q)) ? '' : 'none';
+      notesList.querySelectorAll('.year-group').forEach(group => {
+        const groupRows = group.querySelectorAll('.note-row');
+        let visibleRows = 0;
+
+        groupRows.forEach(row => {
+          const text = (row.querySelector('.note-row__title').textContent + (row.dataset.search || '')).toLowerCase();
+          const matches = !q || text.includes(q);
+          row.style.display = matches ? '' : 'none';
+          if (matches) visibleRows += 1;
+        });
+
+        group.style.display = visibleRows > 0 || !q ? '' : 'none';
       });
     };
     searchInput.oninput = filterRows;
@@ -288,19 +317,7 @@ function renderHomepageNotes() {
     .sort((a, b) => new Date(b.date) - new Date(a.date))
     .slice(0, 3);
 
-  root.innerHTML = notes.map(note => {
-    const title = note.featured ? `<span class="badge-crown">★ Featured</span> ${note.title}` : note.title;
-    const tagMarkup = getNoteTagMarkup(note.tags || []);
-    return `
-      <a href="${note.href}" class="note-row" data-search="${note.search || ''}">
-        <div>
-          <div class="note-row__title">${title}</div>
-          <div class="note-row__tags">${tagMarkup}</div>
-        </div>
-        <div class="note-row__date">${note.date}</div>
-      </a>
-    `;
-  }).join('');
+  root.innerHTML = notes.map(renderNoteCard).join('');
 }
 
 function renderProjectGrid() {

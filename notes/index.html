@@ -13,12 +13,17 @@
        reusing them on other pages.                       */
 
     /* Year divider */
-    .year-group { margin-bottom: var(--space-12); }
+    .year-group {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+      margin-bottom: var(--space-12);
+    }
     .year-label {
       font-size: var(--text-xs);
       font-family: var(--font-mono);
       color: var(--ink-faint);
-      margin-bottom: var(--space-4);
+      margin-bottom: var(--space-2);
       padding-bottom: var(--space-2);
       border-bottom: 1px solid var(--ink-faint);
     }
