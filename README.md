@@ -22,20 +22,16 @@ A lightweight, dependency-free static website built with HTML, vanilla CSS, and 
 
 ```text
 kaiwave.dev/
-├── index.html              # Landing / hero page
-├── CNAME                   # Custom domain configuration (kaiwave.dev)
-├── assets/                 # Profile images, icons, and static media
-├── css/
-│   └── style.css           # Global stylesheets, CSS tokens, and layout rules
-├── js/
-│   ├── main.js             # Core logic, i18n handler, interactive canvas/components
-│   ├── notes-data.js       # Data definitions for notes and articles
-│   └── projects-data.js    # Data definitions for project cards and links
-├── about/
-│   └── index.html          # About page & biography
-├── projects/
-│   └── index.html          # Interactive projects showcase
-├── notes/
-│   └── index.html          # Writing, course summaries, and searchable notes
-└── contact/
-    └── index.html          # Contact form and social links
+├── .github/
+│   └── workflows/
+│       └── deploy.yml
+├── site/               <-- Everything published to the web lives here
+│   ├── CNAME
+│   ├── index.html      <-- Homepage of site
+│   ├── css/
+│   ├── js/
+│   ├── projects/       <-- Projects page of site, will have subdirectories for individual projects
+│   └── notes/          <-- Posts page of site, will have subdirectories for individual posts
+├── scripts/            
+│   └── createnew.py      <-- CLI generator and helper scripts for easy adding of notes and projects
+└── README.md
