@@ -512,19 +512,47 @@ def prompt_git_commit(parent, action="Update", item_id="content"):
         win.destroy()
 
         try:
-            subprocess.run(["git", "add", "."], capture_output=True, text=True, check=True)
-            subprocess.run(["git", "commit", "-m", msg], capture_output=True, text=True, check=True)
+            # 1. Stage all changes repository-wide
+            subprocess.run(
+                ["git", "add", "-A"],
+                cwd=REPO_ROOT,
+                capture_output=True,
+                text=True,
+                check=True
+            )
 
+            # 2. Check if there are actually any staged changes to commit
+            status_proc = subprocess.run(
+                ["git", "diff", "--cached", "--quiet"],
+                cwd=REPO_ROOT
+            )
+            if status_proc.returncode == 0:
+                messagebox.showinfo("No Changes", "No modified files detected to commit.", parent=parent)
+                return
+
+            # 3. Commit changes
+            subprocess.run(
+                ["git", "commit", "-m", msg],
+                cwd=REPO_ROOT,
+                capture_output=True,
+                text=True,
+                check=True
+            )
+
+            # 4. Detect the current active branch
             branch_proc = subprocess.run(
                 ["git", "rev-parse", "--abbrev-ref", "HEAD"],
+                cwd=REPO_ROOT,
                 capture_output=True,
                 text=True,
                 check=True
             )
             current_branch = branch_proc.stdout.strip() or "main"
 
+            # 5. Push upstream
             subprocess.run(
                 ["git", "push", "-u", "origin", current_branch],
+                cwd=REPO_ROOT,
                 capture_output=True,
                 text=True,
                 check=True
