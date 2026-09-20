@@ -476,28 +476,44 @@ def slugify(text):
 
 # ── Git Commit Helper ───────────────────────────────────────────
 
-def prompt_git_commit(parent):
-    def run_commit():
-        msg = commit_msg_var.get().strip()
-        if not msg:
-            messagebox.showerror("Error", "Commit message cannot be empty.", parent=win)
-            return
-        try:
-            subprocess.run(["git", "add", "."], cwd=REPO_ROOT, check=True)
-            subprocess.run(["git", "commit", "-m", msg], cwd=REPO_ROOT, check=True)
-            messagebox.showinfo("Success", "Git commit complete!", parent=win)
-            win.destroy()
-        except subprocess.CalledProcessError as e:
-            messagebox.showerror("Git Error", f"Failed to commit:\n{e}", parent=win)
+def prompt_git_commit(parent, action="Update", item_id="content"):
+    """Prompts the user to commit and push changes with a prefilled message."""
+    default_msg = f"{action} {item_id}"
 
     win = tk.Toplevel(parent)
-    win.title("Git Commit")
-    win.geometry("400x150")
+    win.title("Git Commit & Push")
+    win.geometry("420x200")
+    win.transient(parent)
+    win.grab_set()
 
-    tk.Label(win, text="Commit message:").pack(pady=5)
-    commit_msg_var = tk.StringVar(value="Update notes/projects data")
-    tk.Entry(win, textvariable=commit_msg_var, width=45).pack(pady=5)
-    tk.Button(win, text="Commit & Save", command=run_commit, bg="#2da44e", fg="white").pack(pady=10)
+    tk.Label(win, text="Commit Message:", font=("Arial", 10, "bold")).pack(pady=(12, 4))
+    
+    msg_var = tk.StringVar(value=default_msg)
+    entry = tk.Entry(win, textvariable=msg_var, width=45)
+    entry.pack(pady=4, padx=16)
+    entry.focus()
+    entry.select_range(0, tk.END)
+
+    def do_commit():
+        msg = msg_var.get().strip()
+        if not msg:
+            messagebox.showwarning("Warning", "Commit message cannot be empty.", parent=win)
+            return
+        
+        win.destroy()
+        try:
+            subprocess.run(["git", "add", "."], check=True)
+            subprocess.run(["git", "commit", "-m", msg], check=True)
+            subprocess.run(["git", "push"], check=True)
+            messagebox.showinfo("Success", "Changes committed and pushed successfully!", parent=parent)
+        except subprocess.CalledProcessError as e:
+            messagebox.showerror("Git Error", f"Git operation failed:\n{e}", parent=parent)
+
+    btn_frame = tk.Frame(win)
+    btn_frame.pack(pady=16)
+
+    tk.Button(btn_frame, text="Commit & Push", command=do_commit, width=14).pack(side="left", padx=6)
+    tk.Button(btn_frame, text="Skip", command=win.destroy, width=10).pack(side="left", padx=6)
 
 
 # ── Main GUI Application ────────────────────────────────────────
@@ -731,7 +747,11 @@ class NoteEditor(tk.Toplevel):
             self.build_page_html(note_id)
 
         self.destroy()
-        prompt_git_commit(self.parent)
+        # Determine action based on whether original_id existed
+        action = "Modify" if self.original_id else "Create"
+
+        self.destroy()
+        prompt_git_commit(self.parent, action=action, item_id=note_id)
 
 
 # ── Project Form & Dynamic Featured Logic ───────────────────────
@@ -1017,8 +1037,11 @@ class ProjectEditor(tk.Toplevel):
         # Writes directly to site/js/projects-data.js
         save_or_update_project(PROJECTS_JS, "projectData", record, original_id=self.original_id)
 
+        # Determine action based on whether original_id existed
+        action = "Modify" if self.original_id else "Create"
+
         self.destroy()
-        prompt_git_commit(self.parent)
+        prompt_git_commit(self.parent, action=action, item_id=pid)
 
 
 # ── Execution Entrypoint ────────────────────────────────────────
