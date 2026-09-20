@@ -2,7 +2,7 @@ window.noteData = [
   {
     id: "creating-kaiwave-dev",
     title: "My experience creating kaiwave.dev",
-    date: "2026-08-11",
+    date: "2026-09-20",
     href: "/notes/creating-kaiwave-dev/",
     tags: ["website", "post", "lesson"],
     search: "kaiwave website development purpose backend programming",
