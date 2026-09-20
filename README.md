@@ -18,6 +18,8 @@ A lightweight, dependency-free static website built with HTML, vanilla CSS, and 
 
 - **Responsive & Accessible:** Custom CSS design system with CSS custom properties, responsive layouts, and screen-reader considerations.
 
+- **Easy posting:** `helper.py` makes creating and editing new posts and notes intuitive and simple with a basic GUI and handles all formatting and syntax automatically.
+
 ## Directory Structure
 
 ```text

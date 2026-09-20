@@ -37,67 +37,65 @@ def format_js_object(obj, indent="  "):
     lines.append("  }")
     return "\n".join(lines)
 
-def format_project_object(obj):
-    """Formats a project dict cleanly into idiomatic JavaScript with backticks for snippets."""
-    lines = ["  {"]
-    
-    # Standard properties
-    lines.append(f'    id: \'{obj["id"]}\',')
-    lines.append(f'    featured: {"true" if obj["featured"] else "false"},')
-    
-    # Bilingual title
-    lines.append('    title: {')
-    lines.append(f'      en: {json.dumps(obj["title"]["en"], ensure_ascii=False)},')
-    lines.append(f'      fr: {json.dumps(obj["title"]["fr"], ensure_ascii=False)}')
-    lines.append('    },')
+def js_str(val):
+    """
+    Sanitizes and escapes text for single-quoted JS strings.
+    Handles None, strips trailing spaces, and escapes single quotes / existing slashes.
+    """
+    if val is None:
+        return ""
+    text = str(val).strip()
+    # Avoid double-escaping if already escaped
+    text = text.replace("\\'", "'")
+    # Escape single quotes so l'egress -> l\'egress
+    return text.replace("'", "\\'")
 
-    # Optional featured headline & eyebrow
-    if "headline" in obj:
-        lines.append('    headline: {')
-        lines.append(f'      en: {json.dumps(obj["headline"]["en"], ensure_ascii=False)},')
-        lines.append(f'      fr: {json.dumps(obj["headline"]["fr"], ensure_ascii=False)}')
-        lines.append('    },')
-    
-    if "eyebrow" in obj:
-        lines.append('    eyebrow: {')
-        lines.append(f'      en: {json.dumps(obj["eyebrow"]["en"], ensure_ascii=False)},')
-        lines.append(f'      fr: {json.dumps(obj["eyebrow"]["fr"], ensure_ascii=False)}')
-        lines.append('    },')
-
-    # Bilingual description
-    lines.append('    description: {')
-    lines.append(f'      en: {json.dumps(obj["description"]["en"], ensure_ascii=False)},')
-    lines.append(f'      fr: {json.dumps(obj["description"]["fr"], ensure_ascii=False)}')
-    lines.append('    },')
-
-    # Tags
-    lines.append(f'    tags: {json.dumps(obj["tags"], ensure_ascii=False)},')
-
-    # Action Links
-    lines.append('    links: [')
-    for i, link in enumerate(obj.get("links", [])):
-        comma = "," if i < len(obj["links"]) - 1 else ""
-        if isinstance(link.get("label"), dict):
-            label_str = f"{{ en: {json.dumps(link['label']['en'], ensure_ascii=False)}, fr: {json.dumps(link['label']['fr'], ensure_ascii=False)} }}"
+def format_project_object(record):
+    """Formats a project dictionary into valid JavaScript object notation."""
+    def format_link(l):
+        target_str = "null" if l.get("target") is None else f"'{l.get('target')}'"
+        
+        lbl = l.get("label")
+        if isinstance(lbl, dict):
+            lbl_str = f"{{ en: '{js_str(lbl.get('en', ''))}', fr: '{js_str(lbl.get('fr', ''))}' }}"
         else:
-            label_str = json.dumps(link.get("label", ""), ensure_ascii=False)
+            lbl_str = f"'{js_str(lbl)}'"
 
-        lines.append(
-            f'      {{ kind: \'{link["kind"]}\', href: \'{link["href"]}\', label: {label_str}, target: \'{link.get("target", "_blank")}\' }}{comma}'
-        )
-    lines.append('    ],')
+        return f"{{ kind: '{l.get('kind')}', href: '{js_str(l.get('href'))}', label: {lbl_str}, target: {target_str} }}"
 
-    # Featured snippet and badge
-    if "codeSnippet" in obj:
-        lines.append(f'    codeSnippet: `{obj["codeSnippet"]}`,')
-    if "badgeText" in obj:
-        lines.append(f'    badgeText: \'{obj["badgeText"]}\'')
+    links_formatted = ",\n      ".join([format_link(l) for l in record.get("links", [])])
+    tags_formatted = ", ".join([f"'{js_str(t)}'" for t in record.get("tags", [])])
 
-    # Clean up trailing comma on last property if needed
-    if lines[-1].endswith(","):
-        lines[-1] = lines[-1][:-1]
+    title_en = js_str(record['title'].get('en', ''))
+    title_fr = js_str(record['title'].get('fr', ''))
+    
+    # Handle newlines in description gracefully along with apostrophes
+    desc_en = js_str(record['description'].get('en', '')).replace("\n", "\\n")
+    desc_fr = js_str(record['description'].get('fr', '')).replace("\n", "\\n")
 
+    lines = [
+        "  {",
+        f"    id: '{js_str(record['id'])}',",
+        f"    featured: {'true' if record.get('featured') else 'false'},",
+        f"    title: {{ en: '{title_en}', fr: '{title_fr}' }},",
+        f"    description: {{ en: '{desc_en}', fr: '{desc_fr}' }},",
+        f"    tags: [{tags_formatted}],"
+    ]
+
+    if record.get("featured"):
+        hl_en = ", ".join([f"'{js_str(x)}'" for x in record.get("headline", {}).get("en", [])])
+        hl_fr = ", ".join([f"'{js_str(x)}'" for x in record.get("headline", {}).get("fr", [])])
+        lines.append(f"    headline: {{ en: [{hl_en}], fr: [{hl_fr}] }},")
+        lines.append(f"    eyebrow: {{ en: '{js_str(record.get('eyebrow', {}).get('en', ''))}', fr: '{js_str(record.get('eyebrow', {}).get('fr', ''))}' }},")
+        lines.append(f"    badgeText: '{js_str(record.get('badgeText', ''))}',")
+        
+        # Keep backticks for multiline codeSnippet, but escape literal backticks
+        snippet = record.get("codeSnippet", "").replace("`", "\\`")
+        lines.append(f"    codeSnippet: `{snippet}`,")
+
+    lines.append(f"    links: [\n      {links_formatted}\n    ]")
     lines.append("  }")
+
     return "\n".join(lines)
 
 def prepend_project_to_js(filepath, var_name, new_entry):
@@ -329,18 +327,24 @@ def get_entry_by_id(filepath, target_id, kind="notes"):
 
     block = content[start:end]
 
+    def unescape_js_str(val):
+        """Unescapes escaped single quotes, double quotes, and linebreaks."""
+        if not val:
+            return ""
+        return val.replace("\\'", "'").replace('\\"', '"').replace("\\n", "\n")
+
     feat_match = re.search(r"featured\s*:\s*(true|false)", block)
     featured = feat_match.group(1) == "true" if feat_match else False
 
     tags_match = re.search(r"tags\s*:\s*\[(.*?)\]", block, re.DOTALL)
     tags = []
     if tags_match:
-        tags = [t.strip().strip("'\"") for t in tags_match.group(1).split(",") if t.strip()]
+        tags = [unescape_js_str(t.strip().strip("'\"")) for t in tags_match.group(1).split(",") if t.strip()]
 
     if kind == "notes":
         def get_simple(f):
             m = re.search(rf"{f}\s*:\s*['\"](.*?)['\"]", block)
-            return m.group(1) if m else ""
+            return unescape_js_str(m.group(1)) if m else ""
 
         return {
             "id": target_id,
@@ -358,11 +362,12 @@ def get_entry_by_id(filepath, target_id, kind="notes"):
         if not f_match:
             return {"en": "", "fr": ""}
         sub = f_match.group(1)
-        en_m = re.search(r"en\s*:\s*['\"](.*?)['\"](?:\s*,|\s*$)", sub, re.DOTALL)
-        fr_m = re.search(r"fr\s*:\s*['\"](.*?)['\"](?:\s*,|\s*$)", sub, re.DOTALL)
+        # Allows unescaped or escaped apostrophes inside the strings
+        en_m = re.search(r"en\s*:\s*['\"]((?:\\.|[^'\"])*)['\"]", sub, re.DOTALL)
+        fr_m = re.search(r"fr\s*:\s*['\"]((?:\\.|[^'\"])*)['\"]", sub, re.DOTALL)
         return {
-            "en": en_m.group(1).replace("\\'", "'") if en_m else "",
-            "fr": fr_m.group(1).replace("\\'", "'") if fr_m else "",
+            "en": unescape_js_str(en_m.group(1)) if en_m else "",
+            "fr": unescape_js_str(fr_m.group(1)) if fr_m else "",
         }
 
     def get_bi_arrays(field):
@@ -373,37 +378,81 @@ def get_entry_by_id(filepath, target_id, kind="notes"):
         en_m = re.search(r"en\s*:\s*\[(.*?)\]", sub, re.DOTALL)
         fr_m = re.search(r"fr\s*:\s*\[(.*?)\]", sub, re.DOTALL)
         return {
-            "en": [x.strip().strip("'\"") for x in en_m.group(1).split(",") if x.strip()] if en_m else [],
-            "fr": [x.strip().strip("'\"") for x in fr_m.group(1).split(",") if x.strip()] if fr_m else [],
+            "en": [unescape_js_str(x.strip().strip("'\"")) for x in en_m.group(1).split(",") if x.strip()] if en_m else [],
+            "fr": [unescape_js_str(x.strip().strip("'\"")) for x in fr_m.group(1).split(",") if x.strip()] if fr_m else [],
         }
 
     snippet_match = re.search(r"codeSnippet\s*:\s*`([^`]*)`", block, re.DOTALL)
     badge_match = re.search(r"badgeText\s*:\s*['\"](.*?)['\"]", block)
 
-    # Links extraction
+    # ── Robust Action Links Extraction ─────────────────────────
     links = []
-    links_match = re.search(r"links\s*:\s*\[(.*)\]\s*(?:,|\n|$)", block, re.DOTALL)
+    links_match = re.search(r"links\s*:\s*\[", block)
     if links_match:
-        # Match each link sub-object {...}
-        raw_items = re.findall(r"\{[^{}]*\}", links_match.group(1))
-        for item in raw_items:
-            k = re.search(r"kind\s*:\s*['\"](.*?)['\"]", item)
-            h = re.search(r"href\s*:\s*['\"](.*?)['\"]", item)
-            
-            # Bilingual label or single string label
-            lbl_bi = re.search(r"label\s*:\s*\{[^}]*en\s*:\s*['\"](.*?)['\"][^}]*fr\s*:\s*['\"](.*?)['\"]", item)
-            if lbl_bi:
-                lbl = {"en": lbl_bi.group(1), "fr": lbl_bi.group(2)}
-            else:
-                lbl_s = re.search(r"label\s*:\s*['\"](.*?)['\"]", item)
-                lbl = lbl_s.group(1) if lbl_s else ""
+        start_idx = links_match.end() - 1
+        depth = 0
+        end_idx = -1
+        for i in range(start_idx, len(block)):
+            if block[i] == "[":
+                depth += 1
+            elif block[i] == "]":
+                depth -= 1
+                if depth == 0:
+                    end_idx = i
+                    break
 
-            links.append({
-                "kind": k.group(1) if k else "primary",
-                "href": h.group(1) if h else "",
-                "label": lbl,
-                "target": "_blank"
-            })
+        if end_idx != -1:
+            raw_links_block = block[start_idx + 1:end_idx]
+
+            item_depth = 0
+            cur_item_start = -1
+            link_raw_items = []
+
+            for i, ch in enumerate(raw_links_block):
+                if ch == "{":
+                    if item_depth == 0:
+                        cur_item_start = i
+                    item_depth += 1
+                elif ch == "}":
+                    item_depth -= 1
+                    if item_depth == 0 and cur_item_start != -1:
+                        link_raw_items.append(raw_links_block[cur_item_start:i + 1])
+                        cur_item_start = -1
+
+            for item in link_raw_items:
+                k_m = re.search(r"kind\s*:\s*['\"](.*?)['\"]", item)
+                h_m = re.search(r"href\s*:\s*['\"](.*?)['\"]", item)
+                t_m = re.search(r"target\s*:\s*(['\"].*?['\"]|null)", item)
+
+                kind_val = k_m.group(1) if k_m else "primary"
+                href_val = unescape_js_str(h_m.group(1)) if h_m else ""
+
+                target_val = "_blank"
+                if t_m:
+                    raw_target = t_m.group(1).strip()
+                    target_val = None if raw_target == "null" else raw_target.strip("'\"")
+
+                # Bilingual label extraction
+                lbl_bi = re.search(
+                    r"label\s*:\s*\{[^}]*?en\s*:\s*['\"]((?:\\.|[^'\"])*)['\"][^}]*?fr\s*:\s*['\"]((?:\\.|[^'\"])*)['\"]",
+                    item,
+                    re.DOTALL
+                )
+                if lbl_bi:
+                    en_txt = unescape_js_str(lbl_bi.group(1)).rstrip(" ↗").strip()
+                    fr_txt = unescape_js_str(lbl_bi.group(2)).rstrip(" ↗").strip()
+                    label_val = {"en": en_txt, "fr": fr_txt}
+                else:
+                    lbl_s = re.search(r"label\s*:\s*['\"]((?:\\.|[^'\"])*)['\"]", item)
+                    raw_lbl = unescape_js_str(lbl_s.group(1)) if lbl_s else ""
+                    label_val = raw_lbl.rstrip(" ↗").strip()
+
+                links.append({
+                    "kind": kind_val,
+                    "href": href_val,
+                    "label": label_val,
+                    "target": target_val
+                })
 
     return {
         "id": target_id,
@@ -412,8 +461,8 @@ def get_entry_by_id(filepath, target_id, kind="notes"):
         "description": get_bi_text("description"),
         "headline": get_bi_arrays("headline"),
         "eyebrow": get_bi_text("eyebrow"),
-        "badgeText": badge_match.group(1) if badge_match else "",
-        "codeSnippet": snippet_match.group(1) if snippet_match else "",
+        "badgeText": unescape_js_str(badge_match.group(1)) if badge_match else "",
+        "codeSnippet": snippet_match.group(1).replace("\\`", "`") if snippet_match else "",
         "tags": tags,
         "links": links,
     }
@@ -668,6 +717,69 @@ class App(tk.Tk):
 
 # ── Note Form & Subpage Generator ───────────────────────────────
 
+def read_note_html_content(href):
+    """
+    Reads paragraphs from notes with folder structure like:
+    notes/creating-kaiwave-dev/index.html or site/notes/creating-kaiwave-dev/index.html
+    targeting <p class="page-header__sub"> elements.
+    """
+    if not href:
+        return []
+
+    # Clean the href: '/notes/creating-kaiwave-dev' -> 'notes/creating-kaiwave-dev'
+    clean = href.strip().strip("/")
+    if clean.endswith("index.html"):
+        clean = os.path.dirname(clean)
+    elif clean.endswith(".html"):
+        clean = clean[:-5]
+
+    # Possible candidate locations on disk
+    possible_paths = [
+        os.path.join(REPO_ROOT, "site", clean, "index.html"),
+        os.path.join(REPO_ROOT, clean, "index.html"),
+        os.path.join(REPO_ROOT, "site", "notes", os.path.basename(clean), "index.html"),
+        os.path.join(REPO_ROOT, "notes", os.path.basename(clean), "index.html"),
+        # Fallback if someone used flat files:
+        os.path.join(REPO_ROOT, "site", f"{clean}.html"),
+        os.path.join(REPO_ROOT, f"{clean}.html"),
+    ]
+
+    target_file = None
+    for p in possible_paths:
+        if os.path.exists(p):
+            target_file = p
+            break
+
+    if not target_file:
+        return []
+
+    with open(target_file, "r", encoding="utf-8") as f:
+        html = f.read()
+
+    # 1. Target <p class="page-header__sub"> specifically
+    raw_p = re.findall(r'<p[^>]*class=["\'][^"\']*page-header__sub[^"\']*["\'][^>]*>(.*?)</p>', html, re.DOTALL | re.IGNORECASE)
+
+    # 2. Fallback to generic <p> tags if the class wasn't found
+    if not raw_p:
+        raw_p = re.findall(r"<p[^>]*>(.*?)</p>", html, re.DOTALL | re.IGNORECASE)
+
+    paragraphs = []
+    for p in raw_p:
+        # Strip internal tags like <i>, <a>, <span>, <strong> while preserving text
+        text = re.sub(r"<[^>]+>", "", p).strip()
+        # Decode common HTML entities
+        text = (
+            text.replace("&amp;", "&")
+            .replace("&lt;", "<")
+            .replace("&gt;", ">")
+            .replace("&quot;", '"')
+            .replace("&#39;", "'")
+        )
+        if text:
+            paragraphs.append(text)
+
+    return paragraphs
+
 class NoteEditor(tk.Toplevel):
     def __init__(self, parent, existing_data=None):
         super().__init__(parent)
@@ -718,10 +830,60 @@ class NoteEditor(tk.Toplevel):
 
         # Paragraphs for Subpage (dynamically revealed if Create page is ticked)
         self.page_section = tk.LabelFrame(container, text="Note Subpage Content (Paragraphs)", padx=8, pady=8)
-        self.p_container = tk.Frame(self.page_section)
-        self.p_container.pack(fill="both", expand=True)
 
-        tk.Button(self.page_section, text="+ Add Paragraph", command=self.add_paragraph).pack(anchor="w", pady=4)
+        # ── Scrollable Frame Container for Paragraphs ─────────────
+        para_canvas = tk.Canvas(self.page_section, height=220, highlightthickness=0)
+        para_scrollbar = ttk.Scrollbar(self.page_section, orient="vertical", command=para_canvas.yview)
+
+        # Container inside canvas
+        self.p_container = tk.Frame(para_canvas)
+        self.p_container.bind(
+            "<Configure>",
+            lambda e: para_canvas.configure(scrollregion=para_canvas.bbox("all"))
+        )
+
+        p_window = para_canvas.create_window((0, 0), window=self.p_container, anchor="nw")
+
+        def on_para_canvas_configure(event):
+            para_canvas.itemconfig(p_window, width=event.width)
+
+        para_canvas.bind("<Configure>", on_para_canvas_configure)
+        para_canvas.configure(yscrollcommand=para_scrollbar.set)
+
+        # Mouse wheel support scoped to the paragraph canvas
+        def on_para_mousewheel(event):
+            delta = -1 * int(event.delta / 120) if event.delta else (1 if event.num == 5 else -1)
+            para_canvas.yview_scroll(delta, "units")
+
+        para_canvas.bind("<MouseWheel>", on_para_mousewheel)
+        para_canvas.bind("<Button-4>", on_para_mousewheel)
+        para_canvas.bind("<Button-5>", on_para_mousewheel)
+
+        para_scrollbar.pack(side="right", fill="y")
+        para_canvas.pack(side="left", fill="both", expand=True)
+
+        tk.Button(self.page_section, text="+ Add Paragraph", command=self.add_paragraph).pack(anchor="w", pady=(6, 2))
+
+        # ── HTML Paragraph Auto-Loader ────────────────────────────
+        existing_paragraphs = []
+        if self.existing_data:
+            existing_paragraphs = self.existing_data.get("paragraphs", [])
+            if not existing_paragraphs and self.existing_data.get("href"):
+                existing_paragraphs = read_note_html_content(self.existing_data.get("href"))
+
+        for widget in self.p_container.winfo_children():
+            widget.destroy()
+        self.paragraph_entries = []
+
+        if existing_paragraphs:
+            self.create_page_var.set(True)
+            for p_text in existing_paragraphs:
+                self.add_paragraph(p_text)
+        else:
+            self.add_paragraph()
+
+        # Update frame visibility based on checkbox state
+        self.toggle_create_page()
 
         # Save Button
         tk.Button(container, text="Save Note", command=self.save_note, bg="#0366d6", fg="white", font=("Arial", 10, "bold")).pack(pady=12)
@@ -737,9 +899,21 @@ class NoteEditor(tk.Toplevel):
         else:
             self.page_section.pack_forget()
 
-    def add_paragraph(self):
-        txt = tk.Text(self.p_container, height=3, width=50)
-        txt.pack(fill="x", pady=3)
+    def add_paragraph(self, text=""):
+        row = tk.Frame(self.p_container)
+        row.pack(fill="x", pady=3)
+
+        txt = tk.Text(row, height=3, wrap="word")
+        txt.pack(side="left", fill="x", expand=True, padx=(0, 4))
+        if text:
+            txt.insert("1.0", text)
+
+        def remove_row():
+            if len(self.paragraph_entries) > 1:
+                row.destroy()
+                self.paragraph_entries.remove(txt)
+
+        tk.Button(row, text="✕", width=3, command=remove_row).pack(side="right", anchor="n")
         self.paragraph_entries.append(txt)
 
     def build_page_html(self, slug):
@@ -992,10 +1166,10 @@ class ProjectEditor(tk.Toplevel):
         row = ttk.Frame(self.links_container)
         row.pack(fill="x", pady=4)
 
-        kind_var = tk.StringVar(value=data.get("kind", "primary"))
+        kind_val = data.get("kind", "primary")
+        kind_var = tk.StringVar(value=kind_val)
         href_var = tk.StringVar(value=data.get("href", ""))
 
-        # Label resolution (handles string or bilingual dict)
         lbl_raw = data.get("label", "")
         if isinstance(lbl_raw, dict):
             len_val = lbl_raw.get("en", "")
@@ -1008,16 +1182,40 @@ class ProjectEditor(tk.Toplevel):
         lfr_var = tk.StringVar(value=lfr_val)
 
         ttk.Label(row, text="Type:").pack(side="left")
-        ttk.Combobox(row, textvariable=kind_var, values=["primary", "ghost", "outline"], width=8, state="readonly").pack(side="left", padx=4)
+        kind_combo = ttk.Combobox(
+            row,
+            textvariable=kind_var,
+            values=["primary", "ghost", "disabled"],
+            width=9,
+            state="readonly"
+        )
+        kind_combo.pack(side="left", padx=4)
 
         ttk.Label(row, text="URL:").pack(side="left", padx=(4, 0))
-        ttk.Entry(row, textvariable=href_var, width=16).pack(side="left", padx=4)
+        href_entry = ttk.Entry(row, textvariable=href_var, width=18)
+        href_entry.pack(side="left", padx=4)
 
         ttk.Label(row, text="EN:").pack(side="left", padx=(4, 0))
-        ttk.Entry(row, textvariable=len_var, width=12).pack(side="left", padx=4)
+        ttk.Entry(row, textvariable=len_var, width=14).pack(side="left", padx=4)
 
         ttk.Label(row, text="FR:").pack(side="left", padx=(4, 0))
-        ttk.Entry(row, textvariable=lfr_var, width=12).pack(side="left", padx=4)
+        ttk.Entry(row, textvariable=lfr_var, width=14).pack(side="left", padx=4)
+
+        # Convenience prefill if user switches to disabled
+        def on_kind_change(event):
+            k = kind_var.get()
+            if k == "disabled":
+                if not href_var.get():
+                    href_var.set("#")
+                if not len_var.get():
+                    len_var.set("In progress")
+                if not lfr_var.get():
+                    lfr_var.set("En cours")
+            elif k == "ghost":
+                if not len_var.get():
+                    len_var.set("GitHub")
+
+        kind_combo.bind("<<ComboboxSelected>>", on_kind_change)
 
         item_ref = {
             "frame": row,
@@ -1071,14 +1269,33 @@ class ProjectEditor(tk.Toplevel):
             len_val = l["label_en"].get().strip()
             lfr_val = l["label_fr"].get().strip()
 
-            if not all([kind, href, len_val]):
+            if not len_val:
                 continue
+
+            if kind == "disabled":
+                href = "#"
+                target_val = None
+            else:
+                target_val = "_blank"
+
+            # Automatically append ↗ arrow for primary buttons
+            if kind == "primary":
+                if not len_val.endswith("↗"):
+                    len_val = f"{len_val} ↗"
+                if lfr_val and not lfr_val.endswith("↗"):
+                    lfr_val = f"{lfr_val} ↗"
+
+            # Optional French support
+            if lfr_val:
+                final_label = {"en": len_val, "fr": lfr_val}
+            else:
+                final_label = len_val
 
             link_obj = {
                 "kind": kind,
                 "href": href,
-                "label": {"en": len_val, "fr": lfr_val} if lfr_val else len_val,
-                "target": "_blank"
+                "label": final_label,
+                "target": target_val
             }
             parsed_links.append(link_obj)
 
