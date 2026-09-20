@@ -446,7 +446,6 @@ ul, ol { list-style: none; }
   color: var(--ink-muted);
   max-width: 52ch;
   font-weight: 300;
-  margin-bottom: var(--space-8);
 }
 
 /* ── ─────────────────────────────────────────────────────── */
@@ -827,6 +826,7 @@ ul, ol { list-style: none; }
   color: var(--ink-muted);
   max-width: 52ch;
   font-weight: 300;
+  margin-bottom: var(--space-3);
 }
 
 /* ── ─────────────────────────────────────────────────────── */
