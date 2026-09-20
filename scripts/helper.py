@@ -477,20 +477,29 @@ def slugify(text):
 # ── Git Commit Helper ───────────────────────────────────────────
 
 def prompt_git_commit(parent, action="Update", item_id="content"):
-    """Prompts the user to commit and push changes with a prefilled message."""
     default_msg = f"{action} {item_id}"
 
     win = tk.Toplevel(parent)
     win.title("Git Commit & Push")
-    win.geometry("420x200")
+    # Increased height to 250 to comfortably fit all elements on Windows DPI scaling
+    win.geometry("460x250")
+    win.minsize(420, 220)
     win.transient(parent)
     win.grab_set()
 
-    tk.Label(win, text="Commit Message:", font=("Arial", 10, "bold")).pack(pady=(12, 4))
+    # Pack the buttons to the BOTTOM first so they are guaranteed visible
+    btn_frame = tk.Frame(win)
+    btn_frame.pack(side="bottom", pady=20)
+
+    # Upper container for label and entry
+    content_frame = tk.Frame(win)
+    content_frame.pack(side="top", fill="both", expand=True, padx=20, pady=(16, 0))
+
+    tk.Label(content_frame, text="Commit Message:", font=("Arial", 11, "bold")).pack(pady=(0, 8))
     
     msg_var = tk.StringVar(value=default_msg)
-    entry = tk.Entry(win, textvariable=msg_var, width=45)
-    entry.pack(pady=4, padx=16)
+    entry = tk.Entry(content_frame, textvariable=msg_var, width=42, font=("Arial", 10))
+    entry.pack(pady=4)
     entry.focus()
     entry.select_range(0, tk.END)
 
@@ -499,21 +508,47 @@ def prompt_git_commit(parent, action="Update", item_id="content"):
         if not msg:
             messagebox.showwarning("Warning", "Commit message cannot be empty.", parent=win)
             return
-        
+
         win.destroy()
+
         try:
-            subprocess.run(["git", "add", "."], check=True)
-            subprocess.run(["git", "commit", "-m", msg], check=True)
-            subprocess.run(["git", "push"], check=True)
-            messagebox.showinfo("Success", "Changes committed and pushed successfully!", parent=parent)
+            subprocess.run(["git", "add", "."], capture_output=True, text=True, check=True)
+            subprocess.run(["git", "commit", "-m", msg], capture_output=True, text=True, check=True)
+
+            branch_proc = subprocess.run(
+                ["git", "rev-parse", "--abbrev-ref", "HEAD"],
+                capture_output=True,
+                text=True,
+                check=True
+            )
+            current_branch = branch_proc.stdout.strip() or "main"
+
+            subprocess.run(
+                ["git", "push", "-u", "origin", current_branch],
+                capture_output=True,
+                text=True,
+                check=True
+            )
+
+            messagebox.showinfo(
+                "Success",
+                f"Committed and pushed to '{current_branch}' successfully!\n\nMessage: {msg}",
+                parent=parent
+            )
+
         except subprocess.CalledProcessError as e:
-            messagebox.showerror("Git Error", f"Git operation failed:\n{e}", parent=parent)
+            err_details = e.stderr.strip() or e.stdout.strip() or str(e)
+            messagebox.showerror(
+                "Git Error",
+                f"Command '{' '.join(e.cmd)}' failed with code {e.returncode}:\n\n{err_details}",
+                parent=parent
+            )
 
-    btn_frame = tk.Frame(win)
-    btn_frame.pack(pady=16)
+    # Bind Return/Enter key to automatically submit
+    entry.bind("<Return>", lambda event: do_commit())
 
-    tk.Button(btn_frame, text="Commit & Push", command=do_commit, width=14).pack(side="left", padx=6)
-    tk.Button(btn_frame, text="Skip", command=win.destroy, width=10).pack(side="left", padx=6)
+    tk.Button(btn_frame, text="Commit & Push", command=do_commit, width=15, height=1).pack(side="left", padx=8)
+    tk.Button(btn_frame, text="Skip", command=win.destroy, width=10, height=1).pack(side="left", padx=8)
 
 
 # ── Main GUI Application ────────────────────────────────────────
