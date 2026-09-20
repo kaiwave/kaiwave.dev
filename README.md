@@ -32,6 +32,6 @@ kaiwave.dev/
 │   ├── js/
 │   ├── projects/       <-- Projects page of site, will have subdirectories for individual projects
 │   └── notes/          <-- Posts page of site, will have subdirectories for individual posts
-├── scripts/            
-│   └── createnew.py      <-- CLI generator and helper scripts for easy adding of notes and projects
+├── scripts/               
+│   └── helper.py       <-- Gnerator and helper scripts for easy adding of notes and projects
 └── README.md
