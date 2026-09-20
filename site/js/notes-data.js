@@ -1,5 +1,14 @@
 window.noteData = [
   {
+    id: "creating-kaiwave-dev",
+    title: "My experience creating kaiwave.dev",
+    date: "2026-08-11",
+    href: "/notes/creating-kaiwave-dev/",
+    tags: ["website", "post", "lesson"],
+    search: "kaiwave website development purpose backend programming",
+    featured: false
+  },
+  {
     id: 'trusting-wheel',
     title: 'Trusting those who steer the wheel',
     date: '2026-08-11',
