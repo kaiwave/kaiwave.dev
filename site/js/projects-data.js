@@ -66,14 +66,8 @@ d_g_star = <span class="fn">float</span>(res.x)`,
   {
     id: 'mcg-egress-modelling',
     featured: false,
-    title: {
-      en: 'MCG Railway Egress Modelling',
-      fr: 'Modélisation du flux de trains (MCG)'
-    },
-    description: {
-      en: 'Modelled railway egress dynamics from the MCG following major AFL game events for my main project in Modelling the Real World (EVSC20007), developing understanding of dynamic models. Private until end of sem.',
-      fr: 'Modélisation de la dynamique des flux de passagers sortant du MCG après les grands matchs de l\'AFL pour mon projet principal de Modelling the Real World (EVSC20007), developpant ma compréhension des modèles dynamiques. Accès privé jusqu\'à la fin de la semaine.'
-    },
+    title: { en: 'MCG Railway Egress Modelling', fr: 'Modélisation du flux de trains (MCG)' },
+    description: { en: 'Modelled railway egress dynamics from the MCG following major AFL game events for my main project in Modelling the Real World (EVSC20007), developing understanding of dynamic models. Private until end of sem.', fr: 'Modélisation de la dynamique des flux de passagers sortant du MCG après les grands matchs de l\'AFL pour mon projet principal de Modelling the Real World (EVSC20007), developpant ma compréhension des modèles dynamiques. Accès privé jusqu\'à la fin du semestre.\nsemestre' },
     tags: ['python', 'research', 'sport', 'visualisation'],
     links: [
       { kind: 'disabled', href: '#', label: { en: 'In progress', fr: 'En cours' }, target: null },
