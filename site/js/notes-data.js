@@ -5,7 +5,7 @@ window.noteData = [
     date: "2026-09-22",
     href: "https://www.linkedin.com/posts/hmalakai_python-nfl-activity-7508087561593028608-kvxQ",
     tags: ["nfl", "data", "linkedin"],
-    search: "boardsteals nfl launch website sleepers data analytics",
+    search: "boardsteals nfl launch website underrated data analytics",
     featured: false
   },
   {
