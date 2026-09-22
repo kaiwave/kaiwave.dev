@@ -1,5 +1,14 @@
 window.noteData = [
   {
+    id: "boardsteals-launch",
+    title: "Why I made Boardsteals for NFL fantasy",
+    date: "2026-09-22",
+    href: "https://www.linkedin.com/posts/hmalakai_python-nfl-activity-7508087561593028608-kvxQ",
+    tags: ["nfl", "data", "linkedin"],
+    search: "boardsteals nfl launch website sleepers data analytics",
+    featured: false
+  },
+  {
     id: "creating-kaiwave-dev",
     title: "My experience creating kaiwave.dev",
     date: "2026-09-20",
