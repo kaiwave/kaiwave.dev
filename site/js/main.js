@@ -46,6 +46,9 @@ const translations = {
     report: 'Report ↗',
 
     projectsTag: "// what i've been building",
+    showAllProjects: 'Show all',
+    showLessProjects: 'Show less',
+   
     notesTag: '// thoughts, publications & write-ups',
     notesdesc: 'Some write-ups, thoughts, and lessons that I’ve learned throughout my life. Inspired constantly by the world and people around me. ',
     searchNotes: 'search notes…',
@@ -92,6 +95,9 @@ const translations = {
     report: 'Document ↗',
 
     projectsTag: '// ce que je construis',
+    showAllProjects: 'Afficher tout',
+    showLessProjects: 'Afficher moins',
+
     notesTag: '// réflexions, publications et articles',
     notesdesc: 'Quelques écrits, réflexions et leçons tirées de ma vie. Constamment inspirée par le monde et les gens dans ma vie. (Disponible principalement en anglais)',
     searchNotes: 'rechercher des notes…',
