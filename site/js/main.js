@@ -36,7 +36,7 @@ const translations = {
     allNotes: 'All notes →', builtWith: 'built with html + css + love', all: 'all',
     aboutTag: '// the kai behind the wave',
     aboutintro: 'hey, I’m Malakai',
-    aboutintro1: 'I’m an undergrad studying mathematical physics at the University of Melbourne. My interests sit at the intersection of theoretical mathematical physics, cutting edge scientific computing, and quantitative financial applications. ',
+    aboutintro1: 'I’m an undergrad studying mathematical physics at the University of Melbourne. My interests sit at the intersection of theoretical physics, scientific computing, and quantitative financial and sport analytics applications. ',
     interestTitle: 'research interests',
     interestList: 'Quantum Mechanics · High Frequency Trading · Machine learning · Computational Mathematics · Statistical Physics',
     skills: 'tools & skills',
@@ -61,31 +61,7 @@ const translations = {
     featuredTitleLine2: 'Goaltender Optimisation',
     featuredDescription: 'An analysis of ice hockey goaltender positioning; modelling and optimising tradeoffs with crease aggression. Written in a Jupyter notebook with matplotlib rendering.',
 
-    aboutintro2: 'Right now I’m working on using projective geometry and stochastic methods to model goaltender positioning optimisations in ice hockey based on common shot positions. On that note, I enjoy playing hockey, playing bass, the occasional league of legends, and convincing myself that I’m better than everyone for drinking oat magics. ',
-
-    // project cards
-    projLab1: "01 · quantum",
-    projTitle1: "Small and Speedy Qubit Simulator",
-    projDesc1: "Simple quantum simulator backend to learn he mathematics and gain an intuition for working with quantum computing algorithms.",
-
-    projLab2: "02 · climate model",
-    projTitle2: "Daisy world Rust implementation",
-    projDesc2: "A rudimentary implementation of Lovelock and Watson's daisy world model. Tweakable parameters to explore the interplay with albedo, surface temperature, and life on the planet.",
-
-    projLab3: "03 · logistics",
-    projTitle3: "MCG Railway Egress Modelling",
-    projDesc3: "Modelled railway egress dynamics from the MCG following major AFL game events for my main project in Modelling the Real World (EVSC20007), developing understanding of dynamic models. Private until end of sem.",
-
-    projLab4: "04 · psychology",
-    projTitle4: "The TP Scent and Sociability",
-    projDesc4: "Exploring the relationship between extroversion and subjective attitudes towards the distinctive scent of a communal place. Employed some best practice methods of environmental field research.",
-
-    projLab5: "05 · geometry",
-    projTitle5: "Projective Analysis Goaltender Optimisation",
-    projDesc5: "An analysis of ice hockey goaltender positioning, by modelling and optimising tradeoffs with crease aggression. Written in a Jupyter notebook with matplotlib plot rendering.",
-
-    showAllProjects: 'Show all',
-    showLessProjects: 'Show less',
+    aboutintro2: 'I’ve just finished building Boardsteals, an NFL fantasy pipeline which tracks underrated players using underlying data. Now, I’m working on using projective geometry and stochastic methods to model goaltender positioning optimisations in ice hockey based on common shot positions. On that note, I enjoy playing hockey, playing bass, the occasional league of legends, and convincing myself that I’m better than everyone for drinking oat magics. ',
   },
   
   fr: {
@@ -106,7 +82,7 @@ const translations = {
     allNotes: 'Toutes les notes →', builtWith: 'cree avec html + css + l’amour', all: 'tous',
     aboutTag: '// l’homme derriere les carnets',
     aboutintro: 'salut, je suis Malakai',
-    aboutintro1: 'Je suis étudiant de premier cycle en physique mathématique à University of Melbourne. Mes intérêts se situent à l’intersection de la physique mathématique théorique, du calcul scientifique et des applications financières quantitatives.',
+    aboutintro1: 'Je suis étudiant de premier cycle en physique mathématique à University of Melbourne. Mes intérêts se situent à l’intersection de la physique théorique, du calcul scientifique et des applications financières et sportifs quantitatives.',
     interestTitle: 'intérêts de recherche',
     interestList: 'Mécanique quantique · Trading haute fréquence · Machine Learning · Mathématiques computationnelles · Physique statistique',
     skills: 'programmes & compétences',
@@ -132,31 +108,7 @@ const translations = {
     featuredTitleLine2: 'Optimisation du gardien',
     featuredDescription: 'Analyse du positionnement des gardiens; modélisation et optimisation des compromis liés à l’agressivité dans la zone. Documentation rédigée dans un notebook Jupyter avec rendu Matplotlib.',
 
-    aboutintro2: 'Présentement, je travaille sur la modélisation de l’optimisation du positionnement des gardiens à l’aide de la géométrie projective et des méthodes stochastiques, en fonction des positions de tir les plus fréquentes. À ce propos, j’aime jouer au hockey, à la basse, et me persuader que je suis meilleur que tout le monde parce que je préfère le pneu sur la glace à la crème glacée.',
-  
-     // project cards
-    projLab1: "01 · quantum",
-    projTitle1: "Simulateur de qubits petit et rapide",
-    projDesc1: "Un simulateur quantique simple pour apprendre les mathématiques et acquérir une intuition pour travailler avec les algorithmes de calcul quantique.",
-
-    projLab2: "02 · modèle climatique",
-    projTitle2: "Implémentation Rust de Daisy world",
-    projDesc2: "Une implémentation rudimentaire du modèle Daisy world de Lovelock et Watson. Des paramètres ajustables permettent d'explorer l'interaction avec l'albédo, la température de surface et la vie sur la planète.",
-
-    projLab3: "03 · logistique",
-    projTitle3: "Modélisation du flux de trains (MCG)",
-    projDesc3: "Modélisation de la dynamique des flux de passagers sortant du MCG après les grands matchs de l'AFL pour mon projet principal de Modelling the Real World (EVSC20007), developpant ma compréhension des modèles dynamiques. Accès privé jusqu'à la fin de la semaine.",
-
-    projLab4: "04 · psychologie",
-    projTitle4: "L'odeur du TP et la sociabilité",
-    projDesc4: "Exploration de la relation entre l'extraversion et les attitudes subjectives envers l'odeur caractéristique d'un lieu public. Utilisée de méthodes de recherche environnementale de terrain conformes aux meilleures pratiques.",
-
-    projLab5: "05 · géométrie",
-    projTitle5: "Analyse projective Optimisation du gardien",
-    projDesc5: "Analyse du positionnement des gardiens; modélisation et optimisation des compromis liés à l’agressivité dans la zone. Documentation rédigée dans un notebook Jupyter avec rendu Matplotlib.",
-
-    showAllProjects: 'Afficher tout',
-    showLessProjects: 'Afficher moins',
+    aboutintro2: 'Je viens de terminer la création de Boardsteals, un outil de fantasy football NFL qui utilise des données sous-jacentes. Présentement, je travaille sur la modélisation de l’optimisation du positionnement des gardiens à l’aide de la géométrie projective et des méthodes stochastiques, en fonction des positions de tir les plus fréquentes. À ce propos, j’aime jouer au hockey, à la basse, et me persuader que je suis meilleur que tout le monde parce que je préfère le pneu sur la glace à la crème glacée.',
   }
 };
 
