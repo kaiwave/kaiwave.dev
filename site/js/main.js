@@ -514,14 +514,36 @@ document.head.appendChild(revealStyle);
 // Used on projects.html.
 // Each project card should have data-tags="python,ml" etc.
 // Each filter button should have data-filter="python" etc.
+function animateProjectGridSwap() {
+  const grid = document.getElementById('projects-grid');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (!grid || !grid.children.length || reduceMotion) {
+    renderProjectGrid();
+    return;
+  }
+
+  grid.classList.add('is-swapping');
+  window.setTimeout(() => {
+    renderProjectGrid();
+    const freshCards = grid.querySelectorAll('.project-card');
+    freshCards.forEach((card, index) => {
+      card.classList.add('project-card--enter');
+      card.style.animationDelay = `${Math.min(index, 8) * 35}ms`;
+      card.addEventListener('animationend', () => {
+        card.classList.remove('project-card--enter');
+        card.style.animationDelay = '';
+      }, { once: true });
+    });
+    grid.classList.remove('is-swapping');
+  }, 130);
+}
+
 function initializeProjectFiltering() {
   const filterBtns = document.querySelectorAll('.filter-btn');
   const projectCards = document.querySelectorAll('.project-card');
 
   if (!filterBtns.length || !projectCards.length) return;
-
-  const fadeDuration = 160;
-  const liftOffset = -8;
 
   const setCardState = (card, visible) => {
     card.style.opacity = visible ? '1' : '0';
@@ -545,7 +567,7 @@ function initializeProjectFiltering() {
       filterBtns.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
 
-      renderProjectGrid();
+      animateProjectGridSwap();
     });
   });
 
@@ -564,7 +586,7 @@ if (projectsToggle) {
 
     if (matchingProjects.length > 6) {
       siteState.projectsExpanded = !siteState.projectsExpanded;
-      renderProjectGrid();
+      animateProjectGridSwap();
     }
   });
 }
