@@ -18,7 +18,7 @@ window.projectData = [
       en: 'An analysis of ice hockey goaltender positioning, by modelling and optimising tradeoffs with crease aggression. Written in a Jupyter notebook with matplotlib plot rendering.',
       fr: 'Analyse du positionnement des gardiens; modélisation et optimisation des compromis liés à l’agressivité dans la zone. Documentation rédigée dans un notebook Jupyter avec rendu Matplotlib.'
     },
-    tags: ['python','visualisation', 'sport', 'research'],
+    tags: ['python', 'hockey', 'research'],
     links: [
       { kind: 'disabled', href: '#', label: { en: 'In progress', fr: 'En cours' }, target: null },
       { kind: 'ghost', href: 'https://github.com/kaiwave/goaltender-optimisation-jnb', label: 'GitHub', target: '_blank' }
@@ -54,7 +54,7 @@ d_g_star = <span class="fn">float</span>(res.x)`,
       en: 'NFL fantasy sleeper picks, based on underlying hidden data. Finding players with the biggest disparity between where they are and where they should be, and presenting it in a clean website. ',
       fr: 'Sélection de joueurs sous-estimés pour le fantasy football NFL, basée sur des données cachées. Identification des joueurs présentant le plus grand écart entre leur niveau actuel et leur potentiel, et présentation sur un site web clair et intuitif.'
     },
-    tags: ['python', 'website', 'sport', 'data'],
+    tags: ['python', 'website', 'football', 'data'],
     links: [
       { kind: 'primary', href: 'https://boardsteals.kaiwave.dev', label: { en: 'Visit site ↗', fr: 'Visiter le site ↗' }, target: '_blank' },
       { kind: 'ghost', href: 'https://github.com/kaiwave/boardsteals-nfl', label: 'GitHub', target: '_blank' }
@@ -68,7 +68,7 @@ d_g_star = <span class="fn">float</span>(res.x)`,
     featured: false,
     title: { en: 'MCG Railway Egress Modelling', fr: 'Modélisation du flux de trains (MCG)' },
     description: { en: 'Modelled railway egress dynamics from the MCG following major AFL game events for my main project in Modelling the Real World (EVSC20007), developing understanding of dynamic models. Private until end of sem.', fr: 'Modélisation de la dynamique des flux de passagers sortant du MCG après les grands matchs de l\'AFL pour mon projet principal de Modelling the Real World (EVSC20007), developpant ma compréhension des modèles dynamiques. Accès privé jusqu\'à la fin du semestre.' },
-    tags: ['python', 'research', 'sport', 'visualisation'],
+    tags: ['python', 'research', 'environment'],
     links: [
       { kind: 'disabled', href: '#', label: { en: 'In progress', fr: 'En cours' }, target: null },
       { kind: 'ghost', href: 'https://github.com/kaiwave/mcg-railway-egress-jnb', label: 'GitHub', target: '_blank' }
@@ -85,7 +85,7 @@ d_g_star = <span class="fn">float</span>(res.x)`,
       en: 'A rudimentary implementation of Lovelock and Watson\'s daisy world model. Tweakable parameters to explore the interplay with albedo, surface temperature, and life on the planet.',
       fr: 'Une implémentation rudimentaire du modèle Daisy world de Lovelock et Watson. Des paramètres ajustables permettent d\'explorer l\'interaction avec l\'albédo, la température de surface et la vie sur la planète.'
     },
-    tags: ['rust', 'plotter', 'climate science'],
+    tags: ['rust', 'plotter', 'environment'],
     links: [
       { kind: 'ghost', href: 'https://github.com/kaiwave/daisy-world-rs', label: 'GitHub', target: '_blank' }
     ]
