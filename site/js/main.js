@@ -33,12 +33,12 @@ const translations = {
     recentNotes: 'recent posts',
     recentNotesSub: "thoughts and write-ups i've been working on.",
 
-    allNotes: 'All notes →', builtWith: 'built with html + css + love', all: 'all',
+    allNotes: 'All posts →', builtWith: 'built with html + css + love', all: 'all',
     aboutTag: '// the kai behind the wave',
     aboutintro: 'hey, I’m Malakai',
     aboutintro1: 'I’m an undergrad studying mathematical physics at the University of Melbourne. My interests sit at the intersection of theoretical physics, scientific computing, and quantitative financial and sport analytics applications. ',
     interestTitle: 'research interests',
-    interestList: 'Quantum Mechanics · High Frequency Trading · Machine learning · Computational Mathematics · Statistical Physics',
+    interestList: 'Sports Quantitative Analytics · Quantum Mechanics · High Frequency Trading · Computational Mathematics · Statistical Physics',
     skills: 'tools & skills',
     education: 'education',
     current: 'current',
@@ -82,12 +82,12 @@ const translations = {
     recentNotes: 'posts recentes',
     recentNotesSub: 'idees et textes sur lesquels je travaille.',
 
-    allNotes: 'Toutes les notes →', builtWith: 'cree avec html + css + l’amour', all: 'tous',
+    allNotes: 'Toutes les posts →', builtWith: 'cree avec html + css + l’amour', all: 'tous',
     aboutTag: '// l’homme derriere les carnets',
     aboutintro: 'salut, je suis Malakai',
     aboutintro1: 'Je suis étudiant de premier cycle en physique mathématique à University of Melbourne. Mes intérêts se situent à l’intersection de la physique théorique, du calcul scientifique et des applications financières et sportifs quantitatives.',
     interestTitle: 'intérêts de recherche',
-    interestList: 'Mécanique quantique · Trading haute fréquence · Machine Learning · Mathématiques computationnelles · Physique statistique',
+    interestList: 'Analyse quantitative du sport · Mécanique quantique · Trading haute fréquence · Mathématiques computationnelles · Physique statistique',
     skills: 'programmes & compétences',
     education: 'éducation',
     current: 'en cours',
@@ -123,6 +123,36 @@ const siteState = {
   projectsExpanded: false,
   activeProjectFilter: 'all',
 };
+
+/* ── Scroll-reveal (subtle, respects prefers-reduced-motion) */
+// Elements with class .reveal animate in when they enter view.
+// Add class="reveal" to any section or card you want to fade in.
+const revealObserver = new IntersectionObserver(
+  (entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('reveal--visible');
+        revealObserver.unobserve(entry.target); // only once
+      }
+    });
+  },
+  { threshold: 0.1 }
+);
+
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+// CSS that drives the reveal (injected here so it's self-contained)
+const revealStyle = document.createElement('style');
+revealStyle.textContent = `
+  @media (prefers-reduced-motion: no-preference) {
+    .reveal { opacity: 0; transform: translate3d(0, 24px, 0) scale(0.985); transition: opacity 0.75s ease, transform 0.75s cubic-bezier(0.2, 0.8, 0.2, 1); }
+    .reveal--visible { opacity: 1; transform: none; }
+    .reveal:nth-child(2) { transition-delay: 90ms; }
+    .reveal:nth-child(3) { transition-delay: 180ms; }
+    .reveal:nth-child(4) { transition-delay: 270ms; }
+  }
+`;
+document.head.appendChild(revealStyle);
 
 function getLocalizedValue(value, language) {
   if (typeof value === 'string') return value;
@@ -209,7 +239,7 @@ function renderNoteCard(note) {
   const title = note.featured ? `<span class="badge-crown">★ Featured</span> ${note.title}` : note.title;
   const tagMarkup = getNoteTagMarkup(note.tags || []);
   return `
-    <a href="${note.href}" class="note-row" data-search="${note.search || ''}" data-note-id="${note.id}">
+    <a href="${note.href}" class="note-row reveal" data-search="${note.search || ''}" data-note-id="${note.id}">
       <div>
         <div class="note-row__title">${title}</div>
         <div class="note-row__tags">${tagMarkup}</div>
@@ -217,6 +247,36 @@ function renderNoteCard(note) {
       <div class="note-row__date">${note.date}</div>
     </a>
   `;
+}
+
+/* ── Pop-in animation for lists (notes, top to bottom) ───────
+   Same fade + rise used by the project cards, but driven by an
+   explicit per-index transition-delay so it works for any number
+   of rows (not just the first few) and can be re-triggered every
+   time the list is re-rendered or re-sorted/filtered. Elements are
+   staggered in the order they're passed in — top to bottom for a
+   vertical list like notes. */
+function triggerPopIn(elements, staggerMs = 70) {
+  const items = Array.from(elements || []);
+  if (!items.length) return;
+
+  items.forEach(el => {
+    el.classList.remove('reveal--visible');
+    el.classList.add('reveal');
+    el.style.transitionDelay = '0ms';
+  });
+
+  // Force a reflow so the browser registers the "hidden" state before
+  // we flip to visible — otherwise, since both happen in the same
+  // tick, the transition can get skipped entirely.
+  void items[0].offsetHeight;
+
+  requestAnimationFrame(() => {
+    items.forEach((el, index) => {
+      el.style.transitionDelay = `${index * staggerMs}ms`;
+      el.classList.add('reveal--visible');
+    });
+  });
 }
 
 function groupNotesByYear(notes) {
@@ -248,6 +308,8 @@ function renderNotesList() {
   if (searchInput) {
     const filterRows = () => {
       const q = searchInput.value.toLowerCase().trim();
+      const newlyVisible = [];
+
       notesList.querySelectorAll('.year-group').forEach(group => {
         const groupRows = group.querySelectorAll('.note-row');
         let visibleRows = 0;
@@ -255,15 +317,31 @@ function renderNotesList() {
         groupRows.forEach(row => {
           const text = (row.querySelector('.note-row__title').textContent + (row.dataset.search || '')).toLowerCase();
           const matches = !q || text.includes(q);
+          const wasVisible = row.dataset.visible === 'true';
           row.style.display = matches ? '' : 'none';
-          if (matches) visibleRows += 1;
+          row.dataset.visible = String(matches);
+          if (matches) {
+            visibleRows += 1;
+            // Only rows that just appeared get the pop-in — rows that
+            // were already on screen stay put instead of being reset
+            // and replayed on every keystroke (which just looked like
+            // nothing was animating while you typed).
+            if (!wasVisible) newlyVisible.push(row);
+          }
         });
 
         group.style.display = visibleRows > 0 || !q ? '' : 'none';
       });
+
+      // Fires on every search update, not just when the field is
+      // cleared back to "all notes" — whatever rows a keystroke just
+      // brought into view pop in top to bottom.
+      triggerPopIn(newlyVisible, 45);
     };
     searchInput.oninput = filterRows;
-    filterRows();
+    filterRows(); // nothing has a dataset.visible yet, so this pops in the full list
+  } else {
+    triggerPopIn(notesList.querySelectorAll('.note-row'));
   }
 }
 
@@ -276,6 +354,7 @@ function renderHomepageNotes() {
     .slice(0, 3);
 
   root.innerHTML = notes.map(renderNoteCard).join('');
+  triggerPopIn(root.querySelectorAll('.note-row'));
 }
 
 function renderProjectGrid() {
@@ -329,6 +408,56 @@ function renderProjectGrid() {
   initializeProjectFiltering();
 }
 
+/* ── Hero stats (count-up, reads js/hero-data.js) ────────── */
+// Data source lives in js/hero-data.js as window.heroStats so it's
+// easy to edit without touching this file. Numbers count up from 0
+// once the stat row scrolls into view; non-numeric stats (like the
+// ∞ joke) just render their `display` string.
+function renderHeroStats() {
+  const root = document.getElementById('hero-stats-root');
+  const stats = window.heroStats;
+  if (!root || !Array.isArray(stats)) return;
+
+  const language = siteState.currentLanguage;
+
+  root.innerHTML = stats.map(stat => `
+    <div class="stat">
+      <div class="stat__number" data-stat-id="${stat.id}">${stat.value === null ? (stat.display || '') : '0'}</div>
+      <div class="stat__label" data-i18n="${stat.labelKey}">${translations[language]?.[stat.labelKey] || ''}</div>
+    </div>
+  `).join('');
+
+  animateHeroStatsOnceVisible(root, stats);
+}
+
+function animateStatCountUp(el, targetValue, duration = 1200) {
+  const startTime = performance.now();
+  function tick(now) {
+    const progress = Math.min((now - startTime) / duration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3); // ease-out cubic
+    el.textContent = Math.round(targetValue * eased).toString();
+    if (progress < 1) requestAnimationFrame(tick);
+    else el.textContent = targetValue.toString();
+  }
+  requestAnimationFrame(tick);
+}
+
+function animateHeroStatsOnceVisible(root, stats) {
+  const numericStats = stats.filter(stat => stat.value !== null);
+  if (!numericStats.length) return;
+
+  const statsObserver = new IntersectionObserver(entries => {
+    if (!entries[0].isIntersecting) return;
+    numericStats.forEach(stat => {
+      const el = root.querySelector(`[data-stat-id="${stat.id}"]`);
+      if (el) animateStatCountUp(el, stat.value);
+    });
+    statsObserver.unobserve(root);
+  }, { threshold: 0.4 });
+
+  statsObserver.observe(root);
+}
+
 function applyLanguage(language) {
   const selectedLanguage = translations[language] ? language : 'en';
   siteState.currentLanguage = selectedLanguage;
@@ -362,6 +491,7 @@ renderFeaturedProject();
 renderProjectGrid();
 renderHomepageNotes();
 renderNotesList();
+renderHeroStats();
 
 /* ── Site-wide particle field ────────────────────────────── */
 // Reuses the hero's constellation motif as a quiet background on every page.
@@ -479,36 +609,6 @@ if (navToggle) {
     document.body.classList.toggle('nav--open');
   });
 }
-
-/* ── Scroll-reveal (subtle, respects prefers-reduced-motion) */
-// Elements with class .reveal animate in when they enter view.
-// Add class="reveal" to any section or card you want to fade in.
-const revealObserver = new IntersectionObserver(
-  (entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('reveal--visible');
-        revealObserver.unobserve(entry.target); // only once
-      }
-    });
-  },
-  { threshold: 0.1 }
-);
-
-document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
-
-// CSS that drives the reveal (injected here so it's self-contained)
-const revealStyle = document.createElement('style');
-revealStyle.textContent = `
-  @media (prefers-reduced-motion: no-preference) {
-    .reveal { opacity: 0; transform: translate3d(0, 24px, 0) scale(0.985); transition: opacity 0.75s ease, transform 0.75s cubic-bezier(0.2, 0.8, 0.2, 1); }
-    .reveal--visible { opacity: 1; transform: none; }
-    .reveal:nth-child(2) { transition-delay: 90ms; }
-    .reveal:nth-child(3) { transition-delay: 180ms; }
-    .reveal:nth-child(4) { transition-delay: 270ms; }
-  }
-`;
-document.head.appendChild(revealStyle);
 
 /* ── Project filter bar ──────────────────────────────────── */
 // Used on projects.html.
