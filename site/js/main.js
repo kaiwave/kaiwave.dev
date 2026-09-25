@@ -329,6 +329,56 @@ function renderProjectGrid() {
   initializeProjectFiltering();
 }
 
+/* ── Hero stats (count-up, reads js/hero-data.js) ────────── */
+// Data source lives in js/hero-data.js as window.heroStats so it's
+// easy to edit without touching this file. Numbers count up from 0
+// once the stat row scrolls into view; non-numeric stats (like the
+// ∞ joke) just render their `display` string.
+function renderHeroStats() {
+  const root = document.getElementById('hero-stats-root');
+  const stats = window.heroStats;
+  if (!root || !Array.isArray(stats)) return;
+
+  const language = siteState.currentLanguage;
+
+  root.innerHTML = stats.map(stat => `
+    <div class="stat">
+      <div class="stat__number" data-stat-id="${stat.id}">${stat.value === null ? (stat.display || '') : '0'}</div>
+      <div class="stat__label" data-i18n="${stat.labelKey}">${translations[language]?.[stat.labelKey] || ''}</div>
+    </div>
+  `).join('');
+
+  animateHeroStatsOnceVisible(root, stats);
+}
+
+function animateStatCountUp(el, targetValue, duration = 1200) {
+  const startTime = performance.now();
+  function tick(now) {
+    const progress = Math.min((now - startTime) / duration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3); // ease-out cubic
+    el.textContent = Math.round(targetValue * eased).toString();
+    if (progress < 1) requestAnimationFrame(tick);
+    else el.textContent = targetValue.toString();
+  }
+  requestAnimationFrame(tick);
+}
+
+function animateHeroStatsOnceVisible(root, stats) {
+  const numericStats = stats.filter(stat => stat.value !== null);
+  if (!numericStats.length) return;
+
+  const statsObserver = new IntersectionObserver(entries => {
+    if (!entries[0].isIntersecting) return;
+    numericStats.forEach(stat => {
+      const el = root.querySelector(`[data-stat-id="${stat.id}"]`);
+      if (el) animateStatCountUp(el, stat.value);
+    });
+    statsObserver.unobserve(root);
+  }, { threshold: 0.4 });
+
+  statsObserver.observe(root);
+}
+
 function applyLanguage(language) {
   const selectedLanguage = translations[language] ? language : 'en';
   siteState.currentLanguage = selectedLanguage;
@@ -362,6 +412,7 @@ renderFeaturedProject();
 renderProjectGrid();
 renderHomepageNotes();
 renderNotesList();
+renderHeroStats();
 
 /* ── Site-wide particle field ────────────────────────────── */
 // Reuses the hero's constellation motif as a quiet background on every page.
@@ -514,36 +565,14 @@ document.head.appendChild(revealStyle);
 // Used on projects.html.
 // Each project card should have data-tags="python,ml" etc.
 // Each filter button should have data-filter="python" etc.
-function animateProjectGridSwap() {
-  const grid = document.getElementById('projects-grid');
-  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  if (!grid || !grid.children.length || reduceMotion) {
-    renderProjectGrid();
-    return;
-  }
-
-  grid.classList.add('is-swapping');
-  window.setTimeout(() => {
-    renderProjectGrid();
-    const freshCards = grid.querySelectorAll('.project-card');
-    freshCards.forEach((card, index) => {
-      card.classList.add('project-card--enter');
-      card.style.animationDelay = `${Math.min(index, 8) * 35}ms`;
-      card.addEventListener('animationend', () => {
-        card.classList.remove('project-card--enter');
-        card.style.animationDelay = '';
-      }, { once: true });
-    });
-    grid.classList.remove('is-swapping');
-  }, 130);
-}
-
 function initializeProjectFiltering() {
   const filterBtns = document.querySelectorAll('.filter-btn');
   const projectCards = document.querySelectorAll('.project-card');
 
   if (!filterBtns.length || !projectCards.length) return;
+
+  const fadeDuration = 160;
+  const liftOffset = -8;
 
   const setCardState = (card, visible) => {
     card.style.opacity = visible ? '1' : '0';
@@ -567,7 +596,7 @@ function initializeProjectFiltering() {
       filterBtns.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
 
-      animateProjectGridSwap();
+      renderProjectGrid();
     });
   });
 
@@ -586,7 +615,7 @@ if (projectsToggle) {
 
     if (matchingProjects.length > 6) {
       siteState.projectsExpanded = !siteState.projectsExpanded;
-      animateProjectGridSwap();
+      renderProjectGrid();
     }
   });
 }
@@ -628,8 +657,9 @@ if (heroCanvas) {
     particles.push({
       x: mouse.x,
       y: mouse.y,
-      vx: (Math.random() - 0.5) * 1.2,
-      vy: (Math.random() - 0.5) * 1.2,
+      vx: 0,
+      vy: 0,
+      speed: 0.6 + Math.random() * 0.6, // ~ same magnitude as the old click-spawn drift
       r: 2.5 + Math.random() * 2,
       col: COLOURS[Math.floor(Math.random() * COLOURS.length)],
       age: 0,
@@ -649,13 +679,25 @@ if (heroCanvas) {
   const particles = Array.from({ length: PARTICLE_COUNT }, () => ({
     x: Math.random() * W,
     y: Math.random() * H,
-    vx: (Math.random() - 0.5) * 0.4,
-    vy: (Math.random() - 0.5) * 0.4,
+    vx: 0,
+    vy: 0,
+    speed: 0.25 + Math.random() * 0.35, // ~ same pace as the old ambient random-walk
     r: 2 + Math.random() * 2,
     col: COLOURS[Math.floor(Math.random() * COLOURS.length)],
     age: 0,
     maxAge: Infinity,
   }));
+
+  // Gentle vector field the dots flow along, instead of wandering randomly.
+  // Two overlapping sine/cosine waves give it a soft, swirling structure;
+  // `t` drifts slowly so the field itself breathes over time.
+  function fieldAngle(x, y, t) {
+    return (
+      Math.sin(x * 0.012 + t) * 1.6 +
+      Math.cos(y * 0.012 - t * 0.8) * 1.6 +
+      Math.sin((x + y) * 0.006 + t * 0.5)
+    );
+  }
 
   function drawFrame() {
     ctx.clearRect(0, 0, W, H);
@@ -703,14 +745,23 @@ if (heroCanvas) {
   }
 
   let isRunning = false;
+  let fieldTime = 0;
 
   function update() {
     if (!isRunning) return;
 
+    fieldTime += 0.0025; // slow drift so the field feels alive, not static
+
     particles.forEach(p => {
       p.age += 1;
 
-      // Gentle mouse repulsion
+      // Follow the field line at this point — same pace as before,
+      // just directed rather than random.
+      const angle = fieldAngle(p.x, p.y, fieldTime);
+      p.vx = Math.cos(angle) * p.speed;
+      p.vy = Math.sin(angle) * p.speed;
+
+      // Gentle mouse repulsion (cursor avoidance), layered on top of the flow
       if (mouse.active) {
         const dx = p.x - mouse.x;
         const dy = p.y - mouse.y;
@@ -725,9 +776,12 @@ if (heroCanvas) {
       p.x += p.vx;
       p.y += p.vy;
 
-      // Bounce off walls
-      if (p.x < 0 || p.x > W) p.vx *= -1;
-      if (p.y < 0 || p.y > H) p.vy *= -1;
+      // Wrap around the edges so dots keep flowing along the field
+      // instead of bouncing off the walls.
+      if (p.x < -10) p.x = W + 10;
+      if (p.x > W + 10) p.x = -10;
+      if (p.y < -10) p.y = H + 10;
+      if (p.y > H + 10) p.y = -10;
     });
 
     for (let i = particles.length - 1; i >= 0; i -= 1) {
