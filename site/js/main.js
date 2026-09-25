@@ -33,12 +33,12 @@ const translations = {
     recentNotes: 'recent posts',
     recentNotesSub: "thoughts and write-ups i've been working on.",
 
-    allNotes: 'All notes →', builtWith: 'built with html + css + love', all: 'all',
+    allNotes: 'All posts →', builtWith: 'built with html + css + love', all: 'all',
     aboutTag: '// the kai behind the wave',
     aboutintro: 'hey, I’m Malakai',
     aboutintro1: 'I’m an undergrad studying mathematical physics at the University of Melbourne. My interests sit at the intersection of theoretical physics, scientific computing, and quantitative financial and sport analytics applications. ',
     interestTitle: 'research interests',
-    interestList: 'Quantum Mechanics · High Frequency Trading · Machine learning · Computational Mathematics · Statistical Physics',
+    interestList: 'Quantum Mechanics · High Frequency Trading · Sports Quantitative Analytics · Computational Mathematics · Statistical Physics',
     skills: 'tools & skills',
     education: 'education',
     current: 'current',
@@ -82,12 +82,12 @@ const translations = {
     recentNotes: 'posts recentes',
     recentNotesSub: 'idees et textes sur lesquels je travaille.',
 
-    allNotes: 'Toutes les notes →', builtWith: 'cree avec html + css + l’amour', all: 'tous',
+    allNotes: 'Toutes les posts →', builtWith: 'cree avec html + css + l’amour', all: 'tous',
     aboutTag: '// l’homme derriere les carnets',
     aboutintro: 'salut, je suis Malakai',
     aboutintro1: 'Je suis étudiant de premier cycle en physique mathématique à University of Melbourne. Mes intérêts se situent à l’intersection de la physique théorique, du calcul scientifique et des applications financières et sportifs quantitatives.',
     interestTitle: 'intérêts de recherche',
-    interestList: 'Mécanique quantique · Trading haute fréquence · Machine Learning · Mathématiques computationnelles · Physique statistique',
+    interestList: 'Mécanique quantique · Trading haute fréquence · Analyse quantitative du sport · Mathématiques computationnelles · Physique statistique',
     skills: 'programmes & compétences',
     education: 'éducation',
     current: 'en cours',
@@ -565,14 +565,36 @@ document.head.appendChild(revealStyle);
 // Used on projects.html.
 // Each project card should have data-tags="python,ml" etc.
 // Each filter button should have data-filter="python" etc.
+function animateProjectGridSwap() {
+  const grid = document.getElementById('projects-grid');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (!grid || !grid.children.length || reduceMotion) {
+    renderProjectGrid();
+    return;
+  }
+
+  grid.classList.add('is-swapping');
+  window.setTimeout(() => {
+    renderProjectGrid();
+    const freshCards = grid.querySelectorAll('.project-card');
+    freshCards.forEach((card, index) => {
+      card.classList.add('project-card--enter');
+      card.style.animationDelay = `${Math.min(index, 8) * 35}ms`;
+      card.addEventListener('animationend', () => {
+        card.classList.remove('project-card--enter');
+        card.style.animationDelay = '';
+      }, { once: true });
+    });
+    grid.classList.remove('is-swapping');
+  }, 130);
+}
+
 function initializeProjectFiltering() {
   const filterBtns = document.querySelectorAll('.filter-btn');
   const projectCards = document.querySelectorAll('.project-card');
 
   if (!filterBtns.length || !projectCards.length) return;
-
-  const fadeDuration = 160;
-  const liftOffset = -8;
 
   const setCardState = (card, visible) => {
     card.style.opacity = visible ? '1' : '0';
@@ -596,7 +618,7 @@ function initializeProjectFiltering() {
       filterBtns.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
 
-      renderProjectGrid();
+      animateProjectGridSwap();
     });
   });
 
@@ -615,7 +637,7 @@ if (projectsToggle) {
 
     if (matchingProjects.length > 6) {
       siteState.projectsExpanded = !siteState.projectsExpanded;
-      renderProjectGrid();
+      animateProjectGridSwap();
     }
   });
 }
@@ -657,9 +679,8 @@ if (heroCanvas) {
     particles.push({
       x: mouse.x,
       y: mouse.y,
-      vx: 0,
-      vy: 0,
-      speed: 0.6 + Math.random() * 0.6, // ~ same magnitude as the old click-spawn drift
+      vx: (Math.random() - 0.5) * 1.2,
+      vy: (Math.random() - 0.5) * 1.2,
       r: 2.5 + Math.random() * 2,
       col: COLOURS[Math.floor(Math.random() * COLOURS.length)],
       age: 0,
@@ -679,25 +700,13 @@ if (heroCanvas) {
   const particles = Array.from({ length: PARTICLE_COUNT }, () => ({
     x: Math.random() * W,
     y: Math.random() * H,
-    vx: 0,
-    vy: 0,
-    speed: 0.25 + Math.random() * 0.35, // ~ same pace as the old ambient random-walk
+    vx: (Math.random() - 0.5) * 0.4,
+    vy: (Math.random() - 0.5) * 0.4,
     r: 2 + Math.random() * 2,
     col: COLOURS[Math.floor(Math.random() * COLOURS.length)],
     age: 0,
     maxAge: Infinity,
   }));
-
-  // Gentle vector field the dots flow along, instead of wandering randomly.
-  // Two overlapping sine/cosine waves give it a soft, swirling structure;
-  // `t` drifts slowly so the field itself breathes over time.
-  function fieldAngle(x, y, t) {
-    return (
-      Math.sin(x * 0.012 + t) * 1.6 +
-      Math.cos(y * 0.012 - t * 0.8) * 1.6 +
-      Math.sin((x + y) * 0.006 + t * 0.5)
-    );
-  }
 
   function drawFrame() {
     ctx.clearRect(0, 0, W, H);
@@ -745,23 +754,14 @@ if (heroCanvas) {
   }
 
   let isRunning = false;
-  let fieldTime = 0;
 
   function update() {
     if (!isRunning) return;
 
-    fieldTime += 0.0025; // slow drift so the field feels alive, not static
-
     particles.forEach(p => {
       p.age += 1;
 
-      // Follow the field line at this point — same pace as before,
-      // just directed rather than random.
-      const angle = fieldAngle(p.x, p.y, fieldTime);
-      p.vx = Math.cos(angle) * p.speed;
-      p.vy = Math.sin(angle) * p.speed;
-
-      // Gentle mouse repulsion (cursor avoidance), layered on top of the flow
+      // Gentle mouse repulsion
       if (mouse.active) {
         const dx = p.x - mouse.x;
         const dy = p.y - mouse.y;
@@ -776,12 +776,9 @@ if (heroCanvas) {
       p.x += p.vx;
       p.y += p.vy;
 
-      // Wrap around the edges so dots keep flowing along the field
-      // instead of bouncing off the walls.
-      if (p.x < -10) p.x = W + 10;
-      if (p.x > W + 10) p.x = -10;
-      if (p.y < -10) p.y = H + 10;
-      if (p.y > H + 10) p.y = -10;
+      // Bounce off walls
+      if (p.x < 0 || p.x > W) p.vx *= -1;
+      if (p.y < 0 || p.y > H) p.vy *= -1;
     });
 
     for (let i = particles.length - 1; i >= 0; i -= 1) {
