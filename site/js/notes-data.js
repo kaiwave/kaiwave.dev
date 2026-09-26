@@ -1,5 +1,14 @@
 window.noteData = [
   {
+    id: "what-i-want-to-do",
+    title: "\"What will you do with that degree?\"",
+    date: "2026-09-26",
+    href: "/notes/what-i-want-to-do/",
+    tags: ["blog", "inspiration", "study"],
+    search: "mathematics physics sports quantitative finance research",
+    featured: false
+  },
+  {
     id: "boardsteals-launch",
     title: "Why I made Boardsteals for NFL fantasy",
     date: "2026-09-22",
