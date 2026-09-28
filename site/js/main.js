@@ -888,3 +888,9 @@ document.querySelectorAll('.code-preview').forEach(block => {
     setTimeout(() => (btn.textContent = 'copy'), 1500);
   });
 });
+
+/* ── Dynamic Footer Year ─────────────────────────────────── */
+const yearElement = document.getElementById('current-year');
+if (yearElement) {
+  yearElement.textContent = `© 2026 malakai h`;
+}
