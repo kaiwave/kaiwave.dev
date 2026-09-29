@@ -2,38 +2,13 @@ window.projectData = [
   {
     id: 'goalkeeper-optimisation',
     featured: false,
-    title: {
-      en: 'Projective Analysis Goaltender Optimisation',
-      fr: 'Analyse projective Optimisation du gardien'
-    },
-    headline: {
-      en: ['Projective Analysis', 'Goaltender Optimisation'],
-      fr: ['Analyse projective', 'Optimisation du gardien']
-    },
-    eyebrow: {
-      en: '// ipynb · projective geometry',
-      fr: '// ipynb · géométrie projective'
-    },
-    description: {
-      en: 'An analysis of ice hockey goaltender positioning, by modelling and optimising tradeoffs with crease aggression. Written in a Jupyter notebook with matplotlib plot rendering.',
-      fr: 'Analyse du positionnement des gardiens; modélisation et optimisation des compromis liés à l’agressivité dans la zone. Documentation rédigée dans un notebook Jupyter avec rendu Matplotlib.'
-    },
+    title: { en: 'Projective Analysis Goaltender Optimisation', fr: 'Analyse projective Optimisation du gardien' },
+    description: { en: 'An analysis of ice hockey goaltender positioning, by modelling and optimising tradeoffs with crease aggression. Written in a Jupyter notebook with matplotlib plot rendering.', fr: 'Analyse du positionnement des gardiens; modélisation et optimisation des compromis liés à l’agressivité dans la zone. Documentation rédigée dans un notebook Jupyter avec rendu Matplotlib.' },
     tags: ['python', 'hockey', 'research'],
     links: [
-      { kind: 'disabled', href: '#', label: { en: 'In progress', fr: 'En cours' }, target: null },
-      { kind: 'ghost', href: 'https://github.com/kaiwave/goaltender-optimisation-jnb', label: 'GitHub', target: '_blank' }
-    ],
-    codeSnippet: `<span class="cm"># Monte Carlo static depth solver</span>
-<span class="kw">def</span> <span class="fn">obj</span>(d_g):
-    <span class="kw">return</span> np.<span class="fn">mean</span>([
-        <span class="fn">exposed_area_eff</span>(x_p, y_p, d_g, theta_set)[<span class="num">0</span>]
-        <span class="kw">for</span> x_p, y_p <span class="kw">in</span> samples
-    ])
-
-<span class="cm"># 1D bounded optimization over crease depth</span>
-res = <span class="fn">minimize_scalar</span>(obj, bounds=(<span class="num">0.0</span>, R_CREASE), method=<span class="str">'bounded'</span>)
-d_g_star = <span class="fn">float</span>(res.x)`,
-    badgeText: 'featured'
+      { kind: 'primary', href: 'https://cloud.kaiwave.dev/s/soEgMwqb2sbCaD2', label: { en: 'Report ↗', fr: 'Document ↗' }, target: '_blank' },
+      { kind: 'ghost', href: 'https://github.com/kaiwave/goaltender-optimisation-jnb', label: { en: 'GitHub', fr: 'GitHub' }, target: '_blank' }
+    ]
   },
   {
     id: 'sleeper-nfl-players',
@@ -64,6 +39,22 @@ d_g_star = <span class="fn">float</span>(res.x)`,
     badgeText: 'featured'
   },
   {
+    id: 'qubit-simulator-engine',
+    featured: false,
+    title: {
+      en: 'Compiled Qubit Simulator Engine',
+      fr: 'Moteur de simulation de qubits compilé'
+    },
+    description: {
+      en: 'A Rust-compiled qubit simulator engine for python to develop intuition for working with quantum computing algorithms.',
+      fr: 'Un simulateur de qubits compilé en Rust pour Python, pour de développer une intuition pour travailler avec des algorithmes de calcul quantique.'
+    },
+    tags: ['tool', 'quantum', 'simulation'],
+    links: [
+      { kind: 'disabled', href: '#', label: { en: 'In progress', fr: 'En cours' }, target: null },
+    ]
+  },
+  {
     id: 'mcg-egress-modelling',
     featured: false,
     title: { en: 'MCG Railway Egress Modelling', fr: 'Modélisation du flux de trains (MCG)' },
@@ -85,7 +76,7 @@ d_g_star = <span class="fn">float</span>(res.x)`,
       en: 'A rudimentary implementation of Lovelock and Watson\'s daisy world model. Tweakable parameters to explore the interplay with albedo, surface temperature, and life on the planet.',
       fr: 'Une implémentation rudimentaire du modèle Daisy world de Lovelock et Watson. Des paramètres ajustables permettent d\'explorer l\'interaction avec l\'albédo, la température de surface et la vie sur la planète.'
     },
-    tags: ['rust', 'plotter', 'environment'],
+    tags: ['tool', 'plotter', 'environment'],
     links: [
       { kind: 'ghost', href: 'https://github.com/kaiwave/daisy-world-rs', label: 'GitHub', target: '_blank' }
     ]

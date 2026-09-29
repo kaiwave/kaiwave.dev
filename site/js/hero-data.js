@@ -12,7 +12,7 @@
                 main.js (en + fr) so the label stays translatable
    ============================================================ */
 window.heroStats = [
-  { id: 'research', value: 1,    display: null, labelKey: 'researchrep' },
+  { id: 'research', value: 2,    display: null, labelKey: 'researchrep' },
   { id: 'ongoing',  value: 3,    display: null, labelKey: 'ongoingrep' },
-  { id: 'magic',    value: 378, display: null,  labelKey: 'magicjoke' },
+  { id: 'magic',    value: null, display:'∞',   labelKey: 'magicjoke' },
 ];
