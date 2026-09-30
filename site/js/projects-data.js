@@ -7,7 +7,7 @@ window.projectData = [
     tags: ['python', 'hockey', 'research'],
     links: [
       { kind: 'primary', href: 'https://cloud.kaiwave.dev/s/soEgMwqb2sbCaD2', label: { en: 'Report ↗', fr: 'Document ↗' }, target: '_blank' },
-      { kind: 'ghost', href: 'https://github.com/kaiwave/goaltender-optimisation-jnb', label: { en: 'GitHub', fr: 'GitHub' }, target: '_blank' }
+      { kind: 'ghost', href: 'https://github.com/kaiwave/projective-goalie-positioning', label: { en: 'GitHub', fr: 'GitHub' }, target: '_blank' }
     ]
   },
   {
@@ -62,7 +62,6 @@ window.projectData = [
     tags: ['python', 'research', 'environment'],
     links: [
       { kind: 'disabled', href: '#', label: { en: 'In progress', fr: 'En cours' }, target: null },
-      { kind: 'ghost', href: 'https://github.com/kaiwave/mcg-railway-egress-jnb', label: 'GitHub', target: '_blank' }
     ]
   },
   {
