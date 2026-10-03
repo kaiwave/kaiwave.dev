@@ -52,6 +52,7 @@ const translations = {
     notesTag: '// thoughts, publications & write-ups',
     notesdesc: 'Some write-ups, thoughts, and lessons that I’ve learned throughout my life. Inspired constantly by the world and people around me. ',
     searchNotes: 'search notes…',
+    projectSub: "Research, simulations, models, data explorations, and programs that I've published or am working on. Most are available on GitHub or my cloud.",
 
     contactTag: "// let's talk",
     contactDesc: 'Collaborations, questions, feedback, or just saying hi... anything is welcome!',

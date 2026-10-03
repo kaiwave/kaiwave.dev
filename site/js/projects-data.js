@@ -1,12 +1,12 @@
 window.projectData = [
   {
-    id: 'goalkeeper-optimisation',
+    id: 'goaltender-optimisation',
     featured: false,
     title: { en: 'Projective Analysis Goaltender Optimisation', fr: 'Analyse projective Optimisation du gardien' },
     description: { en: 'An analysis of ice hockey goaltender positioning, by modelling and optimising tradeoffs with crease aggression. Written in a Jupyter notebook with matplotlib plot rendering.', fr: 'Analyse du positionnement des gardiens; modélisation et optimisation des compromis liés à l’agressivité dans la zone. Documentation rédigée dans un notebook Jupyter avec rendu Matplotlib.' },
     tags: ['python', 'hockey', 'research'],
     links: [
-      { kind: 'primary', href: 'https://cloud.kaiwave.dev/s/soEgMwqb2sbCaD2', label: { en: 'Report ↗', fr: 'Document ↗' }, target: '_blank' },
+      { kind: 'primary', href: 'https://cloud.kaiwave.dev/s/6jcMDzegMr3J5SM', label: { en: 'Report ↗', fr: 'Document ↗' }, target: '_blank' },
       { kind: 'ghost', href: 'https://github.com/kaiwave/projective-goalie-positioning', label: { en: 'GitHub', fr: 'GitHub' }, target: '_blank' }
     ]
   },
@@ -65,22 +65,6 @@ window.projectData = [
     ]
   },
   {
-    id: 'daisy-world-rs',
-    featured: false,
-    title: {
-      en: 'Daisy world Rust implementation',
-      fr: 'Implémentation Rust de Daisy world'
-    },
-    description: {
-      en: 'A rudimentary implementation of Lovelock and Watson\'s daisy world model. Tweakable parameters to explore the interplay with albedo, surface temperature, and life on the planet.',
-      fr: 'Une implémentation rudimentaire du modèle Daisy world de Lovelock et Watson. Des paramètres ajustables permettent d\'explorer l\'interaction avec l\'albédo, la température de surface et la vie sur la planète.'
-    },
-    tags: ['tool', 'plotter', 'environment'],
-    links: [
-      { kind: 'ghost', href: 'https://github.com/kaiwave/daisy-world-rs', label: 'GitHub', target: '_blank' }
-    ]
-  },
-  {
     id: 'tp-scent-sociability',
     featured: false,
     title: {
@@ -94,6 +78,22 @@ window.projectData = [
     tags: ['psychology', 'research', 'environment'],
     links: [
       { kind: 'primary', href: 'https://cloud.kaiwave.dev/index.php/s/SRN8P9wpR4oqaZn', label: { en: 'Report ↗', fr: 'Document ↗' }, target: '_blank' }
+    ]
+  },
+  {
+    id: 'daisy-world-rs',
+    featured: false,
+    title: {
+      en: 'Daisy world Rust implementation',
+      fr: 'Implémentation Rust de Daisy world'
+    },
+    description: {
+      en: 'A rudimentary implementation of Lovelock and Watson\'s daisy world model. Tweakable parameters to explore the interplay with albedo, surface temperature, and life on the planet.',
+      fr: 'Une implémentation rudimentaire du modèle Daisy world de Lovelock et Watson. Des paramètres ajustables permettent d\'explorer l\'interaction avec l\'albédo, la température de surface et la vie sur la planète.'
+    },
+    tags: ['tool', 'plotter', 'environment'],
+    links: [
+      { kind: 'ghost', href: 'https://github.com/kaiwave/daisy-world-rs', label: 'GitHub', target: '_blank' }
     ]
   },
 ];
