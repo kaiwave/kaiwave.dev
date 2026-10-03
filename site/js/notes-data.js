@@ -1,5 +1,14 @@
 window.noteData = [
   {
+    id: "post-about-goalie",
+    title: "Lessons from the Projective Goaltender Optimisation Project",
+    date: "2026-10-03",
+    href: "https://www.linkedin.com/posts/hmalakai_hockey-geometry-activity-7512061847731101696-5ebV",
+    tags: ["linkedin", "geometry", "math"],
+    search: "goaltender hockey geometry mathematics research report",
+    featured: false
+  },
+  {
     id: "what-i-want-to-do",
     title: "\"What will you do with that degree?\"",
     date: "2026-09-26",
