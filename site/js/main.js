@@ -115,7 +115,7 @@ const translations = {
     featuredTitleLine2: 'Optimisation du gardien',
     featuredDescription: 'Analyse du positionnement des gardiens; modélisation et optimisation des compromis liés à l’agressivité dans la zone. Documentation rédigée dans un notebook Jupyter avec rendu Matplotlib.',
 
-    aboutintro2: 'Je viens de terminer la création de Boardsteals, un outil de fantasy football NFL qui utilise des données sous-jacentes. Présentement, je travaille sur la modélisation de l’optimisation du positionnement des gardiens à l’aide de la géométrie projective et des méthodes stochastiques, en fonction des positions de tir les plus fréquentes. À ce propos, j’aime jouer au hockey, à la basse, et me persuader que je suis meilleur que tout le monde parce que je préfère le pneu sur la glace à la crème glacée.',
+    aboutintro2: 'Je viens de terminer la création de Boardsteals, un outil de fantasy football NFL qui utilise des données sous-jacentes. Présentement, je travaille sur la modélisation de l’optimisation du positionnement des gardiens à l’aide de la géométrie projective et des méthodes stochastiques, en fonction des positions de tir les plus fréquentes. À ce propos, j’aime jouer au hockey, à la basse, et me persuader que je suis meilleur que tout le monde parce que je préfère la tire d’erable à la crème glacée.',
   }
 };
 
