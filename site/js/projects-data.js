@@ -1,5 +1,16 @@
 window.projectData = [
   {
+    id: 'jazz-frontcourt-analysis',
+    featured: false,
+    title: { en: 'NBA Frontcourt Pairing Analysis (Utah Jazz)', fr: 'Analyse des duos frontcourt en NBA (Utah Jazz)' },
+    description: { en: 'An NBA defensive data analytics framework combining Empirical Bayes modeling with a stochastic kinematic simulation to optimize weak-side help rotations across Utah Jazz frontcourt pairings.', fr: 'Une analyse des données défensives de la NBA qui combine l\'approche bayésienne empirique avec un modèle cinématique stochastique pour optimiser les rotations des paires de joueurs du Utah Jazz.' },
+    tags: ['python', 'basketball', 'research'],
+    links: [
+      { kind: 'primary', href: 'https://cloud.kaiwave.dev/s/ZjH9qaZKYAPYGWz', label: { en: 'Report ↗', fr: 'Document ↗' }, target: '_blank' },
+      { kind: 'ghost', href: 'https://github.com/kaiwave/jazz-frontcourt-analysis', label: 'GitHub', target: '_blank' }
+    ]
+  },
+  {
     id: 'goaltender-optimisation',
     featured: false,
     title: { en: 'Projective Analysis Goaltender Optimisation', fr: 'Analyse projective Optimisation du gardien' },
