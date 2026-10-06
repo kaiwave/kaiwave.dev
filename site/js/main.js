@@ -65,7 +65,7 @@ const translations = {
     featuredTitleLine2: 'Goaltender Optimisation',
     featuredDescription: 'An analysis of ice hockey goaltender positioning; modelling and optimising tradeoffs with crease aggression. Written in a Jupyter notebook with matplotlib rendering.',
 
-    aboutintro2: 'I’ve just finished building Boardsteals, an NFL fantasy pipeline which tracks underrated players using underlying data. Now, I’m working on using projective geometry and stochastic methods to model goaltender positioning optimisations in ice hockey based on common shot positions. On that note, I enjoy playing hockey, playing bass, the occasional league of legends, and convincing myself that I’m better than everyone for drinking oat magics. ',
+    aboutintro2: 'I have just finished working on using projective geometry and stochastic methods to model goaltender positioning optimisations in ice hockey based on common shot positions. Now, I am working on my scientific side, by creating a rust-compiled quantum simulator backend for python. Outside of my work, I enjoy playing hockey, playing bass, reading books, and convincing myself that I’m better than everyone for drinking oat magics. ',
   },
   
   fr: {
@@ -115,7 +115,7 @@ const translations = {
     featuredTitleLine2: 'Optimisation du gardien',
     featuredDescription: 'Analyse du positionnement des gardiens; modélisation et optimisation des compromis liés à l’agressivité dans la zone. Documentation rédigée dans un notebook Jupyter avec rendu Matplotlib.',
 
-    aboutintro2: 'Je viens de terminer la création de Boardsteals, un outil de fantasy football NFL qui utilise des données sous-jacentes. Présentement, je travaille sur la modélisation de l’optimisation du positionnement des gardiens à l’aide de la géométrie projective et des méthodes stochastiques, en fonction des positions de tir les plus fréquentes. À ce propos, j’aime jouer au hockey, à la basse, et me persuader que je suis meilleur que tout le monde parce que je préfère la tire d’erable à la crème glacée.',
+    aboutintro2: 'J’ai recemment terminé un model de l’optimisation du positionnement des gardiens à l’aide de la géométrie projective et des méthodes stochastiques, en fonction des positions de tir les plus fréquentes. Maintenant, je travaille d’un projet plus scientifique, qui est un engine quantique compilé pour des calculs rapides en python. Personellement, j’aime jouer au hockey, à la basse, et me persuader que je suis meilleur que tout le monde parce que je préfère la tire d’erable à la crème glacée.',
   }
 };
 
