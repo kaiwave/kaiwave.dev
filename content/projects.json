@@ -1,0 +1,199 @@
+[
+  {
+    "id": "goaltender-optimisation",
+    "title": {
+      "en": "Projective Analysis Goaltender Optimisation",
+      "fr": "Analyse projective Optimisation du gardien"
+    },
+    "short": "Goaltender optimisation",
+    "kind": "Hockey, projective geometry",
+    "featured": false,
+    "description": {
+      "en": "An analysis of ice hockey goaltender positioning, by modelling and optimising tradeoffs with crease aggression. Written in a Jupyter notebook with matplotlib plot rendering.",
+      "fr": "Analyse du positionnement des gardiens; modélisation et optimisation des compromis liés à l’agressivité dans la zone. Documentation rédigée dans un notebook Jupyter avec rendu Matplotlib."
+    },
+    "tags": [
+      "python",
+      "sport",
+      "hockey",
+      "research"
+    ],
+    "links": [
+      {
+        "label": "Report",
+        "href": "https://cloud.kaiwave.dev/s/6jcMDzegMr3J5SM"
+      },
+      {
+        "label": "GitHub",
+        "href": "https://github.com/kaiwave/projective-goalie-positioning"
+      }
+    ],
+    "image": "/img/goalie.jpg",
+    "status": ""
+  },
+  {
+    "id": "jazz-frontcourt-analysis",
+    "title": {
+      "en": "NBA Frontcourt Pairing Analysis (Utah Jazz)",
+      "fr": "Analyse des duos frontcourt en NBA (Utah Jazz)"
+    },
+    "short": "Jazz frontcourt pairings",
+    "kind": "NBA defence, Empirical Bayes",
+    "featured": false,
+    "description": {
+      "en": "An NBA defensive data analytics framework combining Empirical Bayes modeling with a stochastic kinematic simulation to optimize weak-side help rotations across Utah Jazz frontcourt pairings.",
+      "fr": "Une analyse des données défensives de la NBA qui combine l'approche bayésienne empirique avec un modèle cinématique stochastique pour optimiser les rotations des paires de joueurs du Utah Jazz."
+    },
+    "tags": [
+      "python",
+      "sport",
+      "basketball",
+      "research"
+    ],
+    "links": [
+      {
+        "label": "Report",
+        "href": "https://cloud.kaiwave.dev/s/ZjH9qaZKYAPYGWz"
+      },
+      {
+        "label": "GitHub",
+        "href": "https://github.com/kaiwave/jazz-frontcourt-analysis"
+      }
+    ],
+    "image": "/img/jazz.jpg",
+    "status": ""
+  },
+  {
+    "id": "sleeper-nfl-players",
+    "title": {
+      "en": "Boardsteals: NFL fantasy sleeper picks",
+      "fr": "Boardsteals: Choix de fantasy NFL sous-estimés"
+    },
+    "short": "Boardsteals",
+    "kind": "NFL fantasy, Python and web",
+    "featured": true,
+    "description": {
+      "en": "NFL fantasy sleeper picks, based on underlying hidden data. Finding players with the biggest disparity between where they are and where they should be, and presenting it in a clean website. ",
+      "fr": "Sélection de joueurs sous-estimés pour le fantasy football NFL, basée sur des données cachées. Identification des joueurs présentant le plus grand écart entre leur niveau actuel et leur potentiel, et présentation sur un site web clair et intuitif."
+    },
+    "tags": [
+      "python",
+      "sport",
+      "website",
+      "football",
+      "data"
+    ],
+    "links": [
+      {
+        "label": "Visit site",
+        "href": "https://boardsteals.kaiwave.dev"
+      },
+      {
+        "label": "GitHub",
+        "href": "https://github.com/kaiwave/boardsteals-nfl"
+      }
+    ],
+    "image": "/img/boardsteals.jpg",
+    "status": "",
+    "code": "# Z-score mapped to 0-100 breakout scale\ndf = df[df['expected_ppr'] >= 6.0]\ndisp = df['disparity']\n\n# Normalise\nz = (disp - disp.mean()) / disp.std()\ndf['rating'] = np.clip(55 + z * 15, 0, 100).round(1)"
+  },
+  {
+    "id": "mcg-egress-modelling",
+    "title": {
+      "en": "MCG Railway Egress Modelling",
+      "fr": "Modélisation du flux de trains (MCG)"
+    },
+    "short": "MCG egress model",
+    "kind": "Dynamic modelling, AFL crowds",
+    "featured": false,
+    "description": {
+      "en": "Modelled railway egress dynamics from the MCG following major AFL game events for my main project in Modelling the Real World (EVSC20007), developing understanding of dynamic models. Private until end of sem.",
+      "fr": "Modélisation de la dynamique des flux de passagers sortant du MCG après les grands matchs de l'AFL pour mon projet principal de Modelling the Real World (EVSC20007), developpant ma compréhension des modèles dynamiques. Accès privé jusqu'à la fin du semestre."
+    },
+    "tags": [
+      "python",
+      "sport",
+      "research",
+      "environment"
+    ],
+    "links": [],
+    "image": "/img/mcg.jpg",
+    "status": "In progress"
+  },
+  {
+    "id": "qubit-simulator-engine",
+    "title": {
+      "en": "Compiled Qubit Simulator Engine",
+      "fr": "Moteur de simulation de qubits compilé"
+    },
+    "short": "Qubit simulator",
+    "kind": "Rust engine for Python",
+    "featured": false,
+    "description": {
+      "en": "A Rust-compiled qubit simulator engine for python to develop intuition for working with quantum computing algorithms.",
+      "fr": "Un simulateur de qubits compilé en Rust pour Python, pour de développer une intuition pour travailler avec des algorithmes de calcul quantique."
+    },
+    "tags": [
+      "tool",
+      "quantum",
+      "simulation"
+    ],
+    "links": [],
+    "image": "/img/sycamore.jpg",
+    "status": "In progress"
+  },
+  {
+    "id": "daisy-world-rs",
+    "title": {
+      "en": "Daisy world Rust implementation",
+      "fr": "Implémentation Rust de Daisy world"
+    },
+    "short": "Daisy world in Rust",
+    "kind": "Climate toy model",
+    "featured": false,
+    "description": {
+      "en": "A rudimentary implementation of Lovelock and Watson's daisy world model. Tweakable parameters to explore the interplay with albedo, surface temperature, and life on the planet.",
+      "fr": "Une implémentation rudimentaire du modèle Daisy world de Lovelock et Watson. Des paramètres ajustables permettent d'explorer l'interaction avec l'albédo, la température de surface et la vie sur la planète."
+    },
+    "tags": [
+      "tool",
+      "plotter",
+      "environment"
+    ],
+    "links": [
+      {
+        "label": "GitHub",
+        "href": "https://github.com/kaiwave/daisy-world-rs"
+      }
+    ],
+    "image": "/img/daisyworld.png",
+    "status": ""
+  },
+  {
+    "id": "tp-scent-sociability",
+    "title": {
+      "en": "The TP Scent and Sociability",
+      "fr": "L'odeur du TP et la sociabilité"
+    },
+    "short": "The TP scent study",
+    "kind": "Environmental field research",
+    "featured": false,
+    "description": {
+      "en": "Exploring the relationship between extroversion and subjective attitudes towards the distinctive scent of a communal place. Employed some best practice methods of environmental field research.",
+      "fr": "Exploration de la relation entre l'extraversion et les attitudes subjectives envers l'odeur caractéristique d'un lieu public. Utilisée de méthodes de recherche environnementale de terrain conformes aux meilleures pratiques."
+    },
+    "tags": [
+      "psychology",
+      "research",
+      "environment"
+    ],
+    "links": [
+      {
+        "label": "Report",
+        "href": "https://cloud.kaiwave.dev/index.php/s/SRN8P9wpR4oqaZn"
+      }
+    ],
+    "image": "/img/tp.png",
+    "status": ""
+  }
+]

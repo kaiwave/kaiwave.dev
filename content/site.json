@@ -1,0 +1,65 @@
+{
+  "name": "Malakai Harianto",
+  "email": "malakai@kaiwave.dev",
+  "cv": "https://cloud.kaiwave.dev/s/Xynaoj43p9qGRQm",
+  "github": "https://github.com/kaiwave",
+  "linkedin": "https://www.linkedin.com/in/hmalakai/",
+  "location": [
+    "Melbourne",
+    "Australia, AEST"
+  ],
+  "hero": {
+    "lede": "I'm Malakai Harianto. I study mathematical physics at Melbourne and love building scientific and sporting models.",
+    "cta": "Read my CV"
+  },
+  "statement": "‘Mathematics is not about numbers, equations, computations, or algorithms: it is about understanding’ - Terrence Tao",
+  "projects": {
+    "title": "Projects",
+    "showFirst": 4
+  },
+  "showcase": {
+    "text": "This week's five widest gaps between expected and actual fantasy points, rated 0 to 100 with a z-score.",
+    "cta": "Open Boardsteals",
+    "image": "/img/football.jpg",
+    "codeTitle": "The rating, in Python"
+  },
+  "about": {
+    "title": "Hi, I'm {Malakai}",
+    "caption": "Mathematical Physics, University of Melbourne",
+    "photoAlt": "Malakai Harianto under a sandstone arch at the University of Melbourne",
+    "paragraphs": [
+      "I’m an undergrad studying mathematical physics at the University of Melbourne.",
+      "My interests sit at the intersection of theoretical physics, scientific computing, and quantitative sport analytics applications.",
+      "Each day I learn more about careers were hard maths problems and real research take place.",
+      "I use Python, NumPy, SciPy and Jupyter, Rust when speed matters, and LaTeX for write-ups. Off the clock: French, hockey, bass and oat magics."
+    ]
+  },
+  "recordTitle": "Education",
+  "record": [
+    {
+      "when": "Now",
+      "what": "Bachelor of Science",
+      "detail": "Mathematical Physics",
+      "where": "University of Melbourne"
+    },
+    {
+      "when": "2024",
+      "what": "Advance to University",
+      "detail": "Mathematics and Statistics",
+      "where": "Federation University"
+    },
+    {
+      "when": "2023 to 2024",
+      "what": "VCE Baccalaureate",
+      "detail": "Methods, Physics, Literature, French, Economics",
+      "where": "Suzanne Cory High School"
+    }
+  ],
+  "writingTitle": "Writing",
+  "writingShowFirst": 10,
+  "close": {
+    "title": "say hello",
+    "cta": "Email Malakai",
+    "emailSubject": "Hello from kaiwave.dev"
+  }
+}
