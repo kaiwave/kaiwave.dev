@@ -1,0 +1,47 @@
+{
+  "season": 2026,
+  "week": 5,
+  "updated": "2026-10-17",
+  "players": [
+    {
+      "name": "Daniel Jones",
+      "pos": "QB, IND",
+      "rating": 90.9,
+      "expected": 35.8,
+      "actual": 11.1,
+      "opps": 47
+    },
+    {
+      "name": "Darnell Mooney",
+      "pos": "WR, NYG",
+      "rating": 88.7,
+      "expected": 17.9,
+      "actual": 3.4,
+      "opps": 7
+    },
+    {
+      "name": "Laquon Treadwell",
+      "pos": "WR, IND",
+      "rating": 88.1,
+      "expected": 19.7,
+      "actual": 5.4,
+      "opps": 8
+    },
+    {
+      "name": "Dawson Knox",
+      "pos": "TE, BUF",
+      "rating": 87.6,
+      "expected": 10.1,
+      "actual": 1.6,
+      "opps": 3
+    },
+    {
+      "name": "Jalen Brooks",
+      "pos": "WR, ARI",
+      "rating": 86.3,
+      "expected": 17.2,
+      "actual": 3.6,
+      "opps": 7
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+working/
+skills-lock.json
+.agents
+.aider-desk
+node_modules/
+.next/
+out/
+.taste-skill/
+next-env.d.ts
+.claude

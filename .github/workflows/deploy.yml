@@ -3,7 +3,11 @@ name: Deploy GitHub Pages
 on:
   push:
     branches:
-      - main 
+      - main
+  # Wednesday 7am in Melbourne during daylight saving (6am otherwise): rebuild with the new Boardsteals week.
+  schedule:
+    - cron: "0 20 * * 2"
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -24,13 +28,30 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install and test
+        run: |
+          npm ci
+          npm test
+
+      - name: Pull the latest Boardsteals week
+        run: npm run boardsteals
+
+      - name: Build
+        run: npm run build
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: 'site'
+          path: 'out'
 
       - name: Deploy to GitHub Pages
         id: deployment
