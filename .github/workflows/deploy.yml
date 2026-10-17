@@ -4,9 +4,6 @@ on:
   push:
     branches:
       - main
-  # Wednesday 7am in Melbourne during daylight saving (6am otherwise): rebuild with the new Boardsteals week.
-  schedule:
-    - cron: "0 20 * * 2"
   workflow_dispatch:
 
 permissions:
@@ -38,9 +35,6 @@ jobs:
         run: |
           npm ci
           npm test
-
-      - name: Pull the latest Boardsteals week
-        run: npm run boardsteals
 
       - name: Build
         run: npm run build
