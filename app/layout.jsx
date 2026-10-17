@@ -8,7 +8,7 @@ const font = Gabarito({ subsets: ['latin'], weight: 'variable', variable: '--fon
 
 export const metadata = {
   metadataBase: new URL('https://kaiwave.dev'),
-  title: { default: 'Malakai Harianto, kaiwave', template: '%s, kaiwave' },
+  title: { default: 'malakai h | kaiwave.dev', template: '%s, kaiwave' },
   description:
     'Mathematical physics undergraduate at the University of Melbourne, building models of hockey goalies, NBA defences and fantasy football.',
   icons: { icon: '/img/favicon.png' },
