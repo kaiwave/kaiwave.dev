@@ -3,7 +3,7 @@ import { ArrowUpRight, GithubLogo, LinkedinLogo } from '@phosphor-icons/react/di
 import Projects from '@/components/Projects';
 import PaletteWord from '@/components/PaletteWord';
 import Writing from '@/components/Writing';
-import { site, projects, boardsteals, allWriting, credits, typo } from '@/lib/content';
+import { site, projects, showcase, allWriting, credits, typo } from '@/lib/content';
 
 const fmtDay = (d) => new Date(`${d}T00:00:00`).toLocaleDateString('en-AU', { day: 'numeric', month: 'short' });
 const ext = { target: '_blank', rel: 'noopener' };
@@ -39,7 +39,7 @@ export default function Home() {
   const featured = projects.find((p) => p.featured);
   const writing = allWriting().map((w) => ({ ...w, year: w.date.slice(0, 4), day: fmtDay(w.date), away: w.href.startsWith('http') }));
   // Credit only the found photographs this page can show.
-  const shown = new Set(['/img/football.jpg', ...projects.map((p) => p.image)]);
+  const shown = new Set([site.showcase.image, ...projects.map((p) => p.image)]);
   const used = credits.filter((c) => shown.has(c.file.replace(/^public/, '')));
 
   return (
@@ -110,43 +110,39 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Showcase: Boardsteals' real output, dealt like trading cards over the stadium */}
+      {/* Showcase: the featured project's live output as cards over a photo (content/showcase.json) */}
       {featured && (
         <section className="showcase" aria-labelledby="bs-title" data-reveal>
-          <img className="bleed" src="/img/football.jpg" alt="" width="1920" height="1440" loading="lazy" />
+          <img className="bleed" src={site.showcase.image} alt="" width="1920" height="1440" loading="lazy" />
           <div className="showcase-copy r">
-            <h2 id="bs-title">Boardsteals, week {boardsteals.week}</h2>
+            <h2 id="bs-title">{showcase.title}</h2>
             <p>{typo(site.showcase.text)}</p>
             <a className="text-link" href={featured.links[0].href} {...ext}>
               {site.showcase.cta} <ArrowUpRight size={16} weight="bold" aria-hidden="true" />
             </a>
           </div>
-          <ol className="players" aria-label={`Top five steals, ${boardsteals.season} week ${boardsteals.week}`}>
-            {boardsteals.players.map((pl, i) => (
-              <li key={pl.name} className="player r" style={{ '--i': i + 1 }}>
-                <span className="player-rating">{pl.rating}</span>
-                <strong>{pl.name}</strong>
-                <span className="player-pos">{pl.pos}</span>
-                <span className="kv">
-                  <span>Expected pts</span>
-                  <span>{pl.expected}</span>
-                </span>
-                <span className="kv">
-                  <span>Actual pts</span>
-                  <span>{pl.actual}</span>
-                </span>
-                <span className="kv">
-                  <span>Opportunities</span>
-                  <span>{pl.opps}</span>
-                </span>
+          <ol className="players" aria-label={showcase.title}>
+            {showcase.cards.map((card, i) => (
+              <li key={card.title} className="player r" style={{ '--i': i + 1 }}>
+                {card.badge && <span className="player-rating">{card.badge}</span>}
+                <strong>{card.title}</strong>
+                {card.subtitle && <span className="player-pos">{card.subtitle}</span>}
+                {card.rows?.map(([label, value]) => (
+                  <span className="kv" key={label}>
+                    <span>{label}</span>
+                    <span>{value}</span>
+                  </span>
+                ))}
               </li>
             ))}
-            <li className="player player-code r" style={{ '--i': 6 }}>
-              <strong>The rating, in Python</strong>
-              <pre>
-                <code>{featured.code}</code>
-              </pre>
-            </li>
+            {featured.code && (
+              <li className="player player-code r" style={{ '--i': showcase.cards.length + 1 }}>
+                <strong>{site.showcase.codeTitle}</strong>
+                <pre>
+                  <code>{featured.code}</code>
+                </pre>
+              </li>
+            )}
           </ol>
         </section>
       )}

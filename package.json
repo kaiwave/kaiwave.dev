@@ -5,8 +5,7 @@
     "dev": "next dev",
     "build": "next build",
     "new": "node scripts/new.mjs",
-    "test": "node --test",
-    "boardsteals": "node scripts/boardsteals.mjs"
+    "test": "node --test"
   },
   "dependencies": {
     "@phosphor-icons/react": "^2.1.10",

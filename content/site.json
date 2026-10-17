@@ -19,7 +19,9 @@
   },
   "showcase": {
     "text": "This week's five widest gaps between expected and actual fantasy points, rated 0 to 100 with a z-score.",
-    "cta": "Open Boardsteals"
+    "cta": "Open Boardsteals",
+    "image": "/img/football.jpg",
+    "codeTitle": "The rating, in Python"
   },
   "about": {
     "title": "Hi, I'm {Malakai}",
