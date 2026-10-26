@@ -64,22 +64,24 @@
     "saved": "2026-10-17T02:28:42.054Z"
   },
   {
-    "file": "public/img/goalie.jpg",
-    "media": "image",
-    "title": "VAN@EDM: Lankinen with a great save against Leon Draisaitl",
-    "creator": "Sportsnet",
-    "creatorUrl": "https://commons.wikimedia.org/wiki/User:SecretName101",
-    "date": null,
-    "license": "CC BY 4.0",
-    "licenseCode": "by",
-    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "file": "public/img/goalie.png",
+    "media": "video",
+    "title": "NHL Greatest Saves Of All Time",
+    "creator": "National Hockey League (NHL)",
+    "creatorUrl": "https://www.youtube.com/watch?v=_h381XPdmd8",
+    "date": "2026",
+    "license": "Fair Use",
+    "licenseCode": "fair-use",
+    "licenseUrl": "https://copyright.gov",
     "creditRequired": true,
-    "page": "https://www.nhl.com/canucks/video/van-edm-lankinen-with-a-great-save-against-leon-draisaitl-6405940816112",
-    "via": "Wikimedia Commons",
+    "page": "https://www.youtube.com/watch?v=_h381XPdmd8",
     "width": 1280,
     "height": 720,
-    "bytes": 101237 ,
-    "credit": "\"VAN@EDM: Lankinen with a great save against Leon Draisaitl\" by Sportsnet",
-    "notes": []
+    "bytes": 101237,
+    "credit": "Screenshot from 'NHL Greatest Saves Of All Time', courtesy of the National Hockey League. Used under Fair Use for educational analysis.",
+    "notes": [
+      "Image includes analytical vector overlays illustrating goalie positioning lines for a research project.",
+      "Source video uploaded to YouTube by user u/sykeseve."
+    ]
   }
 ]
