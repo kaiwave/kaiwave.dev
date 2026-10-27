@@ -17,7 +17,7 @@ function Years({ items, continues, reveal }) {
             <li key={w.id}>
               <a href={w.href} {...(w.away ? ext : {})}>
                 <span className="item">{w.title}</span>
-                <span className={`where c-${w.away ? 'blue' : 'orange'}`}>{w.away ? 'LinkedIn' : 'This site'}</span>
+                <span className={`where c-${w.away ? 'blue' : 'orange'}`}>{w.where}</span>
                 <span className="date">{w.day}</span>
               </a>
             </li>

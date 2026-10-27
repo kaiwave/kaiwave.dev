@@ -23,7 +23,7 @@ The quickest way is the helper, which asks a few questions and writes the file f
 npm run new
 ```
 
-It handles `post`, `link` and `project`, and swaps out em and en dashes so the house style holds.
+It handles `post`, `link` and `project` (for a `link`, the first tag is where the post lives, such as LinkedIn or Medium, and the Writing list shows it), and swaps out em and en dashes so the house style holds.
 
 New projects need no code or demo: each one becomes a colour card. Order in `projects.json` is display order. The first `projects.showFirst` (4) show up front, the first two as a wide and a tall card; the rest open with "Show all". Sizes are worked out from the count, never random, so no grid ever has a hole. Filter buttons appear for any tag two or more projects share. Give a project an `image` and it shows on its card.
 

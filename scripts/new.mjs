@@ -54,7 +54,9 @@ async function main() {
     const title = await need('Title');
     const href = await need('Link (https://...)', (u) => /^https:\/\/\S+$/.test(u));
     const date = await need('Date (YYYY-MM-DD)', isDate, today());
-    const tags = (await ask('Tags, comma separated', 'linkedin')).split(',').map((t) => t.trim()).filter(Boolean);
+    // The first tag names where the post lives; the Writing list shows it on the post.
+    const site = await need('Posted on (shown on the site)', Boolean, 'LinkedIn');
+    const tags = [site, ...(await ask('Other tags, comma separated')).split(',').map((t) => t.trim()).filter(Boolean)];
     let id = slugify(title);
     while (notes.some((n) => n.id === id)) id += '-2';
     notes.unshift({ id, title, date, href, tags });
