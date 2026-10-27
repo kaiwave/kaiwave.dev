@@ -1,5 +1,39 @@
 [
   {
+    "id": "sleeper-nfl-players",
+    "title": {
+      "en": "Boardsteals: NFL fantasy sleeper picks",
+      "fr": "Boardsteals: Choix de fantasy NFL sous-estimés"
+    },
+    "short": "Boardsteals",
+    "kind": "NFL fantasy, Python and web",
+    "featured": true,
+    "description": {
+      "en": "NFL fantasy sleeper picks, based on underlying hidden data. Finding players with the biggest disparity between where they are and where they should be, and presenting it in a clean website. ",
+      "fr": "Sélection de joueurs sous-estimés pour le fantasy football NFL, basée sur des données cachées. Identification des joueurs présentant le plus grand écart entre leur niveau actuel et leur potentiel, et présentation sur un site web clair et intuitif."
+    },
+    "tags": [
+      "python",
+      "sport",
+      "website",
+      "football",
+      "data"
+    ],
+    "links": [
+      {
+        "label": "Visit site",
+        "href": "https://boardsteals.kaiwave.dev"
+      },
+      {
+        "label": "GitHub",
+        "href": "https://github.com/kaiwave/boardsteals-nfl"
+      }
+    ],
+    "image": "/img/boardsteals.png",
+    "status": "",
+    "code": "# Z-score mapped to 0-100 breakout scale\ndf = df[df['expected_ppr'] >= 6.0]\ndisp = df['disparity']\n\n# Normalise\nz = (disp - disp.mean()) / disp.std()\ndf['rating'] = np.clip(55 + z * 15, 0, 100).round(1)"
+  },
+  {
     "id": "goaltender-optimisation",
     "title": {
       "en": "Projective Analysis Goaltender Optimisation",
@@ -28,7 +62,7 @@
         "href": "https://github.com/kaiwave/projective-goalie-positioning"
       }
     ],
-    "image": "/img/goalie.jpg",
+    "image": "/img/goalie.png",
     "status": ""
   },
   {
@@ -62,40 +96,6 @@
     ],
     "image": "/img/jazz.jpg",
     "status": ""
-  },
-  {
-    "id": "sleeper-nfl-players",
-    "title": {
-      "en": "Boardsteals: NFL fantasy sleeper picks",
-      "fr": "Boardsteals: Choix de fantasy NFL sous-estimés"
-    },
-    "short": "Boardsteals",
-    "kind": "NFL fantasy, Python and web",
-    "featured": true,
-    "description": {
-      "en": "NFL fantasy sleeper picks, based on underlying hidden data. Finding players with the biggest disparity between where they are and where they should be, and presenting it in a clean website. ",
-      "fr": "Sélection de joueurs sous-estimés pour le fantasy football NFL, basée sur des données cachées. Identification des joueurs présentant le plus grand écart entre leur niveau actuel et leur potentiel, et présentation sur un site web clair et intuitif."
-    },
-    "tags": [
-      "python",
-      "sport",
-      "website",
-      "football",
-      "data"
-    ],
-    "links": [
-      {
-        "label": "Visit site",
-        "href": "https://boardsteals.kaiwave.dev"
-      },
-      {
-        "label": "GitHub",
-        "href": "https://github.com/kaiwave/boardsteals-nfl"
-      }
-    ],
-    "image": "/img/boardsteals.jpg",
-    "status": "",
-    "code": "# Z-score mapped to 0-100 breakout scale\ndf = df[df['expected_ppr'] >= 6.0]\ndisp = df['disparity']\n\n# Normalise\nz = (disp - disp.mean()) / disp.std()\ndf['rating'] = np.clip(55 + z * 15, 0, 100).round(1)"
   },
   {
     "id": "mcg-egress-modelling",
