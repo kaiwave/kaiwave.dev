@@ -1,5 +1,38 @@
 [
   {
+    "id": "qubit-simulator-engine",
+    "title": {
+      "en": "qsengine: a quantum circuit simulator for Python",
+      "fr": "qsengine : un simulateur de circuits quantiques pour Python"
+    },
+    "short": "qsengine",
+    "kind": "Quantum simulator, Rust and Python",
+    "featured": true,
+    "description": {
+      "en": "A state-vector quantum simulator for Python. You build circuits in Python; a Rust core runs them on every CPU core or on any GPU, about 5 times faster than Qiskit Aer at 22 qubits.",
+      "fr": "Un simulateur quantique à vecteur d'état pour Python. On construit les circuits en Python ; un cœur Rust les exécute sur tous les cœurs du processeur ou sur n'importe quel GPU."
+    },
+    "tags": [
+      "python",
+      "tool",
+      "quantum",
+      "simulation"
+    ],
+    "links": [
+      {
+        "label": "Visit site",
+        "href": "https://qsengine.kaiwave.dev"
+      },
+      {
+        "label": "GitHub",
+        "href": "https://github.com/kaiwave/qsengine"
+      }
+    ],
+    "image": "/img/qsengine.jpg",
+    "status": "",
+    "showcase": "qsengine"
+  },
+  {
     "id": "sleeper-nfl-players",
     "title": {
       "en": "Boardsteals: NFL fantasy sleeper picks",
@@ -7,7 +40,7 @@
     },
     "short": "Boardsteals",
     "kind": "NFL fantasy, Python and web",
-    "featured": true,
+    "featured": false,
     "description": {
       "en": "NFL fantasy sleeper picks, based on underlying hidden data. Finding players with the biggest disparity between where they are and where they should be, and presenting it in a clean website. ",
       "fr": "Sélection de joueurs sous-estimés pour le fantasy football NFL, basée sur des données cachées. Identification des joueurs présentant le plus grand écart entre leur niveau actuel et leur potentiel, et présentation sur un site web clair et intuitif."
@@ -118,28 +151,6 @@
     ],
     "links": [],
     "image": "/img/mcg.jpg",
-    "status": "In progress"
-  },
-  {
-    "id": "qubit-simulator-engine",
-    "title": {
-      "en": "Compiled Qubit Simulator Engine",
-      "fr": "Moteur de simulation de qubits compilé"
-    },
-    "short": "Qubit simulator",
-    "kind": "Rust engine for Python",
-    "featured": false,
-    "description": {
-      "en": "A Rust-compiled qubit simulator engine for python to develop intuition for working with quantum computing algorithms.",
-      "fr": "Un simulateur de qubits compilé en Rust pour Python, pour de développer une intuition pour travailler avec des algorithmes de calcul quantique."
-    },
-    "tags": [
-      "tool",
-      "quantum",
-      "simulation"
-    ],
-    "links": [],
-    "image": "/img/sycamore.jpg",
     "status": "In progress"
   },
   {

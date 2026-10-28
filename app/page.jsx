@@ -3,7 +3,9 @@ import { ArrowUpRight, GithubLogo, LinkedinLogo } from '@phosphor-icons/react/di
 import Projects from '@/components/Projects';
 import PaletteWord from '@/components/PaletteWord';
 import Writing from '@/components/Writing';
-import { site, projects, showcase, allWriting, credits, typo } from '@/lib/content';
+import BenchChart from '@/components/BenchChart';
+import CopyCmd from '@/components/CopyCmd';
+import { site, projects, showcase, qsengine, allWriting, credits, typo } from '@/lib/content';
 
 const fmtDay = (d) => new Date(`${d}T00:00:00`).toLocaleDateString('en-AU', { day: 'numeric', month: 'short' });
 const ext = { target: '_blank', rel: 'noopener' };
@@ -110,8 +112,50 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Showcase: the featured project's live output as cards over a photo (content/showcase.json) */}
-      {featured && (
+      {/* Showcase, qsengine layout (content/qsengine.json): what it is, how to start, how fast it is */}
+      {featured?.showcase === 'qsengine' && (
+        <section className="qs" id="qsengine" aria-labelledby="qs-title" data-reveal>
+          <div className="qs-intro r">
+            <h2 id="qs-title">{qsengine.title}</h2>
+            <p className="qs-lede">{typo(qsengine.lede)}</p>
+            <CopyCmd cmd={qsengine.install} />
+            <p className="qs-links">
+              {qsengine.links.map((l) => (
+                <a key={l.href} className="text-link" href={l.href} {...ext}>
+                  {l.label} <ArrowUpRight size={16} weight="bold" aria-hidden="true" />
+                </a>
+              ))}
+            </p>
+          </div>
+          <figure className="qs-code r" style={{ '--i': 1 }}>
+            <figcaption>
+              {qsengine.example.title}, with qsengine {qsengine.version}
+            </figcaption>
+            <pre>
+              <code>{qsengine.example.code}</code>
+            </pre>
+            <pre className="qs-output">
+              <code>{qsengine.example.output}</code>
+            </pre>
+          </figure>
+          <ul className="qs-facts">
+            {qsengine.facts.map((f, i) => (
+              <li key={f.value} className={`qs-fact c-${['orange', 'yellow', 'blue'][i % 3]} r`} style={{ '--i': i + 2 }}>
+                <strong>{f.value}</strong>
+                <span>{typo(f.label)}</span>
+              </li>
+            ))}
+          </ul>
+          <div className="qs-bench r" style={{ '--i': 2 }}>
+            <h3>{qsengine.benchmark.title}</h3>
+            <BenchChart qubits={qsengine.benchmark.qubits} series={qsengine.benchmark.series} />
+            <p className="qs-note">{typo(qsengine.benchmark.note)}</p>
+          </div>
+        </section>
+      )}
+
+      {/* Showcase, card layout (content/showcase.json): the featured project's live output as cards over a photo */}
+      {featured && featured.showcase !== 'qsengine' && (
         <section className="showcase" aria-labelledby="bs-title" data-reveal>
           <img className="bleed" src={site.showcase.image} alt="" width="1920" height="1440" loading="lazy" />
           <div className="showcase-copy r">

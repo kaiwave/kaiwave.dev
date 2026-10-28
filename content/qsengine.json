@@ -1,0 +1,177 @@
+{
+  "version": "1.0.0",
+  "title": "qsengine",
+  "lede": "Quantum circuits in Python, run by a blazingly fast Rust backend.",
+  "install": "pip install qsengine",
+  "links": [
+    {
+      "label": "Documentation",
+      "href": "https://qsengine.kaiwave.dev/docs/"
+    },
+    {
+      "label": "GitHub",
+      "href": "https://github.com/kaiwave/qsengine"
+    },
+    {
+      "label": "PyPI",
+      "href": "https://pypi.org/project/qsengine/"
+    }
+  ],
+  "example": {
+    "title": "A Bell state in four lines",
+    "code": "import qsengine\n\nqc = qsengine.QuantumCircuit(2)\nqc.h(0)\nqc.cx(0, 1)\n\nprint(qc.run(shots=1000, seed=1))",
+    "output": "{'00': 513, '11': 487}"
+  },
+  "facts": [
+    {
+      "value": "5×",
+      "label": "faster than Qiskit Aer at 22 qubits, on the GPU"
+    },
+    {
+      "value": "Any GPU",
+      "label": "NVIDIA, AMD, Intel or Apple, through wgpu. No CUDA."
+    },
+    {
+      "value": "11 gates",
+      "label": "One class, three ways to read a result, plain Python errors"
+    }
+  ],
+  "benchmark": {
+    "title": "Time per run",
+    "note": "5 layers of H, RZ and a CNOT chain, 1000 shots. Best of several runs on a Ryzen 5 5500 and Radeon RX 6600, against Qiskit Aer 0.18.2.",
+    "qubits": [
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22
+    ],
+    "series": [
+      {
+        "name": "qsengine GPU",
+        "colour": "#d95926",
+        "seconds": [
+          0.000912,
+          0.00134,
+          0.00135,
+          0.00137,
+          0.00124,
+          0.00124,
+          0.00132,
+          0.00105,
+          0.00119,
+          0.00124,
+          0.00125,
+          0.00125,
+          0.00129,
+          0.0014,
+          0.00189,
+          0.00318,
+          0.00493,
+          0.00988,
+          0.0202,
+          0.0372,
+          0.0705
+        ]
+      },
+      {
+        "name": "qsengine CPU",
+        "colour": "#199e70",
+        "seconds": [
+          0.0000313,
+          0.0000531,
+          0.0000641,
+          0.000074,
+          0.000109,
+          0.000153,
+          0.000202,
+          0.000225,
+          0.000303,
+          0.000464,
+          0.000792,
+          0.00125,
+          0.00238,
+          0.005,
+          0.00879,
+          0.0151,
+          0.0254,
+          0.0488,
+          0.103,
+          0.391,
+          1.03
+        ]
+      },
+      {
+        "name": "Qiskit Aer",
+        "colour": "#3987e5",
+        "seconds": [
+          0.00185,
+          0.00268,
+          0.00288,
+          0.00316,
+          0.00369,
+          0.00367,
+          0.00435,
+          0.00483,
+          0.00572,
+          0.00633,
+          0.00767,
+          0.00897,
+          0.0117,
+          0.00947,
+          0.0115,
+          0.017,
+          0.0188,
+          0.0323,
+          0.0711,
+          0.15,
+          0.367
+        ]
+      },
+      {
+        "name": "Pure Python",
+        "colour": "#8a8883",
+        "dashed": true,
+        "seconds": [
+          0.000176,
+          0.000374,
+          0.000599,
+          0.00106,
+          0.00217,
+          0.00477,
+          0.0103,
+          0.0133,
+          0.0302,
+          0.0671,
+          0.147,
+          0.328,
+          0.739,
+          1.55,
+          3.27,
+          7.64,
+          16.2,
+          null,
+          null,
+          null,
+          null
+        ]
+      }
+    ]
+  }
+}
