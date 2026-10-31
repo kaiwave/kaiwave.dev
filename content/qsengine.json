@@ -1,5 +1,5 @@
 {
-  "version": "1.0.0",
+  "version": "1.0.1",
   "title": "qsengine",
   "lede": "Quantum circuits in Python, run by a blazingly fast Rust backend.",
   "install": "pip install qsengine",
@@ -38,7 +38,7 @@
   ],
   "benchmark": {
     "title": "Time per run",
-    "note": "5 layers of H, RZ and a CNOT chain, 1000 shots. Best of several runs on a Ryzen 5 5500 and Radeon RX 6600, against Qiskit Aer 0.18.2.",
+    "note": "qsengine v1.0.0, 5 layers of H, RZ and a CNOT chain, 1000 shots. Best of several runs on a Ryzen 5 5500 and Radeon RX 6600, against Qiskit Aer 0.18.2.",
     "qubits": [
       2,
       3,
