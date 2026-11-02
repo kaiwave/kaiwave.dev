@@ -33,6 +33,29 @@
     "showcase": "qsengine"
   },
   {
+    "id": "mcg-egress-modelling",
+    "title": {
+      "en": "MCG Railway Egress Modelling",
+      "fr": "Modélisation du flux de trains (MCG)"
+    },
+    "short": "MCG egress model",
+    "kind": "Dynamic modelling, AFL crowds",
+    "featured": false,
+    "description": {
+      "en": "Modelled railway egress dynamics from the MCG following major AFL game events for my main project in Modelling the Real World (EVSC20007), developing understanding of dynamic models. Private until end of sem.",
+      "fr": "Modélisation de la dynamique des flux de passagers sortant du MCG après les grands matchs de l'AFL pour mon projet principal de Modelling the Real World (EVSC20007), developpant ma compréhension des modèles dynamiques. Accès privé jusqu'à la fin du semestre."
+    },
+    "tags": [
+      "python",
+      "sport",
+      "research",
+      "environment"
+    ],
+    "links": [],
+    "image": "/img/mcg.jpg",
+    "status": "In progress"
+  },
+  {
     "id": "sleeper-nfl-players",
     "title": {
       "en": "Boardsteals: NFL fantasy sleeper picks",
@@ -129,29 +152,6 @@
     ],
     "image": "/img/jazz.jpg",
     "status": ""
-  },
-  {
-    "id": "mcg-egress-modelling",
-    "title": {
-      "en": "MCG Railway Egress Modelling",
-      "fr": "Modélisation du flux de trains (MCG)"
-    },
-    "short": "MCG egress model",
-    "kind": "Dynamic modelling, AFL crowds",
-    "featured": false,
-    "description": {
-      "en": "Modelled railway egress dynamics from the MCG following major AFL game events for my main project in Modelling the Real World (EVSC20007), developing understanding of dynamic models. Private until end of sem.",
-      "fr": "Modélisation de la dynamique des flux de passagers sortant du MCG après les grands matchs de l'AFL pour mon projet principal de Modelling the Real World (EVSC20007), developpant ma compréhension des modèles dynamiques. Accès privé jusqu'à la fin du semestre."
-    },
-    "tags": [
-      "python",
-      "sport",
-      "research",
-      "environment"
-    ],
-    "links": [],
-    "image": "/img/mcg.jpg",
-    "status": "In progress"
   },
   {
     "id": "daisy-world-rs",

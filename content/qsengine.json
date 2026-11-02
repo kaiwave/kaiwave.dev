@@ -1,5 +1,5 @@
 {
-  "version": "1.0.1",
+  "version": "1.1.0",
   "title": "qsengine",
   "lede": "Quantum circuits in Python, run by a blazingly fast Rust backend.",
   "install": "pip install qsengine",
