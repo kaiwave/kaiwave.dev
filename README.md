@@ -44,7 +44,7 @@ Second paragraph.
 
 The section under the projects shows one featured project, in one of two layouts. The project's `"showcase"` field in `content/projects.json` picks it.
 
-**`"showcase": "qsengine"`** (the current one). Everything it says lives in `content/qsengine.json`: the version, sentence, install command, links, the Bell-state example and its output, the three fact cards, and the benchmark chart. The chart's numbers are copied from qsengine's `benchmarks/results.csv`; after a new benchmark run, paste the new seconds into each series (use `null` for a run that was not done). The chart colours were checked for colourblind readers against this page's background; keep them unless you re-check.
+**`"showcase": "qsengine"`** (the current one). Everything it says lives in `content/qsengine.json`: the version, sentence, install command, links, the Bell-state example and its output, the three fact cards, and the benchmark chart. The chart's numbers are copied from qsengine's `benchmarks/results.csv`; after a new benchmark run, paste the new seconds into each series (use `null` for a run that was not done). Each series' `colour` points at a `--chart-1`..`--chart-4` variable in `app/globals.css`, which holds one set for the dark page and one for the light page; the dark set was checked for colourblind readers and the light set is the same hues darkened to clear 3:1 on the light card, so keep them unless you re-check.
 
 **No `showcase` field: the card layout.** Cards over a photo, from `content/showcase.json` (this is how Boardsteals is shown). To switch back to Boardsteals, set `"featured": true` on it and `false` on qsengine. To feature something new this way:
 

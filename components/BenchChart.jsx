@@ -2,8 +2,9 @@
 import { useEffect, useRef, useState } from 'react';
 
 // Benchmark lines on a log time axis. Hover (or arrow keys) shows every simulator at one qubit count.
-// Colours were checked with the dataviz palette validator on the #111214 surface; the grey dashed
-// line is a reference, so it is told apart by dash and label rather than hue.
+// Line colours are the --chart-1..4 CSS variables (app/globals.css), set per colour scheme; each clears
+// 3:1 against --surface in both (dark #1b1c20, light #e8e3d8). The grey dashed line is a reference, so
+// it is told apart by dash and label rather than hue.
 export const fmt = (s) =>
   s >= 1 ? `${+s.toPrecision(3)} s` : s >= 1e-3 ? `${+(s * 1e3).toPrecision(3)} ms` : `${+(s * 1e6).toPrecision(2)} µs`;
 

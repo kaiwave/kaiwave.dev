@@ -65,7 +65,7 @@
     "series": [
       {
         "name": "qsengine GPU",
-        "colour": "#d95926",
+        "colour": "var(--chart-1)",
         "seconds": [
           0.000912,
           0.00134,
@@ -92,7 +92,7 @@
       },
       {
         "name": "qsengine CPU",
-        "colour": "#199e70",
+        "colour": "var(--chart-2)",
         "seconds": [
           0.0000313,
           0.0000531,
@@ -119,7 +119,7 @@
       },
       {
         "name": "Qiskit Aer",
-        "colour": "#3987e5",
+        "colour": "var(--chart-3)",
         "seconds": [
           0.00185,
           0.00268,
@@ -146,7 +146,7 @@
       },
       {
         "name": "Pure Python",
-        "colour": "#8a8883",
+        "colour": "var(--chart-4)",
         "dashed": true,
         "seconds": [
           0.000176,
