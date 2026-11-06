@@ -42,7 +42,11 @@ Second paragraph.
 
 ## Swapping the featured project
 
-The dark section with the cards over a photo shows one featured project. To replace Boardsteals with something new:
+The section under the projects shows one featured project, in one of two layouts. The project's `"showcase"` field in `content/projects.json` picks it.
+
+**`"showcase": "qsengine"`** (the current one). Everything it says lives in `content/qsengine.json`: the version, sentence, install command, links, the Bell-state example and its output, the three fact cards, and the benchmark chart. The chart's numbers are copied from qsengine's `benchmarks/results.csv`; after a new benchmark run, paste the new seconds into each series (use `null` for a run that was not done). The chart colours were checked for colourblind readers against this page's background; keep them unless you re-check.
+
+**No `showcase` field: the card layout.** Cards over a photo, from `content/showcase.json` (this is how Boardsteals is shown). To switch back to Boardsteals, set `"featured": true` on it and `false` on qsengine. To feature something new this way:
 
 1. **Mark it.** In `content/projects.json`, set `"featured": true` on the new project and `false` on Boardsteals. Exactly one project is featured. Its first link becomes the section's button, and if it has a `code` field, that snippet shows as the last card. Move it to the top of the list if it should also lead the project grid.
    
@@ -84,7 +88,7 @@ npm run build   # static export to out/
 
 ```text
 app/          page.jsx (the one-page site), notes/[slug] (post pages), globals.css
-components/   Projects (cards, filters, show all), Writing (posts, show older), Boing (letter springs), Pucks (background dots), Reveal (scroll entrances), PaletteWord
+components/   Projects (cards, filters, show all), Writing (posts, show older), BenchChart and CopyCmd (qsengine section), Boing (letter springs), Pucks (background dots), Reveal (scroll entrances), PaletteWord
 content/      all the words and data
 lib/          content loading, Markdown, card grid sizes, showcase formats
 public/       images, favicon, CNAME
