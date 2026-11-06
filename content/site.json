@@ -12,7 +12,7 @@
     "lede": "I'm Malakai Harianto. I study mathematical physics at Melbourne and love building scientific and sporting models.",
     "cta": "Read my CV"
   },
-  "statement": "‘Mathematics is not about numbers, equations, computations, or algorithms: it is about understanding’ - Terrence Tao",
+  "statement": "‘Mathematics is not about numbers, equations, computations, or algorithms: it is about understanding’ - Terence Tao",
   "projects": {
     "title": "Projects",
     "showFirst": 4
@@ -29,7 +29,7 @@
     "photoAlt": "Malakai Harianto under a sandstone arch at the University of Melbourne",
     "paragraphs": [
       "I’m an undergrad studying mathematical physics at the University of Melbourne.",
-      "My interests sit at the intersection of theoretical physics, scientific computing, and quantitative sport analytics applications.",
+      "My interests sit at the intersection of theoretical physics, scientific computing, and quantitative analytics applications.",
       "Each day I learn more about careers where hard maths problems and real research take place.",
       "I use Python, NumPy, SciPy and Jupyter, Rust when speed matters, and LaTeX for write-ups. Off the clock: French, hockey, bass and oat magics."
     ]
