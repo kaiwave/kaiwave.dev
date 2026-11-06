@@ -12,7 +12,7 @@
     "lede": "I'm Malakai Harianto. I study mathematical physics at Melbourne and love building scientific and sporting models.",
     "cta": "Read my CV"
   },
-  "statement": "‘Mathematics is not about numbers, equations, computations, or algorithms: it is about understanding’ - Terence Tao",
+  "statement": "‘Larping and being goated is like the chicken and the egg.’ - Caleb K",
   "projects": {
     "title": "Projects",
     "showFirst": 4
@@ -60,6 +60,8 @@
   "close": {
     "title": "say hello",
     "cta": "Email Malakai",
-    "emailSubject": "Hello from kaiwave.dev"
+    "emailSubject": "Hello from kaiwave.dev",
+    "takedown": "Own something shown here and want it credited differently or taken down? Email",
+    "takedownSubject": "Copyright request: kaiwave.dev"
   }
 }

@@ -14,7 +14,13 @@ export const metadata = {
   icons: { icon: '/img/favicon.png' },
 };
 
-export const viewport = { themeColor: '#111214', colorScheme: 'dark' };
+export const viewport = {
+  themeColor: [
+    { media: '(prefers-color-scheme: dark)', color: '#111214' },
+    { media: '(prefers-color-scheme: light)', color: '#f2eee5' },
+  ],
+  colorScheme: 'light dark',
+};
 
 export default function RootLayout({ children }) {
   return (

@@ -33,9 +33,9 @@ const braced = (s) => s.split(/[{}]/).map((part, i) => (i % 2 ? <PaletteWord key
 
 // Projects keep their own colour wherever they appear (filters, show all).
 const coloured = projects.map((p, i) => ({ ...p, colour: palette[i % palette.length] }));
-// Filters: any tag at least two projects share, most common first.
+// Filters: the 7 most common tags that at least two projects share; ties keep projects.json order.
 const tagCount = projects.flatMap((p) => p.tags).reduce((m, t) => m.set(t, (m.get(t) ?? 0) + 1), new Map());
-const filters = [...tagCount].filter(([, n]) => n > 1).sort((a, b) => b[1] - a[1]).map(([t]) => t);
+const filters = [...tagCount].filter(([, n]) => n > 1).sort((a, b) => b[1] - a[1]).slice(0, 7).map(([t]) => t);
 
 export default function Home() {
   const featured = projects.find((p) => p.featured);
@@ -290,7 +290,9 @@ export default function Home() {
               by {c.creator.replace(/\s*\(.*\)\s*$/, '')}, {c.license}
               {i < used.length - 1 ? '; ' : '.'}
             </span>
-          ))}
+          ))}{' '}
+          {site.close.takedown}{' '}
+          <a href={`mailto:${site.email}?subject=${encodeURIComponent(site.close.takedownSubject)}`}>{site.email}</a>.
         </p>
       </footer>
     </main>

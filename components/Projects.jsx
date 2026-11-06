@@ -38,12 +38,13 @@ function Card({ p, span, k }) {
   );
 }
 
-const Grid = ({ list, className = '' }) => {
+// `from` keeps the entrance stagger running on across several grids.
+const Grid = ({ list, className = '', from = 0 }) => {
   const spans = bento(list.length);
   return (
     <ul className={`bento ${className}`}>
       {list.map((p, i) => (
-        <Card key={p.id} p={p} span={spans[i]} k={i} />
+        <Card key={p.id} p={p} span={spans[i]} k={from + i} />
       ))}
     </ul>
   );
@@ -54,6 +55,7 @@ export default function Projects({ projects, filters, showFirst = 4 }) {
   const [open, setOpen] = useState(false);
   const top = projects.slice(0, showFirst);
   const rest = projects.slice(showFirst);
+  const sets = Array.from({ length: Math.ceil(rest.length / showFirst) }, (_, j) => rest.slice(j * showFirst, (j + 1) * showFirst));
   const matches = filter === 'all' ? projects : projects.filter((p) => p.tags.includes(filter));
 
   return (
@@ -73,7 +75,10 @@ export default function Projects({ projects, filters, showFirst = 4 }) {
             <>
               <div className={`more${open ? ' open' : ''}`} id="more-projects" inert={!open || undefined}>
                 <div className="more-inner">
-                  <Grid list={rest} />
+                  {/* Sets of showFirst, alternating sides: the 2nd, 4th... set has its tall card on the left. */}
+                  {sets.map((set, j) => (
+                    <Grid key={set[0].id} list={set} className={j % 2 ? '' : 'flip'} from={j * showFirst} />
+                  ))}
                 </div>
               </div>
               <button type="button" className="show-all" aria-expanded={open} aria-controls="more-projects" onClick={() => setOpen(!open)}>
