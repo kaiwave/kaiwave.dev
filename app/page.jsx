@@ -41,7 +41,7 @@ export default function Home() {
   const featured = projects.find((p) => p.featured);
   const writing = allWriting().map((w) => ({ ...w, year: w.date.slice(0, 4), day: fmtDay(w.date), away: w.href.startsWith('http') }));
   // Credit only the found photographs this page can show.
-  const shown = new Set([site.showcase.image, ...projects.map((p) => p.image)]);
+  const shown = new Set([featured && featured.showcase !== 'qsengine' && site.showcase.image, ...projects.map((p) => p.image)]);
   const used = credits.filter((c) => shown.has(c.file.replace(/^public/, '')));
 
   return (
