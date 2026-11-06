@@ -60,6 +60,8 @@
   "close": {
     "title": "say hello",
     "cta": "Email Malakai",
-    "emailSubject": "Hello from kaiwave.dev"
+    "emailSubject": "Hello from kaiwave.dev",
+    "takedown": "Own something shown here and want it credited differently or taken down? Email",
+    "takedownSubject": "Copyright request: kaiwave.dev"
   }
 }

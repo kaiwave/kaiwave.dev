@@ -514,6 +514,19 @@ footer[id] {
   grid-column: 1 / -1;
   min-height: 300px;
 }
+/* Every second set of projects is mirrored: tall on the left, wide on the right.
+   Dense flow lets the tall card take column 1 of the first row; HTML order stays the same. */
+@media (min-width: 1001px) {
+  .bento.flip {
+    grid-auto-flow: row dense;
+  }
+  .bento.flip > .tall {
+    grid-column: 1;
+  }
+  .bento.flip > .wide {
+    grid-column: 2 / -1;
+  }
+}
 .card-head {
   display: flex;
   flex-wrap: wrap;
@@ -541,6 +554,10 @@ footer[id] {
   flex: 1;
   min-height: 0;
   aspect-ratio: auto;
+}
+/* Filtered grids can pair a short card with a taller neighbour; the photo grows (cropped) to fill the gap. */
+.filtered .card-img {
+  flex: 1 1 auto;
 }
 .card h3 {
   font-size: var(--step-lead);

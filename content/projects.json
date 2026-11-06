@@ -42,7 +42,7 @@
     "kind": "Dynamic modelling, AFL crowds",
     "featured": false,
     "description": {
-      "en": "Modelled railway egress dynamics from the MCG following major AFL game events for my main project in Modelling the Real World (EVSC20007), developing understanding of dynamic models. Private until end of sem.",
+      "en": "A model of how AFL crowds leave the MCG by train through major rail corridors, testing how supporter demographics affect platform crowding and crowd clearance.",
       "fr": "Modélisation de la dynamique des flux de passagers sortant du MCG après les grands matchs de l'AFL pour mon projet principal de Modelling the Real World (EVSC20007), developpant ma compréhension des modèles dynamiques. Accès privé jusqu'à la fin du semestre."
     },
     "tags": [
@@ -51,9 +51,18 @@
       "research",
       "environment"
     ],
-    "links": [],
+    "links": [
+      {
+        "label": "Report",
+        "href": "https://cloud.kaiwave.dev/s/qAYrEqGSegxdxYR"
+      },
+      {
+        "label": "GitHub",
+        "href": "https://github.com/kaiwave/mcg-egress-model"
+      }
+    ],
     "image": "/img/mcg.jpg",
-    "status": "In progress"
+    "status": ""
   },
   {
     "id": "sleeper-nfl-players",
@@ -206,5 +215,21 @@
     ],
     "image": "/img/tp.png",
     "status": ""
+  },
+  {
+    "id": "statistical-model-of-goaltender-fatigue",
+    "title": {
+      "en": "Statistical model of goaltender fatigue"
+    },
+    "short": "Goaltender fatigue model",
+    "kind": "Hockey, goaltender stats",
+    "featured": false,
+    "description": {
+      "en": "Analysing goaltender performance degradation after back-to-back starts using real-world NHL data and modern analytic techniques."
+    },
+    "tags": ["statistics", "hockey", "data", "python", "sport"],
+    "links": [],
+    "image": "/img/goalie.webp",
+    "status": "In Progress"
   }
 ]

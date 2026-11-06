@@ -61,5 +61,28 @@
       "Image includes analytical vector overlays illustrating goalie positioning lines for a research project.",
       "Source video uploaded to YouTube by user u/sykeseve."
     ]
+  },
+  {
+    "file": "public/img/goalie.webp",
+    "media": "image",
+    "title": "Dostal Named NHL First Star of the Week",
+    "creator": "Anaheim Ducks (NHL.com)",
+    "creatorUrl": "https://www.nhl.com/ducks/",
+    "date": "2025-11-04",
+    "license": "Fair Use",
+    "licenseCode": "fair-use",
+    "licenseUrl": "https://copyright.gov",
+    "creditRequired": true,
+    "page": "https://www.nhl.com/ducks/news/lukas-dostal-first-star",
+    "via": "NHL.com",
+    "image": "https://media.d3.nhle.com/image/private/t_ratio16_9-size50/prd/fs6i0raor1iveb6m6ogu.jpg",
+    "width": 832,
+    "height": 468,
+    "bytes": 47478,
+    "credit": "\"Dostal Named NHL First Star of the Week\", Anaheim Ducks via NHL.com, © Anaheim Ducks Hockey Club, LLC and the National Hockey League. Used under Fair Use.",
+    "notes": [
+      "Lead photo of the article, resized to 832x468 WebP.",
+      "The page names no photographer; copyright line on the page is Anaheim Ducks Hockey Club, LLC and the National Hockey League."
+    ]
   }
 ]
