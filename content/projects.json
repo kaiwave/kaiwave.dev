@@ -190,6 +190,52 @@
     "status": ""
   },
   {
+    "id": "draw7",
+    "title": {
+      "en": "draw7"
+    },
+    "short": "draw7",
+    "kind": "Game, peer to peer",
+    "featured": false,
+    "description": {
+      "en": "A web based p2p card game, created to learn how to use networking techniques and develop collaborative skills on GitHub. Inspired by Hit 7. Working with @jlaq.dev"
+    },
+    "tags": ["JavaScript", "Vite", "Web"],
+    "links": [  
+      {
+        "label": "in progress"
+      },  
+      {
+        "label": "jlaq.dev",
+        "href": "https://jlaq.dev"
+      }
+    ],
+    "image": "/img/cards.JPG",
+    "status": "In progress"
+  },
+  {
+    "id": "statistical-model-of-goaltender-fatigue",
+    "title": {
+      "en": "Statistical model of goaltender fatigue"
+    },
+    "short": "Goaltender fatigue model",
+    "kind": "Hockey, goaltender stats",
+    "featured": false,
+    "description": {
+      "en": "Analysing goaltender performance degradation after back-to-back starts using real-world NHL data and modern analytic techniques."
+    },
+    "tags": [
+      "statistics",
+      "hockey",
+      "data",
+      "python",
+      "sport"
+    ],
+    "links": [],
+    "image": "/img/goalie.webp",
+    "status": "In Progress"
+  },
+  {
     "id": "tp-scent-sociability",
     "title": {
       "en": "The TP Scent and Sociability",
