@@ -70,14 +70,15 @@
       "en": "qscommons: a new home for open source quantum computing"
     },
     "short": "qscommons.org",
-    "kind": "Quantum research, Free and open source software",
-    "featured": true,
+    "kind": "Quantum research, Free and open source",
+    "featured": false,
     "description": {
       "en": "qscommons is a home for open, MIT-licensed quantum computing software, built and reviewed in public on GitHub. It hosts qsengine, and is designed to eventually host other open source quantum computing projects and research."
     },
     "tags": [
       "JavaScript",
-      "quantum"
+      "quantum",
+      "tool"
     ],
     "links": [
       {
