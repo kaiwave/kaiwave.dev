@@ -1,5 +1,5 @@
 [
-  {
+    {
     "id": "qubit-simulator-engine",
     "title": {
       "en": "qsengine: a quantum circuit simulator for Python",
@@ -21,14 +21,14 @@
     "links": [
       {
         "label": "Visit site",
-        "href": "https://qsengine.kaiwave.dev"
+        "href": "https://qscommons.org/projects/qsengine/"
       },
       {
         "label": "GitHub",
         "href": "https://github.com/kaiwave/qsengine"
       }
     ],
-    "image": "/img/qsengine.jpg",
+    "image": "/img/qsengine.png",
     "status": "",
     "showcase": "qsengine"
   },
@@ -62,6 +62,34 @@
       }
     ],
     "image": "/img/mcg.jpg",
+    "status": ""
+  },
+  {
+    "id": "quantum-open-source",
+    "title": {
+      "en": "qscommons: a new home for open source quantum computing"
+    },
+    "short": "qscommons.org",
+    "kind": "Quantum research, Free and open source software",
+    "featured": true,
+    "description": {
+      "en": "qscommons is a home for open, MIT-licensed quantum computing software, built and reviewed in public on GitHub. It hosts qsengine, and is designed to eventually host other open source quantum computing projects and research."
+    },
+    "tags": [
+      "JavaScript",
+      "quantum"
+    ],
+    "links": [
+      {
+        "label": "Visit site",
+        "href": "https://qscommons.org"
+      },
+      {
+        "label": "GitHub",
+        "href": "https://github.com/qscommons"
+      }
+    ],
+    "image": "/img/qscommons.png",
     "status": ""
   },
   {
