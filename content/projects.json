@@ -214,28 +214,6 @@
     "status": "In progress"
   },
   {
-    "id": "statistical-model-of-goaltender-fatigue",
-    "title": {
-      "en": "Statistical model of goaltender fatigue"
-    },
-    "short": "Goaltender fatigue model",
-    "kind": "Hockey, goaltender stats",
-    "featured": false,
-    "description": {
-      "en": "Analysing goaltender performance degradation after back-to-back starts using real-world NHL data and modern analytic techniques."
-    },
-    "tags": [
-      "statistics",
-      "hockey",
-      "data",
-      "python",
-      "sport"
-    ],
-    "links": [],
-    "image": "/img/goalie.webp",
-    "status": "In Progress"
-  },
-  {
     "id": "tp-scent-sociability",
     "title": {
       "en": "The TP Scent and Sociability",
